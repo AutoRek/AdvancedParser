@@ -1,0 +1,270 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
+
+namespace ApiSoftware.Library35.Parsing
+{
+	/// <summary>
+	/// Represents the result of a rule being applied to the text.
+	/// </summary>
+	/// <remarks>
+	/// If the rule is successful, the Position value is updated to the 
+	/// end of the content that has been successfully parsed.
+	/// If the rule is unsuccessful, the Position is left unchanged.
+	/// </remarks>
+	[Serializable]
+	[XmlInclude(typeof(TextNode))]
+	[XmlInclude(typeof(IntegerNode))]
+	[XmlInclude(typeof(BlockNode))]
+	[XmlInclude(typeof(ErrorNode))]
+	public abstract class OutputNode
+	{
+		/// <summary>
+		/// Name of the field used for the record Id, if used.
+		/// </summary>
+		public const string RecordIdField = "$RowId";
+
+		/// <summary>
+		/// Name of the field used for the parent Id, if used.
+		/// </summary>
+		public const string ParentIdField = "$ParentId";
+
+		private List<OutputNode> children = new List<OutputNode>();
+
+		/// <summary>
+		/// Gets the list of child results to this result.
+		/// </summary>
+		/// <value>
+		/// The list of child nodes.
+		/// </value>
+		[XmlElement(typeof(TextNode))]
+		[XmlElement(typeof(IntegerNode))]
+		[XmlElement(typeof(BlockNode))]
+		[XmlElement(typeof(ErrorNode))]
+		public IList<OutputNode> Children { get { return children; } }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether the rule was successful.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if the rule was successful; otherwise, <c>false</c>.
+		/// </value>
+		[XmlIgnore]
+		public bool IsMatch { get; set; }
+
+		/// <summary>
+		/// Gets or sets the start position of the result.
+		/// </summary>
+		/// <value>
+		/// The start.
+		/// </value>
+		[XmlAttribute]
+		public int Begin { get; set; }
+
+		/// <summary>
+		/// Gets or sets the position of the last match.
+		/// </summary>
+		/// <value>
+		/// The position.
+		/// </value>
+		[XmlAttribute]
+		public int End { get; set; }
+
+		/// <summary>
+		/// Gets or sets the rule that generated the result.
+		/// </summary>
+		/// <value>
+		/// The rule.
+		/// </value>
+		[XmlIgnore]
+		public RuleBase Rule { get; internal set; }
+
+		/// <summary>
+		/// Gets the error.
+		/// </summary>
+		/// <returns></returns>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+		public string GetErrorText()
+		{
+			if (Children.Count > 0)
+			{
+				// return the error text from the child
+				return Children.First(c => !c.IsMatch).GetErrorText();
+			}
+			else
+			{
+				return Rule.GetErrorText(this);
+			}
+		}
+
+		/// <summary>
+		/// Gets the formatted output for the node.
+		/// </summary>
+		/// <returns></returns>
+		public string FormattedOutput()
+		{
+			if (IsMatch)
+			{
+				return Rule.FormattedOutput(this);
+			}
+			else
+			{
+				// If no match, cannot return formatted output
+				return string.Empty;
+			}
+		}
+
+		/// <summary>
+		/// Gets the value of the node.
+		/// </summary>
+		/// <returns>The value as a string.</returns>
+		virtual public object Value()
+		{
+			return Rule.GetValue(this);
+		}
+
+		/// <summary>
+		/// Fills the specified data set with data from this node and its children.
+		/// </summary>
+		/// <param name="dataSet">The data set to fill.</param>
+		public void Fill(DataSet dataSet)
+		{
+			Fill(dataSet, null, IdMode.None, IdStyle.None);
+		}
+
+		/// <summary>
+		/// Fills the specified data set with data from this node and its children.
+		/// </summary>
+		/// <param name="dataSet">The data set to fill.</param>
+		/// <param name="idMode">The mode for handling record Ids.</param>
+		/// <param name="idStyle">The style for the generated ids.</param>
+		public void Fill(DataSet dataSet, IdMode idMode, IdStyle idStyle)
+		{
+			Fill(dataSet, null, idMode, idStyle);
+		}
+
+		/// <summary>
+		/// Fills the specified data set with data from this node and its children.
+		/// </summary>
+		/// <param name="dataSet">The data set to fill.</param>
+		/// <param name="row">The current row being filled.</param>
+		/// <param name="idMode">The mode for handling record Ids.</param>
+		/// <param name="idStyle">The style for the generated ids.</param>
+		internal void Fill(DataSet dataSet, DataRow row, IdMode idMode, IdStyle idStyle)
+		{
+			var value = Value();
+
+			// If the current node specifies a column, populate the column of the
+			// current row with the node's value. (Create the column if necessary)
+			var columnName = Rule.Column;
+			if (!string.IsNullOrEmpty(columnName) && row != null)
+			{
+				if (!row.Table.Columns.Contains(columnName)) { row.Table.Columns.Add(columnName); }
+				row[columnName] = value;
+			}
+
+			// If the node specifies a table, create a new row on that table as the
+			// current row. Create the table if necessary.
+			var tableName = Rule.Table;
+			if (!string.IsNullOrEmpty(tableName))
+			{
+				// create a new row in the named table
+				if (!dataSet.Tables.Contains(tableName)) { CreateTable(dataSet, idMode, tableName); }
+				row = dataSet.Tables[tableName].NewRow();
+				if (idStyle == IdStyle.Guid)
+					row[RecordIdField] = Guid.NewGuid();
+				dataSet.Tables[tableName].Rows.Add(row);
+			}
+			// Process all the child nodes into the current row.
+			foreach (var item in Children)
+			{
+				item.Fill(dataSet, row, idMode, idStyle);
+			}
+		}
+
+		// Create the table in the dataset (already assumed not to exist)
+		private static void CreateTable(DataSet dataSet, IdMode idMode, string tableName)
+		{
+			var t = dataSet.Tables.Add(tableName);
+			switch (idMode)
+			{
+				case IdMode.Rows:
+					t.Columns.Add(RecordIdField);
+					break;
+				case IdMode.RowAndParents:
+					t.Columns.Add(RecordIdField);
+					t.Columns.Add(ParentIdField);
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OutputNode"/> class.
+		/// </summary>
+		/// <param name="rule">The rule the node corresponds to.</param>
+		/// <param name="index">The index position in the text.</param>
+		protected OutputNode(RuleBase rule, int index)
+		{
+			Begin = index;
+			Rule = rule;
+			IsMatch = true;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OutputNode"/> class.
+		/// </summary>
+		[ExcludeFromCodeCoverage]
+		protected OutputNode()
+		{
+			// Serializer use only
+		}
+	}
+
+	/// <summary>
+	/// Different record ID generation styles.
+	/// </summary>
+	public enum IdStyle
+	{
+		/// <summary>
+		/// No Ids will be created.
+		/// </summary>
+		None,
+
+		/// <summary>
+		/// Ids are integers.
+		/// </summary>
+		Int,
+
+		/// <summary>
+		/// Ids are Guids.
+		/// </summary>
+		Guid
+	}
+
+	/// <summary>
+	/// Different record ID generation modes.
+	/// </summary>
+	public enum IdMode
+	{
+		/// <summary>
+		/// No Ids will be created.
+		/// </summary>
+		None,
+		/// <summary>
+		/// Row Ids only are created.
+		/// </summary>
+		Rows,
+		/// <summary>
+		/// Row and parent Ids are created.
+		/// </summary>
+		RowAndParents
+	}
+
+}

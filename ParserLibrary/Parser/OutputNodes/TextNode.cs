@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using System.Data;
+using System.Diagnostics.CodeAnalysis;
+
+namespace ApiSoftware.Library35.Parsing
+{
+	/// <summary>
+	/// Represents the result of a rule being applied to the text.
+	/// </summary>
+	/// <remarks>
+	/// If the rule is successful, the Position value is updated to the 
+	/// end of the content that has been successfully parsed.
+	/// If the rule is unsuccessful, the Position is left unchanged.
+	/// </remarks>
+	public sealed class TextNode : OutputNode
+	{
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IntegerNode"/> class.
+		/// </summary>
+		/// <param name="rule">The rule that parsed the element.</param>
+		/// <param name="index">The index within the text of the matched element.</param>
+		/// <param name="length">The length of the element matched.</param>
+		public TextNode(RuleBase rule, int index, int length) : base(rule, index) { End = index + length; }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TextNode"/> class.
+		/// </summary>
+		[ExcludeFromCodeCoverage]
+		private TextNode()
+		{
+			// used by the serializer only
+		}
+	}
+
+}

@@ -1,0 +1,22 @@
+<Rules>
+	<!-- Example of a CSV directly encoded in the parser -->
+	<!-- In this example, 2 integers and a string column are defined, no headers are used. -->
+	<Sequence>
+		<OneOrMore Name='root'>
+			<Include>row</Include>
+		</OneOrMore>
+	</Sequence>
+	
+	<Sequence Name='row' Table='T'>
+		<Integer Column='F1' />
+		<Symbol>,</Symbol>
+		<Integer Column='F2' />
+		<Symbol>,</Symbol>
+		<Choice>
+			<String Column='S1' />
+			<Integer Column='S1' />
+		</Choice>
+		<Symbol>\s*</Symbol>
+	</Sequence>
+	
+</Rules>

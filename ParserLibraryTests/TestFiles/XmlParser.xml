@@ -1,0 +1,43 @@
+﻿<Rules>
+
+	<OneOrMore>
+		<Include>element</Include>
+	</OneOrMore>
+
+	<Sequence Name='element'>
+		<Symbol>\s*&lt;</Symbol>
+		<Symbol>\w+</Symbol>
+		<If Pattern='\s+\w'>
+			<OneOrMore>
+				<Include>attribute</Include>
+			</OneOrMore>
+		</If>
+		<Choice>
+			<Symbol>\s*/></Symbol>
+			<Sequence>
+				<Symbol>\s*></Symbol>
+				<Optional>
+					<Include>content</Include>
+				</Optional>
+				<Symbol>&lt;/\w+></Symbol>
+			</Sequence>
+		</Choice>
+	</Sequence>
+
+	<OneOrMore Name='content'>
+		<Choice>
+			<Symbol>[^&lt;]+</Symbol>
+			<Include>element</Include>
+		</Choice>
+	</OneOrMore>
+
+	<Sequence Name="attribute">
+		<Symbol>\s*\w+</Symbol>
+		<Symbol>\s*=</Symbol>
+		<Choice>
+			<String/>
+			<SString/>
+		</Choice>
+	</Sequence>
+
+</Rules>

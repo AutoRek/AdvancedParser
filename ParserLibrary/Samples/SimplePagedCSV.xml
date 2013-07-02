@@ -1,0 +1,40 @@
+﻿<Rules>
+	<!-- Example of a paged CSV directly encoded in the parser -->
+	<!-- In this example, header rows are ahead of groups of rows and an end row finished off -->
+	<Sequence Name='root'>
+		<OneOrMore>
+			<Include>page</Include>
+		</OneOrMore>
+		<Include>end</Include>
+	</Sequence>
+
+	<Sequence Name='page' Table='P'>
+		<Symbol Column="p1">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol Column="p2">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol Column="p3">\w+</Symbol>
+		<Symbol>\s+</Symbol>
+		<OneOrMore>
+			<Include>row</Include>
+		</OneOrMore>
+	</Sequence>
+
+	<Sequence Name='row' Table='T'>
+		<Symbol Column="t1">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol Column="t2">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol Column="t3">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol Column="t4">\w+</Symbol>
+		<Symbol>\s+</Symbol>
+	</Sequence>
+
+	<Sequence Name="end">
+		<Symbol>\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol>\w+</Symbol>
+		<Symbol>\s*</Symbol>
+	</Sequence>
+</Rules>
