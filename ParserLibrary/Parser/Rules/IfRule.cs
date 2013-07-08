@@ -16,7 +16,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// will be applied and must match. Otherwise the rule is skipped and will
 	/// return an empty block.
 	/// </remarks>
-	public sealed class If : RuleBase
+	public sealed class IfRule : RuleBase
 	{
 		private Regex expression = null;
 		private string pattern;
@@ -40,20 +40,21 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The rule.
 		/// </value>
-		[XmlElement(typeof(Symbol))]
-		[XmlElement(typeof(Integer))]
-		[XmlElement(typeof(String))]
-		[XmlElement(typeof(SString))]
-		[XmlElement(typeof(Choice))]
-		[XmlElement(typeof(Sequence))]
-		[XmlElement(typeof(OneOrMore))]
-		[XmlElement(typeof(Include))]
+		[XmlElement("Symbol", typeof(SymbolRule))]
+		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("String", typeof(StringRule))]
+		[XmlElement("SString", typeof(SqlStringRule))]
+		[XmlElement("Choice", typeof(ChoiceRule))]
+		[XmlElement("Sequence", typeof(SequenceRule))]
+		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
+		[XmlElement("Include", typeof(ReferenceRule))]
 		// Do not include Optional or If as meaningless here
 		public RuleBase Rule { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
@@ -66,15 +67,27 @@ namespace ApiSoftware.Library35.Parsing
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
-			if (expression.IsMatch(grammar.Text, position))
+			try
 			{
-				return Rule.Parse(position);
+				if (expression.IsMatch(text ?? string.Empty, position))
+				{
+					if (Rule == null) return new ErrorNode(this, text, position);
+					return Rule.Parse(text, position);
+				}
+				else
+				{
+					return new BlockNode(this, text, position) { End = position };
+				}
 			}
-			else
+			catch (ArgumentNullException)
 			{
-				return new BlockNode(this, position) { End = position };
+				throw new ArgumentException("The 'Pattern' property must be set for an If rule.", "Pattern");
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				throw new ArgumentOutOfRangeException("position", position, "parameter 'position' must be between zero and the length of the text being parsed.");
 			}
 		}
 
@@ -102,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		protected internal override void GetRulesContainingIncludes(ICollection<RuleBase> rules)
 		{
 			if (rules == null) throw new ArgumentNullException("rules");
-			if (Rule is Include)
+			if (Rule is ReferenceRule)
 			{
 				rules.Add(this);
 			}
@@ -120,12 +133,6 @@ namespace ApiSoftware.Library35.Parsing
 			Rule = ApplyInclude(Rule, rules);
 		}
 
-		internal override string FormattedOutput(OutputNode node)
-		{
-			if (node == null) throw new ArgumentNullException("node");
-			if (node.End == node.Begin) return string.Empty;
-			return string.Format(CultureInfo.InvariantCulture, Template ?? "{0}", Rule.FormattedOutput(node));
-		}
 	}
 
 }

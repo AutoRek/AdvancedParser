@@ -1,6 +1,7 @@
 ﻿using ApiSoftware.Library35.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data;
 
 namespace ParserLibraryTests
 {
@@ -11,7 +12,7 @@ namespace ParserLibraryTests
 	///to contain all BlockNodeTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class BlockNodeTest
+	public class BlockNodeTest : NodeBaseTestClass
 	{
 
 
@@ -64,40 +65,101 @@ namespace ParserLibraryTests
 		#endregion
 
 
-		/// <summary>
-		///A test for BlockNode Constructor
-		///</summary>
+
 		[TestMethod()]
-		public void BlockNodeConstructorTest()
+		public override void ConstructorTest()
 		{
-			var rule = new Symbol("TEST");
+			var text = "Test text";
+			var rule = new SymbolRule("TEST");
 			var index = 1000;
-			var node = new BlockNode(rule, index);
+			var node = new BlockNode(rule, text, index);
 			Assert.AreSame(rule, node.Rule);
 			Assert.AreEqual(index, node.Begin);
 			Assert.IsTrue(node.IsMatch);
 		}
 
-		/// <summary>
-		///A test for BlockNode Constructor
-		///</summary>
 		[TestMethod()]
-		public void BlockNodeConstructorTest1()
+		public override void ValueTest()
 		{
-			//BlockNode target = new BlockNode();
-			//Assert.Inconclusive("TODO: Implement code to verify target");
+			//// Use a sequence with a correct symbol. 
+			//// This will parse and return a block node as the root node.
+			//var rules = Rules.LoadXml(@"<Rules><Sequence><Symbol>1</Symbol><Symbol>2</Symbol></Sequence></Rules>");
+			//var result = rules.Parse("12");
+			//Assert.AreEqual("12", result.Value);
+
+
+			var node = CreateTestNode();
+			Assert.AreEqual("AB", node.Value);
+		}
+
+		[TestMethod()]
+		public override void NodeTextTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("AB", node.NodeText);
+		}
+
+		[TestMethod()]
+		public override void FormattedOutputTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("[-A-]<:B:>", node.FormattedOutput());
+		}
+
+		[TestMethod()]
+		public override void GetErrorTextTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("Error at 'AB' (line 0, position 0)", node.GetErrorText());
 		}
 
 		/// <summary>
-		/// BlockNode does not return values in GetValue
+		/// If the rule has table and column data setup, then each node
+		/// should add it's value to the table and column as per the rule's
+		/// settings.
 		/// </summary>
 		[TestMethod()]
-		public void GetValueTest()
+		public override void FillTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol>1</Symbol></Rules>");
-			var result = rules.Parse("1");
-			var node = new BlockNode(rules.Rules[0], 0);
-			Assert.AreEqual(string.Empty, node.Value());
+			var node = CreateTestNode();
+
+			// fill the data set
+			var ds = new DataSet();
+			node.Fill(ds);
+
+			// check the table and column are created and the row has the correct value
+			Assert.IsTrue(ds.Tables.Contains("TestTable"));
+			Assert.IsTrue(ds.Tables[0].Columns.Contains("Column1"));
+			Assert.IsTrue(ds.Tables[0].Columns.Contains("Column2"));
+			Assert.AreEqual(1, ds.Tables[0].Rows.Count);
+			Assert.AreEqual("A", ds.Tables[0].Rows[0][0]);
+			Assert.AreEqual("B", ds.Tables[0].Rows[0][1]);
+		}
+
+
+		private static BlockNode CreateTestNode()
+		{
+			var text = "AB";
+
+			// Typical scenario for block node is a parent that sets the table and 
+			// a child that sets the column. So set up a sequence with symbol and
+			// set the table/column of each.
+
+			var rule = new SequenceRule();
+			rule.Add("A", "B"); // shortcut to add the symbol patterns
+			rule.Table = "TestTable";
+			rule.Rules[0].Column = "Column1";
+			rule.Rules[0].Template = "-{0}-";	// individual template for 1st symbol
+			rule.Rules[1].Column = "Column2";
+			rule.Rules[1].Template = ":{0}:";	// individual template for 2nd symbol
+			rule.Template = "[{0}]<{1}>";		// Sequence template for both symbols
+
+			// fake having parsed the rule to the node
+			var node = new BlockNode(rule, text, 0);
+			node.End = 2;
+			node.Children.Add(new TextNode(rule.Rules[0], text, 0, 1));
+			node.Children.Add(new TextNode(rule.Rules[1], text, 1, 1));
+			return node;
 		}
 	}
 }

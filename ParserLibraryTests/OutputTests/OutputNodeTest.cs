@@ -141,6 +141,5 @@ namespace ParserLibraryTests
 			Assert.AreEqual(expected, output);
 		}
 
-
 	}
 }

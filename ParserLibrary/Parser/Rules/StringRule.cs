@@ -19,13 +19,14 @@ namespace ApiSoftware.Library35.Parsing
 	/// The string rule automatically handles escaped quotes in the string
 	/// that have been converted to doubled-quotes within the string.
 	/// </remarks>
-	public sealed class String : RuleBase
+	public sealed partial class StringRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*""(""""|[^""])*""");
+		private Regex expression = new Regex(@"\G\s*""(""""|[^""])*""", RegexOptions.Compiled);
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
@@ -38,36 +39,39 @@ namespace ApiSoftware.Library35.Parsing
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
-			var match = expression.Match(grammar.Text, position);
-			if (match.Success)
+			try
 			{
-				return new TextNode(this, position, match.Length);
+				var match = expression.Match(text ?? string.Empty, position);
+				if (match.Success)
+				{
+					return new TextNode(this, text, position, match.Length);
+				}
+				else
+				{
+					return new ErrorNode(this, text, position);
+				}
 			}
-			else
+			catch (ArgumentOutOfRangeException)
 			{
-				return new ErrorNode(this, position);
+				throw new ArgumentOutOfRangeException("position", position, "parameter 'position' must be between zero and the length of the text being parsed.");
 			}
 		}
 
 		internal override object GetValue(OutputNode node)
 		{
-			var s = (string)base.GetValue(node);
-			return s.Trim().Replace("\"\"", "\"").Trim('"');
-		}
-
-		internal override string FormattedOutput(OutputNode node)
-		{
-			return string.Format(CultureInfo.InvariantCulture, Template ?? "{0}", GetValue(node));
+			var value = node.NodeText.Trim().Replace("\"\"", "\"");
+			if (value.Length < 2) return string.Empty;
+			return value.Substring(1, value.Length - 2);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="String"/> class.
+		/// Initializes a new instance of the <see cref="StringRule"/> class.
 		/// </summary>
-		public String()
+		public StringRule()
 		{
-			ErrorTemplate = "Error at line {0}, position {1}: Expected \"string\" but found '{2}'";
+			ErrorTemplate = "$: expected a string value of the form \"...\".";
 		}
 	}
 

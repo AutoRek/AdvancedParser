@@ -1,17 +1,18 @@
 ﻿using ApiSoftware.Library35.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Microsoft.Pex.Framework;
 
 namespace ParserLibraryTests
 {
 
 
 	/// <summary>
-	///This is a test class for OptionalTest and is intended
-	///to contain all OptionalTest Unit Tests
+	///This is a test class for SStringTest and is intended
+	///to contain all SStringTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class OptionalTest : RuleTestsBaseClass
+	public partial class SqlStringTest : RuleTestsBaseClass
 	{
 
 
@@ -63,56 +64,47 @@ namespace ParserLibraryTests
 		//
 		#endregion
 
+
 		/// <summary>
-		/// A test for Optional Constructor
+		/// On creation of a new rule, the rule should be properly initialised.
+		/// The details will depend on the type of the rule.
 		/// </summary>
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
 			var rules = new Rules();
-			var rule = new OptionalRule();
-			rule.Rule = new SymbolRule("A");
+			var rule = new SqlStringRule();
 			rule.Initialize(rules);
-			Assert.IsNull(rule.ErrorTemplate);
+			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
 
 		/// <summary>
-		/// A test for ResolveIncludes
-		/// </summary>
-		[TestMethod()]
-		public void ResolveIncludesTest()
-		{
-			var rules = Rules.LoadXml(@"<Rules><Optional Name='A'><Include>A</Include></Optional></Rules>");
-
-			// ResolveIncludes already called - just check the self reference
-			var rule = (rules["A"] as OptionalRule);
-			Assert.AreSame(rule, rule.Rule);
-		}
-
-		/// <summary>
-		/// A test for Parse
+		/// A simple instance of the rule will parse a variety of sample text
+		/// values and output the correct output nodes. Some specific failure
+		/// cases will also be tried to test that parsing started from the
+		/// correct location.
 		/// </summary>
 		[TestMethod()]
 		public override void ParseTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
-
+			var rule = CreateTestRule();
 			OutputNode result;
-			result = rules.Parse("AB");
-			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual(2, result.Children.Count);
-			Assert.AreEqual("A", result.Children[0].Value);
-			Assert.AreEqual("B", result.Children[1].Value);
 
-			result = rules.Parse("B");
+			result = rule.Parse("'A \"'':' B");
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual(2, result.Children.Count);
-			Assert.AreEqual("", result.Children[0].Value); // rule node is still included
-			Assert.AreEqual("B", result.Children[1].Value);
+			Assert.AreEqual("A \"':", result.Value);
 
+			result = rule.Parse("'A''' B");
+			Assert.IsTrue(result.IsMatch);
+			Assert.AreEqual("A'", result.Value);
+
+			result = rule.Parse("A B");
+			Assert.IsFalse(result.IsMatch);
+
+			result = rule.Parse(null);
+			Assert.IsFalse(result.IsMatch);
 		}
-
 
 		/// <summary>
 		/// A simple instance of the rule will parse a variety of sample text
@@ -124,21 +116,15 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParsePositionTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
-
+			var rule = CreateTestRule();
 			OutputNode result;
-			result = rules.Parse("CAB", 1);
-			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual(2, result.Children.Count);
-			Assert.AreEqual("A", result.Children[0].Value);
-			Assert.AreEqual("B", result.Children[1].Value);
 
-			result = rules.Parse("CB", 1);
+			result = rule.Parse("A 'A B' B", 2);
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual(2, result.Children.Count);
-			Assert.AreEqual("", result.Children[0].Value); // rule node is still included
-			Assert.AreEqual("B", result.Children[1].Value);
+			Assert.AreEqual("A B", result.Value);
 
+			result = rule.Parse("A B", 2);
+			Assert.IsFalse(result.IsMatch);
 		}
 
 		/// <summary>
@@ -150,8 +136,34 @@ namespace ParserLibraryTests
 		public override void ParseErrorInput()
 		{
 			var rule = CreateTestRule();
-			var text = "A";
+			var text = "'A'";
 			var result = rule.Parse(text, 5);
+		}
+
+		/// <summary>
+		/// This test checks that when a simple rule has parsed some text
+		/// it generates the correct output based on the result node.
+		/// Most rules will output the text of the node, but some rules
+		/// can get more specific information.
+		/// </summary>
+		[TestMethod]
+		public override void GetFormattedOutputTest()
+		{
+			var rule = CreateTestRule();
+			var result = rule.Parse("'A'");
+			var output = result.FormattedOutput();
+			Assert.AreEqual("[A]", output);
+		}
+
+		/// <summary>
+		/// By default all rules should list their type and name if any. If
+		/// the rule includes a simple pattern, that will be included.
+		/// </summary>
+		[TestMethod]
+		public override void ToStringTest()
+		{
+			var rule = CreateTestRule();
+			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.SqlStringRule", rule.ToString());
 		}
 
 		/// <summary>
@@ -160,11 +172,11 @@ namespace ParserLibraryTests
 		/// a rule list of named rules. References to other named rules
 		/// by name must all be converted to direct object reference.
 		/// </summary>
-		[TestMethod()]
+		[TestMethod]
 		public override void InitializeTest()
 		{
+			// Create an if rule with its Rule as a reference to itself
 			var rule = CreateTestRule();
-			rule.Rule = new ReferenceRule("TestRule");
 
 			// Create the rule list and add the rule 
 			var rules = new Rules();
@@ -173,38 +185,7 @@ namespace ParserLibraryTests
 			// Initialise all the rules in the rule list.
 			rules.Initialize();
 
-			// The reference rule should have been be replaced by an object reference to the if rule
-			Assert.AreSame(rule.Rule, rule);
-		}
-
-		/// <summary>
-		/// By default all rules should list their type and name if any. If
-		/// the rule includes a simple pattern, that will be included.
-		/// </summary>
-		[TestMethod()]
-		public override void ToStringTest()
-		{
-			var rule = CreateTestRule();
-			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.OptionalRule", rule.ToString());
-		}
-
-		/// <summary>
-		/// This test checks that when a simple rule has parsed some text
-		/// it generates the correct output based on the result node.
-		/// Most rules will output the text of the node, but some rules
-		/// can get more specific information.
-		/// 
-		/// Note that the OptionalRule does not support formatting the
-		/// output itself but simply passes through the formatted output of
-		/// the enclosed rule.
-		/// </summary>
-		[TestMethod()]
-		public override void GetFormattedOutputTest()
-		{
-			var rule = CreateTestRule();
-			var result = rule.Parse("A");
-			var output = result.FormattedOutput();
-			Assert.AreEqual("(A)", output);
+			// No errors mean pass as integer rule is not changed on initialise.
 		}
 
 		/// <summary>
@@ -212,16 +193,16 @@ namespace ParserLibraryTests
 		/// should return the result of the parsed value (unless the
 		/// rule type specifically does otherwise).
 		/// </summary>
-		[TestMethod()]
+		[TestMethod]
 		public override void GetValueTest()
 		{
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("A");
+			result = rule.Parse("'A'");
 			Assert.AreEqual("A", rule.GetValue(result));
 
-			result = rule.Parse("B");
+			result = rule.Parse("A");
 			Assert.AreEqual("", rule.GetValue(result));
 		}
 
@@ -232,25 +213,21 @@ namespace ParserLibraryTests
 		/// If an error template is provided, that will be used as the error
 		/// text, optionally with result values substituted in.
 		/// </summary>
-		[TestMethod()]
+		[TestMethod]
 		public override void GetErrorTextTest()
 		{
 			var rule = CreateTestRule();
-			var result = rule.Parse("B");
+			var result = rule.Parse("A");
 			var error = rule.GetErrorText(result);
-			Assert.AreEqual("Error at 'B' (line 0, position 0)", error);
+			Assert.AreEqual("Error at 'A' (line 0, position 0): expected a string value of the form '...'.", error);
 		}
 
-
-		private OptionalRule CreateTestRule()
+		private SqlStringRule CreateTestRule()
 		{
-			var rule = new OptionalRule();
+			var rule = new SqlStringRule();
 			rule.Name = "TestRule";
 			rule.Template = "[{0}]";
-			rule.Rule = new SymbolRule("A");
-			rule.Rule.Template = "({0})";
 			return rule;
 		}
 	}
-
 }

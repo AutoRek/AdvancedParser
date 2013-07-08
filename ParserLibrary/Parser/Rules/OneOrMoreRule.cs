@@ -15,7 +15,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// a list of parameters. The Separator is optional, but if used, can improve performance
 	/// as the rule will only consider additional items if it first finds the separator.
 	/// </remarks>
-	public sealed class OneOrMore : RuleBase
+	public sealed class OneOrMoreRule : RuleBase
 	{
 		/// <summary>
 		/// Gets or sets the separator that separates the repeating elements.
@@ -23,7 +23,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The separator.
 		/// </value>
-		public Symbol Separator { get; set; }
+		public SymbolRule Separator { get; set; }
 
 		/// <summary>
 		/// Gets or sets the rule to be used as the repeating element.
@@ -31,20 +31,21 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The rule.
 		/// </value>
-		[XmlElement(typeof(Symbol))]
-		[XmlElement(typeof(Integer))]
-		[XmlElement(typeof(String))]
-		[XmlElement(typeof(SString))]
-		[XmlElement(typeof(Choice))]
-		[XmlElement(typeof(Sequence))]
-		[XmlElement(typeof(OneOrMore))]
-		[XmlElement(typeof(Include))]
+		[XmlElement("Symbol", typeof(SymbolRule))]
+		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("String", typeof(StringRule))]
+		[XmlElement("SString", typeof(SqlStringRule))]
+		[XmlElement("Choice", typeof(ChoiceRule))]
+		[XmlElement("Sequence", typeof(SequenceRule))]
+		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
+		[XmlElement("Include", typeof(ReferenceRule))]
 		// Do not include Optional or If as meaningless here
 		public RuleBase Rule { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
@@ -57,10 +58,10 @@ namespace ApiSoftware.Library35.Parsing
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
-			var result = new BlockNode(this, position);
-			var child = Rule.Parse(position);
+			var result = new BlockNode(this, text, position);
+			var child = Rule.Parse(text, position);
 			result.Children.Add(child);
 			result.End = child.End;
 			if (child.IsMatch)
@@ -72,24 +73,22 @@ namespace ApiSoftware.Library35.Parsing
 				{
 					// Since we have a separator, the rule MUST find its repeating
 					// item after each separator, or it is a syntax fail.
-					var sep = Separator.Parse(position);
+					var sep = Separator.Parse(text, position);
 
 					while (sep.IsMatch)
 					{
 						position = sep.End;
-						child = Rule.Parse(position);
+						child = Rule.Parse(text, position);
 						result.End = child.End;
 						position = child.End;
 						result.Children.Add(child);
 						if (!child.IsMatch)
 						{
 							// did not find our item after the separator, so fail and return
-							result.IsMatch = false;
-							//Grammar.ErrorNode = child;
-							return result;
+							return new ErrorNode(this, text, position);
 						}
 						// If the separator is the next character, keep looping
-						sep = Separator.Parse(position);
+						sep = Separator.Parse(text, position);
 					}
 				}
 				else
@@ -99,7 +98,7 @@ namespace ApiSoftware.Library35.Parsing
 					// moving on then return success.
 					while (child.IsMatch)
 					{
-						child = Rule.Parse(position);
+						child = Rule.Parse(text, position);
 						position = child.End;
 						if (child.IsMatch)
 						{
@@ -144,7 +143,7 @@ namespace ApiSoftware.Library35.Parsing
 		protected internal override void GetRulesContainingIncludes(ICollection<RuleBase> rules)
 		{
 			if (rules == null) throw new ArgumentNullException("rules");
-			if (Rule is Include) // || Separator is Include) // currently Separator is a symbol only
+			if (Rule is ReferenceRule) // || Separator is Include) // currently Separator is a symbol only
 			{
 				rules.Add(this);
 			}

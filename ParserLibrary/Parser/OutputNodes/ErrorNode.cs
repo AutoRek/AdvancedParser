@@ -19,14 +19,14 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class ErrorNode : OutputNode
 	{
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ErrorNode"/> class.
+		/// Initializes a new instance of the <see cref="ErrorNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule the node corresponds to.</param>
+		/// <param name="text">The text the node refers to.</param>
 		/// <param name="index">The index position in the text.</param>
-		public ErrorNode(RuleBase rule, int index)
-			: base(rule, index)
+		public ErrorNode(RuleBase rule, string text, int index)
+			: base(rule, text, index)
 		{
 			IsMatch = false;
 			End = index;

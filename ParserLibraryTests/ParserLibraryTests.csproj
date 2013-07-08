@@ -37,6 +37,7 @@
       <HintPath>..\..\..\..\..\..\Projects\AutoRek50\AutoRek.Library\ApiSoftware.Library35\bin\Debug\ApiSoftware.Library35.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Pex.Framework, Version=0.94.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -56,10 +57,12 @@
     <Compile Include="OutputTests\BlockNodeTest.cs" />
     <Compile Include="OutputTests\ErrorNodeTest.cs" />
     <Compile Include="OutputTests\IntegerNodeTest.cs" />
+    <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
     <Compile Include="OutputTests\OutputNodeTest.cs" />
     <Compile Include="OutputTests\TextNodeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleTests\ChoiceTest.cs" />
+    <Compile Include="RuleTests\IfTest.cs" />
     <Compile Include="RuleTests\IncludeTest.cs" />
     <Compile Include="RuleTests\IntegerTest.cs" />
     <Compile Include="RuleTests\OneOrMoreTest.cs" />
@@ -67,13 +70,15 @@
     <Compile Include="RuleTests\RuleBaseTest.cs" />
     <Compile Include="RuleTests\RuleListBaseTest.cs" />
     <Compile Include="RuleTests\RulesTest.cs" />
+    <Compile Include="RuleTests\_RuleTestsBaseClass.cs" />
     <Compile Include="RuleTests\SequenceTest.cs" />
-    <Compile Include="RuleTests\SStringTest.cs" />
+    <Compile Include="RuleTests\SqlStringTest.cs" />
     <Compile Include="RuleTests\StringTest.cs" />
     <Compile Include="RuleTests\SymbolTest.cs" />
     <Compile Include="TextPointTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utilties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParserLibrary\ParserLibrary.csproj">

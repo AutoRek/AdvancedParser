@@ -14,6 +14,7 @@ namespace NewParser
 
 		static void Main(string[] args)
 		{
+
 			//var b = Stopwatch.IsHighResolution;
 			//var f = Stopwatch.Frequency;
 			//GC.Collect();

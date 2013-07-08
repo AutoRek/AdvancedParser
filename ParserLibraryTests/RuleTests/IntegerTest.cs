@@ -11,7 +11,7 @@ namespace ParserLibraryTests
 	///to contain all IntegerTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class IntegerTest
+	public class IntegerTest : RuleTestsBaseClass
 	{
 
 
@@ -68,12 +68,149 @@ namespace ParserLibraryTests
 		///A test for Integer Constructor
 		///</summary>
 		[TestMethod()]
-		public void IntegerConstructorTest()
+		public override void ConstructorTest()
 		{
 			var rules = new Rules();
-			var rule = new Integer();
+			var rule = new IntegerRule();
 			rule.Initialize(rules);
-			Assert.IsNotNull(rule.Grammar);
+			Assert.IsNotNull(rule.ErrorTemplate);
+			Assert.IsNull(rule.Template);
+		}
+
+		/// <summary>
+		///A test for Parse
+		///</summary>
+		[TestMethod()]
+		public override void ParseTest()
+		{
+			var rule = CreateTestRule();
+			OutputNode result;
+
+			result = rule.Parse("123 B");
+			Assert.IsTrue(result.IsMatch);
+			Assert.AreEqual(123, result.Value);
+
+			result = rule.Parse("A B");
+			Assert.IsFalse(result.IsMatch);
+
+			result = rule.Parse(null);
+			Assert.IsFalse(result.IsMatch);
+		}
+
+		/// <summary>
+		/// A simple instance of the rule will parse a variety of sample text
+		/// values and output the correct output nodes. This test covers the
+		/// case when parsing is carried out from a location within the text.
+		/// Some specific failure cases will also be tried to test that parsing
+		/// started from the  correct location.
+		/// </summary>
+		[TestMethod()]
+		public override void ParsePositionTest()
+		{
+			var rule = CreateTestRule();
+			OutputNode result;
+
+			result = rule.Parse("A 123 B", 2);
+			Assert.IsTrue(result.IsMatch);
+			Assert.AreEqual(123, result.Value);
+
+			result = rule.Parse("A B", 2);
+			Assert.IsFalse(result.IsMatch);
+		}
+
+		/// <summary>
+		/// If a rule attempts to parse an out-of-range position, an error is
+		/// raised explicitly describing the situation
+		/// </summary>
+		[TestMethod()]
+		[ExpectedException(typeof(ArgumentOutOfRangeException))]
+		public override void ParseErrorInput()
+		{
+			var rule = CreateTestRule();
+			var text = "1";
+			var result = rule.Parse(text, 3);
+		}
+
+		/// <summary>
+		/// This test checks that when a simple rule has parsed some text
+		/// it generates the correct output based on the result node.
+		/// Most rules will output the text of the node, but some rules
+		/// can get more specific information.
+		/// </summary>
+		[TestMethod]
+		public override void GetFormattedOutputTest()
+		{
+			var rule = CreateTestRule();
+			var result = rule.Parse("1");
+			var output = result.FormattedOutput();
+			Assert.AreEqual("[1.00]", output);
+		}
+
+		/// <summary>
+		/// By default all rules should list their type and name if any. If
+		/// the rule includes a simple pattern, that will be included.
+		/// </summary>
+		[TestMethod]
+		public override void ToStringTest()
+		{
+			var rule = CreateTestRule();
+			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.IntegerRule", rule.ToString());
+		}
+
+		/// <summary>
+		/// This test checks that a newly constructed rule that contains
+		/// reference rules (if appropriate) initialises properly given
+		/// a rule list of named rules. References to other named rules
+		/// by name must all be converted to direct object reference.
+		/// </summary>
+		[TestMethod]
+		public override void InitializeTest()
+		{
+			// Create an if rule with its Rule as a reference to itself
+			var rule = CreateTestRule();
+
+			// Create the rule list and add the rule 
+			var rules = new Rules();
+			rules.Add(rule);
+
+			// Initialise all the rules in the rule list.
+			rules.Initialize();
+
+			// No errors mean pass as integer rule is not changed on initialise.
+		}
+
+		/// <summary>
+		/// A simple instance of the rule, on parsing a simple value,
+		/// should return the result of the parsed value (unless the
+		/// rule type specifically does otherwise).
+		/// </summary>
+		[TestMethod]
+		public override void GetValueTest()
+		{
+			var rule = CreateTestRule();
+			OutputNode result;
+
+			result = rule.Parse("1");
+			Assert.AreEqual(1, rule.GetValue(result));
+
+			result = rule.Parse("A");
+			Assert.AreEqual(null, rule.GetValue(result));
+		}
+
+		/// <summary>
+		/// A simple instance of the rule, on failing to parse a simple value
+		/// should return the standard error text and any additional rule-
+		/// specific text required for the type of rule.
+		/// If an error template is provided, that will be used as the error
+		/// text, optionally with result values substituted in.
+		/// </summary>
+		[TestMethod]
+		public override void GetErrorTextTest()
+		{
+			var rule = CreateTestRule();
+			var result = rule.Parse("A");
+			var error = rule.GetErrorText(result);
+			Assert.AreEqual("Error at 'A' (line 0, position 0): expected an integer value.", error);
 		}
 
 		/// <summary>
@@ -86,23 +223,15 @@ namespace ParserLibraryTests
 			OutputNode result;
 			result = rules.Parse("AB");
 			var error = result.GetErrorText();
-			Assert.AreEqual("Error at line 0, position 1: Expected an integer but found 'B'", error);
+			Assert.AreEqual("Error at 'B' (line 0, position 1): expected an integer value.", error);
 		}
 
-		/// <summary>
-		///A test for Parse
-		///</summary>
-		[TestMethod()]
-		public void ParseTest()
+		private IntegerRule CreateTestRule()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Integer/><Symbol>\s*B</Symbol></Sequence></Rules>");
-
-			OutputNode result;
-			result = rules.Parse("123 B");
-			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual(2, result.Children.Count);
-			Assert.AreEqual(123, result.Children[0].Value());
-			Assert.AreEqual(" B", result.Children[1].Value());
+			var rule = new IntegerRule();
+			rule.Name = "TestRule";
+			rule.Template = "[{0:n2}]";
+			return rule;
 		}
 	}
 }

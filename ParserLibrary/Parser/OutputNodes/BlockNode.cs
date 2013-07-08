@@ -21,11 +21,12 @@ namespace ApiSoftware.Library35.Parsing
 	{
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ErrorNode"/> class.
+		/// Initializes a new instance of the <see cref="ErrorNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule the node corresponds to.</param>
+		/// <param name="text">The text the node refers to.</param>
 		/// <param name="index">The index position in the text.</param>
-		public BlockNode(RuleBase rule, int index) : base(rule, index) { }
+		public BlockNode(RuleBase rule, string text, int index) : base(rule, text, index) { }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="BlockNode"/> class.

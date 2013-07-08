@@ -10,7 +10,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// <summary>
 	/// Base class to hold a list of rules.
 	/// </summary>
-	public abstract class RuleListBase : RuleBase
+	public abstract class RuleListBase : RuleBase, IRuleList
 	{
 		private List<RuleBase> ruleList = new List<RuleBase>();
 
@@ -20,16 +20,16 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The rules.
 		/// </value>
-		[XmlElement(typeof(Symbol))]
-		[XmlElement(typeof(Integer))]
-		[XmlElement(typeof(Choice))]
-		[XmlElement(typeof(Sequence))]
-		[XmlElement(typeof(OneOrMore))]
-		[XmlElement(typeof(Optional))]
-		[XmlElement(typeof(If))]
-		[XmlElement(typeof(Include))]
-		[XmlElement(typeof(String))]
-		[XmlElement(typeof(SString))]
+		[XmlElement("Symbol", typeof(SymbolRule))]
+		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("String", typeof(StringRule))]
+		[XmlElement("SString", typeof(SqlStringRule))]
+		[XmlElement("Choice", typeof(ChoiceRule))]
+		[XmlElement("Sequence", typeof(SequenceRule))]
+		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
+		[XmlElement("Include", typeof(ReferenceRule))]
+		[XmlElement("Optional", typeof(OptionalRule))]
+		[XmlElement("If", typeof(IfRule))]
 		public List<RuleBase> Rules { get { return ruleList; } }
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace ApiSoftware.Library35.Parsing
 			if (rules == null) throw new ArgumentNullException("rules");
 			for (int i = 0; i < Rules.Count; i++)
 			{
-				if (Rules[i] is Include) rules.Add(this);
+				if (Rules[i] is ReferenceRule) rules.Add(this);
 				Rules[i].GetRulesContainingIncludes(rules);
 			}
 		}
@@ -73,7 +73,7 @@ namespace ApiSoftware.Library35.Parsing
 			if (rules == null) throw new ArgumentNullException("rules");
 			for (int i = 0; i < Rules.Count; i++)
 			{
-				var includeRule = Rules[i] as Include;
+				var includeRule = Rules[i] as ReferenceRule;
 				if (includeRule != null) { Rules[i] = rules[includeRule.Reference]; }
 			}
 		}
@@ -102,7 +102,26 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public RuleListBase Add(string pattern)
 		{
-			Add(new Symbol(pattern));
+			Add(new SymbolRule(pattern));
+			return this;
+		}
+
+		/// <summary>
+		/// Adds the specified list of patterns as a sequence rule.
+		/// </summary>
+		/// <param name="patterns">The pattern list to add.</param>
+		/// <returns>The rule list.</returns>
+		/// <remarks>
+		/// By returning the rule list, the method can be used with fluid syntax.
+		/// </remarks>
+		public virtual RuleListBase Add(params string[] patterns)
+		{
+			var sequence = new SequenceRule();
+			foreach (var pattern in patterns)
+			{
+				sequence.Add(pattern);
+			}
+			Add(sequence);
 			return this;
 		}
 

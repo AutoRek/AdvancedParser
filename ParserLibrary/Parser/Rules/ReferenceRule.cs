@@ -19,7 +19,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// When the grammar is initialised, each reference rule is replaced
 	/// by a direct object reference to the named rule.
 	/// </remarks>
-	public sealed class Include : RuleBase
+	public sealed class ReferenceRule : RuleBase
 	{
 
 		/// <summary>
@@ -34,16 +34,18 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
 		/// </returns>
+		/// <exception cref="System.NotImplementedException">Rule references will all be removed before the rules run. This method will never be executed.</exception>
 		/// <remarks>
 		/// Note that all rule references should be removed before parsing, so
 		/// this method should never be called.
 		/// </remarks>
 		[ExcludeFromCodeCoverage]
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
 			throw new NotImplementedException("Rule references will all be removed before the rules run. This method will never be executed.");
 		}
@@ -52,6 +54,24 @@ namespace ApiSoftware.Library35.Parsing
 		internal override string FormattedOutput(OutputNode node)
 		{
 			throw new NotImplementedException("Rule references will all be removed before the rules run. This method will never be executed.");
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ReferenceRule"/> class.
+		/// </summary>
+		public ReferenceRule()
+		{
+
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ReferenceRule"/> class.
+		/// </summary>
+		/// <param name="name">The name of the referenced rule.</param>
+		public ReferenceRule(string name)
+			: this()
+		{
+			Reference = name;
 		}
 	}
 

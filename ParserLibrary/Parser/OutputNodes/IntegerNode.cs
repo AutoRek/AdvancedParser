@@ -17,23 +17,16 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class IntegerNode : OutputNode
 	{
-		///// <summary>
-		///// Gets the value.
-		///// </summary>
-		///// <returns></returns>
-		//public override object GetValue()
-		//{
-		//    return
-		//}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerNode"/> class.
+		/// Initializes a new instance of the <see cref="IntegerNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule.</param>
+		/// <param name="text">The text.</param>
 		/// <param name="index">The index.</param>
 		/// <param name="length">The length of the element matched.</param>
-		public IntegerNode(Integer rule, int index, int length)
-			: base(rule, index)
+		public IntegerNode(IntegerRule rule, string text, int index, int length)
+			: base(rule, text, index)
 		{
 			End = index + length;
 		}

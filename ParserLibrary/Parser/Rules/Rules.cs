@@ -15,7 +15,7 @@ namespace ApiSoftware.Library35.Parsing
 	[Serializable]
 	public sealed class Rules : RuleListBase
 	{
-		internal string Text;
+		private bool initialised;
 
 		/// <summary>
 		/// Gets the <see cref="ApiSoftware.Library35.Parsing.RuleBase"/> with the specified name.
@@ -40,18 +40,16 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		/// <param name="text">The text to parse.</param>
 		/// <returns>The result of the parsing.</returns>
-		public OutputNode Parse(string text)
+		public override OutputNode Parse(string text)
 		{
-			this.Text = text;
-			if (this.grammar == null) { Initialise(); }
-			//return Parse(0);
-			var result = Parse(0);
+			if (!initialised) Initialize();
+			var result = Parse(text, 0);
 			if (result.IsMatch)
 			{
 				// good so far, so check we are at the end of the file
-				var eof = new Symbol("\\s*$");
+				var eof = new SymbolRule("\\s*$");
 				eof.Initialize(this);
-				var atEnd = eof.Parse(result.End);
+				var atEnd = eof.Parse(text, result.End);
 				if (atEnd.IsMatch) return result; else return atEnd;
 			}
 			else
@@ -64,6 +62,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
@@ -76,9 +75,32 @@ namespace ApiSoftware.Library35.Parsing
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
-			return Rules[0].Parse(position);
+			return Rules[0].Parse(text, position);
+		}
+
+		/// <summary>
+		/// Initialises all the rules in this rule list.
+		/// </summary>
+		public void Initialize()
+		{
+			if (initialised) return;
+
+			Initialize(this);
+			var rules = new List<RuleBase>();
+			GetRulesContainingIncludes(rules);
+			foreach (var rule in rules)
+			{
+				rule.ResolveIncludes(this);
+			}
+			initialised = true;
+		}
+
+		[ExcludeFromCodeCoverage]
+		internal override string FormattedOutput(OutputNode node)
+		{
+			throw new NotSupportedException("FormattedOutput is not supported from the Rules collection");
 		}
 
 		/// <summary>
@@ -88,27 +110,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// <returns>A grammar for the parsing rules.</returns>
 		public static Rules LoadXml(string xml)
 		{
-			var grammar = Objects.XmlDeserialize<Rules>(xml);
-			grammar.Initialise();
-			return grammar;
+			var rules = Objects.XmlDeserialize<Rules>(xml);
+			rules.Initialize();
+			return rules;
 		}
 
-		private void Initialise()
-		{
-			Initialize(this);
-			var rules = new List<RuleBase>();
-			GetRulesContainingIncludes(rules);
-			foreach (var rule in rules)
-			{
-				rule.ResolveIncludes(this);
-			}
-		}
-
-		[ExcludeFromCodeCoverage]
-		internal override string FormattedOutput(OutputNode node)
-		{
-			throw new NotImplementedException();
-		}
 
 	}
 

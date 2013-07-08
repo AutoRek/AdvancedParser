@@ -71,9 +71,10 @@ namespace ParserLibraryTests
 		public void IncludeConstructorTest()
 		{
 			var rules = new Rules();
-			var rule = new Include();
+			var rule = new ReferenceRule();
 			rule.Initialize(rules);
-			Assert.IsNotNull(rule.Grammar);
+			Assert.IsNull(rule.ErrorTemplate);
+			Assert.IsNull(rule.Template);
 		}
 
 		/// <summary>
@@ -89,12 +90,12 @@ namespace ParserLibraryTests
 			result = rules.Parse("ABA");
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(3, result.Children.Count);
-			Assert.AreEqual("ABA", result.Value());
+			Assert.AreEqual("ABA", result.Value);
 
 			result = rules.Parse("AABAA");
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(3, result.Children.Count);
-			Assert.AreEqual("AABAA", result.Value());
+			Assert.AreEqual("AABAA", result.Value);
 
 			result = rules.Parse("AA");
 			Assert.IsFalse(result.IsMatch);
@@ -114,7 +115,7 @@ namespace ParserLibraryTests
 			// Include rule should switch pointers to the named rule
 			Assert.AreSame(
 				rules.Rules[1],							// The symbol rule 'A'
-				(rules.Rules[0] as Choice).Rules[0]		// The included rule in the first choice position.
+				(rules.Rules[0] as ChoiceRule).Rules[0]		// The included rule in the first choice position.
 				);
 
 		}

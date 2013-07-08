@@ -27,56 +27,59 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.BlockNode.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MBlockNode.ConstructorRuleBaseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.BlockNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MBlockNode.ConstructorRuleBaseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.BlockNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MBlockNode.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MChoice">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Choice"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MChoiceRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.ChoiceRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoice.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoice.#ctor(ApiSoftware.Library35.Parsing.Choice)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.#ctor(ApiSoftware.Library35.Parsing.ChoiceRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoice.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoice.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoice.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.Behavior">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.Bind(ApiSoftware.Library35.Parsing.IRuleList)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Choice.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ChoiceRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Choice.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ChoiceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Choice.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ChoiceRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MChoice.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Choice.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.AllInstances.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ChoiceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoice.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Choice.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MChoiceRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ChoiceRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MErrorNode">
@@ -102,226 +105,104 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ErrorNode.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MErrorNode.ConstructorRuleBaseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ErrorNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MErrorNode.ConstructorRuleBaseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ErrorNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MErrorNode.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIf">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.If"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIfRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.IfRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIf.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIfRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIf.#ctor(ApiSoftware.Library35.Parsing.If)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIfRule.#ctor(ApiSoftware.Library35.Parsing.IfRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIf.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIfRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIf.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIfRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIf.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIfRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.PatternGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.PatternGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.PatternSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.PatternSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Rule"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Rule"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.PatternGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.PatternGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.PatternSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.PatternSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IfRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.If.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Rule"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIf.AllInstances.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.If.Rule"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MInclude">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Include"/>
-            .</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInclude.#ctor">
-            <summary>Initializes a new mole</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInclude.#ctor(ApiSoftware.Library35.Parsing.Include)">
-            <summary>Initializes a new mole for the given instance</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInclude.BehaveAsCurrent">
-            <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInclude.BehaveAsNotImplemented">
-            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInclude.Bind(ApiSoftware.Library35.Parsing.IRule)">
-            <summary>Binds the members of the interface to the mole.</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.Behavior">
-            <summary>Assigns the behavior for all methods of the moled type</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Include.#ctor"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Include.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Include.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.ReferenceGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Include.Reference"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.ReferenceSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Include.Reference"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MInclude.AllInstances">
-            <summary>Define moles for all instances members</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Include.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Include.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.AllInstances.ReferenceGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Include.Reference"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInclude.AllInstances.ReferenceSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Include.Reference"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MInteger">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Integer"/>
-            .</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInteger.#ctor">
-            <summary>Initializes a new mole</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInteger.#ctor(ApiSoftware.Library35.Parsing.Integer)">
-            <summary>Initializes a new mole for the given instance</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInteger.BehaveAsCurrent">
-            <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInteger.BehaveAsNotImplemented">
-            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
-        </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MInteger.Bind(ApiSoftware.Library35.Parsing.IRule)">
-            <summary>Binds the members of the interface to the mole.</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.Behavior">
-            <summary>Assigns the behavior for all methods of the moled type</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.#ctor"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MInteger.AllInstances">
-            <summary>Define moles for all instances members</summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.AllInstances.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MInteger.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Integer.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIfRule.AllInstances.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.IfRule.Rule"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MIntegerNode">
@@ -347,197 +228,234 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerNode.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerNode.ConstructorIntegerInt32Int32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerNode.#ctor(ApiSoftware.Library35.Parsing.Integer,System.Int32,System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerNode.ConstructorIntegerRuleStringInt32Int32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerNode.#ctor(ApiSoftware.Library35.Parsing.IntegerRule,System.String,System.Int32,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MIntegerNode.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOneOrMore">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.OneOrMore"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIntegerRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.IntegerRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.#ctor(ApiSoftware.Library35.Parsing.OneOrMore)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.#ctor(ApiSoftware.Library35.Parsing.IntegerRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Rule"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Rule"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.SeparatorGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Separator"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.SeparatorSetSymbol">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Separator"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.AllInstances.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MIntegerRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.IntegerRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMore.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Rule"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Rule"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.SeparatorGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Separator"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMore.AllInstances.SeparatorSetSymbol">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMore.Separator"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOptional">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Optional"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.OneOrMoreRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptional.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptional.#ctor(ApiSoftware.Library35.Parsing.Optional)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.#ctor(ApiSoftware.Library35.Parsing.OneOrMoreRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptional.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptional.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptional.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Optional.Rule"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Optional.Rule"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Rule"/>
             </summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.SeparatorGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Separator"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.SeparatorSetSymbolRule">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Separator"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.InitializeRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.ResolveIncludesRules">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Optional.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OneOrMoreRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.RuleGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Optional.Rule"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptional.AllInstances.RuleSetRuleBase">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Optional.Rule"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Rule"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.SeparatorGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Separator"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOneOrMoreRule.AllInstances.SeparatorSetSymbolRule">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OneOrMoreRule.Separator"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOptionalRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.OptionalRule"/>
+            .</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.#ctor">
+            <summary>Initializes a new mole</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.#ctor(ApiSoftware.Library35.Parsing.OptionalRule)">
+            <summary>Initializes a new mole for the given instance</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.Behavior">
+            <summary>Assigns the behavior for all methods of the moled type</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.#ctor"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OptionalRule.Rule"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OptionalRule.Rule"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances">
+            <summary>Define moles for all instances members</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.InitializeRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.ResolveIncludesRules">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OptionalRule.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.RuleGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OptionalRule.Rule"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOptionalRule.AllInstances.RuleSetRuleBase">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OptionalRule.Rule"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MOutputNode">
@@ -572,8 +490,8 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.ConstructorRuleBaseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.ConstructorRuleBaseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.CreateTableDataSetIdModeString">
@@ -616,6 +534,10 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.IsMatch"/>
             </summary>
         </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.NodeTextGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.NodeText"/>
+            </summary>
+        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.RuleGet">
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Rule"/>
             </summary>
@@ -624,8 +546,8 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.Value">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.ValueGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
             </summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode._GetErrorTextb__0OutputNode">
@@ -683,6 +605,10 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.IsMatch"/>
             </summary>
         </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.AllInstances.NodeTextGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.NodeText"/>
+            </summary>
+        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.AllInstances.RuleGet">
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Rule"/>
             </summary>
@@ -691,8 +617,69 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Rule"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.AllInstances.Value">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MOutputNode.AllInstances.ValueGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MReferenceRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.ReferenceRule"/>
+            .</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.#ctor">
+            <summary>Initializes a new mole</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.#ctor(ApiSoftware.Library35.Parsing.ReferenceRule)">
+            <summary>Initializes a new mole for the given instance</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.Behavior">
+            <summary>Assigns the behavior for all methods of the moled type</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ReferenceRule.#ctor"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ReferenceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ReferenceRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.ReferenceGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.ReferenceRule.Reference"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.ReferenceSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.ReferenceRule.Reference"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.AllInstances">
+            <summary>Define moles for all instances members</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.AllInstances.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ReferenceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.ReferenceRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.AllInstances.ReferenceGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.ReferenceRule.Reference"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MReferenceRule.AllInstances.ReferenceSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.ReferenceRule.Reference"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MRuleBase">
@@ -738,6 +725,10 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.RuleBase.ErrorTemplate"/>
             </summary>
         </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.GetErrorTextOutputNode">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
@@ -746,16 +737,8 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.GetStringValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetStringValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.GetValueOutputNode">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.GrammarGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.RuleBase.Grammar"/>
             </summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.InitializeRules">
@@ -809,6 +792,10 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.RuleBase.ErrorTemplate"/>
             </summary>
         </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.GetErrorTextOutputNode">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
@@ -817,16 +804,8 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.GetStringValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetStringValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.GetValueOutputNode">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.GrammarGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.RuleBase.Grammar"/>
             </summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleBase.AllInstances.InitializeRules">
@@ -875,6 +854,9 @@
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
         <member name="M:ApiSoftware.Library35.Parsing.Moles.MRuleListBase.Bind(ApiSoftware.Library35.Parsing.IRule)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MRuleListBase.Bind(ApiSoftware.Library35.Parsing.IRuleList)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRuleListBase.AddRuleBase">
@@ -954,6 +936,9 @@
         <member name="M:ApiSoftware.Library35.Parsing.Moles.MRules.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MRules.Bind(ApiSoftware.Library35.Parsing.IRuleList)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
@@ -977,12 +962,12 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.LoadXml(System.String)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.Int32)"/>
-            </summary>
-        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.ParseString">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.String)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MRules.AllInstances">
@@ -1000,244 +985,223 @@
             <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Rules.Item(System.String)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.Int32)"/>
-            </summary>
-        </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.AllInstances.ParseString">
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.String)"/>
             </summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSString">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.SString"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MRules.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Rules.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSequenceRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.SequenceRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSString.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSString.#ctor(ApiSoftware.Library35.Parsing.SString)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.#ctor(ApiSoftware.Library35.Parsing.SequenceRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSString.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSString.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSString.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.Behavior">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.Bind(ApiSoftware.Library35.Parsing.IRuleList)">
+            <summary>Binds the members of the interface to the mole.</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SequenceRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SequenceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SequenceRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSString.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.AllInstances.FormattedOutputOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SequenceRule.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.AllInstances.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequenceRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SequenceRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSString.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SString.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSequence">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Sequence"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.SqlStringRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequence.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequence.#ctor(ApiSoftware.Library35.Parsing.Sequence)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.#ctor(ApiSoftware.Library35.Parsing.SqlStringRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequence.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequence.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSequence.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Sequence.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SqlStringRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Sequence.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SqlStringRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Sequence.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SqlStringRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSequence.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Sequence.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.AllInstances.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SqlStringRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSequence.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Sequence.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSqlStringRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SqlStringRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MString">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.String"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MStringRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.StringRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MString.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MStringRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MString.#ctor(ApiSoftware.Library35.Parsing.String)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MStringRule.#ctor(ApiSoftware.Library35.Parsing.StringRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MString.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MStringRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MString.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MStringRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MString.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MStringRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.StringRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.StringRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.StringRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MString.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MStringRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.AllInstances.GetValueOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.StringRule.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.AllInstances.GetValueOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.GetValue(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MStringRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.StringRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MString.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.String.Parse(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSymbol">
-            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.Symbol"/>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSymbolRule">
+            <summary>Mole type of <see cref="T:ApiSoftware.Library35.Parsing.SymbolRule"/>
             .</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbol.#ctor">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.#ctor">
             <summary>Initializes a new mole</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbol.#ctor(ApiSoftware.Library35.Parsing.Symbol)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.#ctor(ApiSoftware.Library35.Parsing.SymbolRule)">
             <summary>Initializes a new mole for the given instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbol.BehaveAsCurrent">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.BehaveAsCurrent">
             <summary>Assigns the &apos;Current&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbol.BehaveAsNotImplemented">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.BehaveAsNotImplemented">
             <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the moled type</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbol.Bind(ApiSoftware.Library35.Parsing.IRule)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.Bind(ApiSoftware.Library35.Parsing.IRule)">
             <summary>Binds the members of the interface to the mole.</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.Behavior">
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.Behavior">
             <summary>Assigns the behavior for all methods of the moled type</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.Constructor">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.#ctor"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.Constructor">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.ConstructorString">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.#ctor(System.String)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.ConstructorString">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.#ctor(System.String)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.GetErrorTextOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.GetErrorTextOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.PatternGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.SymbolRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.PatternGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Symbol.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.PatternSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.SymbolRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.PatternSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Symbol.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.ToString">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.ToString"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.ToString">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.ToString"/>
-            </summary>
-        </member>
-        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances">
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances">
             <summary>Define moles for all instances members</summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.FormattedOutputOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.FormattedOutput(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances.GetErrorTextOutputNode">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.GetErrorTextOutputNode">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances.ParseStringInt32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.ParseInt32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.Parse(System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances.PatternGet">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.SymbolRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.PatternGet">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Symbol.Pattern"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances.PatternSetString">
+            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.SymbolRule.Pattern"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.PatternSetString">
-            <summary>Sets the mole of <see cref="P:ApiSoftware.Library35.Parsing.Symbol.Pattern"/>
-            </summary>
-        </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbol.AllInstances.ToString01">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.Symbol.ToString"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MSymbolRule.AllInstances.ToString01">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.SymbolRule.ToString"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MTextNode">
@@ -1263,8 +1227,8 @@
             <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.TextNode.#ctor"/>
             </summary>
         </member>
-        <member name="P:ApiSoftware.Library35.Parsing.Moles.MTextNode.ConstructorRuleBaseInt32Int32">
-            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.TextNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.Int32,System.Int32)"/>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.MTextNode.ConstructorRuleBaseStringInt32Int32">
+            <summary>Sets the mole of <see cref="M:ApiSoftware.Library35.Parsing.TextNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.String,System.Int32,System.Int32)"/>
             </summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.MTextNode.AllInstances">
@@ -1375,8 +1339,8 @@
         <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRule.#ctor">
             <summary>Initializes a new instance of type SIRule</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRule.pl::ApiSoftware#Library35#Parsing#IRule#Parse(System.Int32)">
-            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.Int32)"/>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRule.pl::ApiSoftware#Library35#Parsing#IRule#Parse(System.String,System.Int32)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRule.AttachBackingFieldToColumn">
@@ -1418,8 +1382,8 @@
             <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Name"/>
             </summary>
         </member>
-        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRule.ParseInt32">
-            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.Int32)"/>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRule.ParseStringInt32">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.String,System.Int32)"/>
             </summary>
         </member>
         <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRule.TableGet">
@@ -1458,6 +1422,104 @@
             <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Template"/>
             </summary>
         </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.SIRuleList">
+            <summary>Stub type of <see cref="T:ApiSoftware.Library35.Parsing.IRuleList"/>
+            .</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.#ctor">
+            <summary>Initializes a new instance of type SIRuleList</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#Parse(System.String,System.Int32)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.AttachBackingFieldToColumn">
+            <summary>Attaches delegates to emulate SIRuleList.Column as a property with a backing field</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.AttachBackingFieldToErrorTemplate">
+            <summary>Attaches delegates to emulate SIRuleList.ErrorTemplate as a property with a backing field</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.AttachBackingFieldToName">
+            <summary>Attaches delegates to emulate SIRuleList.Name as a property with a backing field</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.AttachBackingFieldToTable">
+            <summary>Attaches delegates to emulate SIRuleList.Table as a property with a backing field</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SIRuleList.AttachBackingFieldToTemplate">
+            <summary>Attaches delegates to emulate SIRuleList.Template as a property with a backing field</summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.ColumnGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Column"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.ColumnSetString">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Column"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.ErrorTemplateGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.ErrorTemplate"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.ErrorTemplateSetString">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.ErrorTemplate"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.NameGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Name"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.NameSetString">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Name"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.ParseStringInt32">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.IRule.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.RulesGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRuleList.Rules"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.TableGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Table"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.TableSetString">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Table"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.TemplateGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Template"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SIRuleList.TemplateSetString">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Template"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#Column">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Column"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#ErrorTemplate">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.ErrorTemplate"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#Name">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Name"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRuleList#Rules">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRuleList.Rules"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#Table">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Table"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SIRuleList.pl::ApiSoftware#Library35#Parsing#IRule#Template">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.IRule.Template"/>
+            </summary>
+        </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.SOutputNode">
             <summary>Stub type of <see cref="T:ApiSoftware.Library35.Parsing.OutputNode"/>
             .</summary>
@@ -1465,24 +1527,144 @@
         <member name="M:ApiSoftware.Library35.Parsing.Moles.SOutputNode.#ctor">
             <summary>Initializes a new instance</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.SOutputNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.Int32)">
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SOutputNode.#ctor(ApiSoftware.Library35.Parsing.RuleBase,System.String,System.Int32)">
             <summary>Initializes a new instance</summary>
         </member>
         <member name="M:ApiSoftware.Library35.Parsing.Moles.SOutputNode.InitializeStub">
             <summary>Initializes a new instance of type SOutputNode</summary>
         </member>
-        <member name="M:ApiSoftware.Library35.Parsing.Moles.SOutputNode.Value">
-            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SOutputNode.NodeTextGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.NodeText"/>
             </summary>
         </member>
-        <member name="F:ApiSoftware.Library35.Parsing.Moles.SOutputNode.Value01">
-            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SOutputNode.ValueGet">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
             </summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.SOutputNode.CallBase">
             <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
         </member>
         <member name="P:ApiSoftware.Library35.Parsing.Moles.SOutputNode.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SOutputNode.NodeText">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.NodeText"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SOutputNode.Value">
+            <summary>Sets the stub of <see cref="P:ApiSoftware.Library35.Parsing.OutputNode.Value"/>
+            </summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.SRuleBase">
+            <summary>Stub type of <see cref="T:ApiSoftware.Library35.Parsing.RuleBase"/>
+            .</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleBase.GetErrorTextOutputNode">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection{ApiSoftware.Library35.Parsing.RuleBase})">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleBase.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.Initialize(ApiSoftware.Library35.Parsing.Rules)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleBase.InitializeRules">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.InitializeStub">
+            <summary>Initializes a new instance of type SRuleBase</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.Parse(System.String,System.Int32)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleBase.ParseStringInt32">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleBase.ResolveIncludesRules">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SRuleBase.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SRuleBase.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="T:ApiSoftware.Library35.Parsing.Moles.SRuleListBase">
+            <summary>Stub type of <see cref="T:ApiSoftware.Library35.Parsing.RuleListBase"/>
+            .</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.GetErrorTextOutputNode">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.GetErrorText(ApiSoftware.Library35.Parsing.OutputNode)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection{ApiSoftware.Library35.Parsing.RuleBase})">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.GetRulesContainingIncludesICollectionOfRuleBase">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.GetRulesContainingIncludes(System.Collections.Generic.ICollection`1{ApiSoftware.Library35.Parsing.RuleBase})"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.Initialize(ApiSoftware.Library35.Parsing.Rules)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.InitializeRules">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.Initialize(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.InitializeStub">
+            <summary>Initializes a new instance of type SRuleListBase</summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.Parse(System.String,System.Int32)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.ParseStringInt32">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleBase.Parse(System.String,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="M:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="F:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.ResolveIncludesRules">
+            <summary>Sets the stub of <see cref="M:ApiSoftware.Library35.Parsing.RuleListBase.ResolveIncludes(ApiSoftware.Library35.Parsing.Rules)"/>
+            </summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:ApiSoftware.Library35.Parsing.Moles.SRuleListBase.InstanceBehavior">
             <summary>Gets or sets the instance behavior.</summary>
         </member>
         <member name="T:ApiSoftware.Library35.Parsing.Moles.STextPoint">

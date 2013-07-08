@@ -35,7 +35,7 @@ namespace NewParser
 				var timer = Stopwatch.StartNew();
 				var result = grammar.Parse(InputText.Text);
 				timer.Stop();
-				OutputText.Text = timer.Elapsed.TotalMilliseconds.ToString();
+				OutputText.Text = string.Format("{0:n2}ms", timer.Elapsed.TotalMilliseconds);
 				if (result.IsMatch)
 				{
 					OutputText.Text += "\r\nParses OK";
@@ -51,6 +51,7 @@ namespace NewParser
 				}
 				else
 				{
+					var xml = result.XmlSerialize();
 					OutputText.Text += result.GetErrorText();
 				}
 			}

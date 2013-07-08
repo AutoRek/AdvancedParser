@@ -1,6 +1,7 @@
 ﻿using ApiSoftware.Library35.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data;
 
 namespace ParserLibraryTests
 {
@@ -11,7 +12,7 @@ namespace ParserLibraryTests
 	///to contain all IntegerNodeTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class IntegerNodeTest
+	public class IntegerNodeTest : NodeBaseTestClass
 	{
 
 
@@ -64,15 +65,19 @@ namespace ParserLibraryTests
 		#endregion
 
 
+
 		/// <summary>
-		///A test for IntegerNode Constructor
-		///</summary>
+		/// Each node should initialise correctly with the correct match
+		/// status, an object reference to the rule and the correct begin
+		/// and end.
+		/// </summary>
 		[TestMethod()]
-		public void IntegerNodeConstructorTest()
+		public override void ConstructorTest()
 		{
-			var rule = new Integer();
+			var text = "Test text";
+			var rule = new IntegerRule();
 			var index = 1000;
-			var node = new IntegerNode(rule, index, 100);
+			var node = new IntegerNode(rule, text, index, 100);
 			Assert.AreSame(rule, node.Rule);
 			Assert.AreEqual(index, node.Begin);
 			Assert.AreEqual(index + 100, node.End);
@@ -80,15 +85,85 @@ namespace ParserLibraryTests
 		}
 
 		/// <summary>
-		/// A test for GetValue
+		/// Each node should return the value associated with the node
+		/// in the appropriate way for the type of node.
 		/// </summary>
 		[TestMethod()]
-		public void GetValueTest()
+		public override void ValueTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Integer/></Rules>");
-			var result = rules.Parse("1");
-			var node = new IntegerNode(rules.Rules[0] as Integer, 0, 1);
-			Assert.AreEqual(1, node.Value());
+			var node = CreateTestNode();
+			Assert.AreEqual(1, node.Value);
+		}
+
+		/// <summary>
+		/// Each node should return the node text as a string based on the
+		/// begin and end position if appropriate for the type of node.
+		/// </summary>
+		[TestMethod()]
+		public override void NodeTextTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("1", node.NodeText);
+		}
+
+		/// <summary>
+		/// Each node should return the formatted output of the node based
+		/// on using the node's rule to get the formatted output.
+		/// </summary>
+		[TestMethod()]
+		public override void FormattedOutputTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("[1.00]<1.00>", node.FormattedOutput());
+		}
+
+		/// <summary>
+		/// Each node type should get the error text appropriate to the
+		/// node type and rule. Block nodes in particular should get the
+		/// error text of any error nodes they contain.
+		/// </summary>
+		[TestMethod()]
+		public override void GetErrorTextTest()
+		{
+			var node = CreateTestNode();
+			Assert.AreEqual("(0|0|1|)", node.GetErrorText());
+		}
+
+		/// <summary>
+		/// If the rule has table and column data setup, then each node
+		/// should add it's value to the table and column as per the rule's
+		/// settings.
+		/// </summary>
+		[TestMethod()]
+		public override void FillTest()
+		{
+			var node = CreateTestNode();
+
+			// fill the data set
+			var ds = new DataSet();
+			node.Fill(ds);
+
+			// check the table and column are created and the row has the correct value and type.
+			Assert.IsTrue(ds.Tables.Contains("TestTable"));
+			Assert.IsTrue(ds.Tables[0].Columns.Contains("TestColumn"));
+			Assert.AreEqual(1, ds.Tables[0].Rows.Count);
+			Assert.AreEqual(1, ds.Tables[0].Rows[0][0]);
+		}
+
+
+		private static IntegerNode CreateTestNode()
+		{
+			var text = "1";
+
+			var rule = new IntegerRule();
+			rule.Table = "TestTable";					// set a table for Fill test
+			rule.Column = "TestColumn";					// set a column for Fill test
+			rule.Template = "[{0:n2}]<{0:n2}>";			// set an interesting template for formatted output
+			rule.ErrorTemplate = "({0}|{1}|{2}|{3})";	// set an error template with all properties
+
+			// fake having parsed the rule to the node
+			var node = new IntegerNode(rule, text, 0, 1);
+			return node;
 		}
 	}
 }

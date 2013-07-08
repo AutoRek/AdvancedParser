@@ -68,7 +68,7 @@ namespace ParserLibraryTests
 		internal virtual RuleListBase CreateRuleListBase()
 		{
 			// TODO: Instantiate an appropriate concrete class.
-			RuleListBase target = new Sequence();
+			RuleListBase target = new SequenceRule();
 			return target;
 		}
 
@@ -79,7 +79,7 @@ namespace ParserLibraryTests
 		public void AddTest1()
 		{
 			var ruleList = CreateRuleListBase();
-			var rule = new Symbol("TEST");
+			var rule = new SymbolRule("TEST");
 			var actual = ruleList.Add(rule);
 			Assert.AreEqual(1, ruleList.Rules.Count);
 			Assert.AreSame(rule, ruleList.Rules[0]);
@@ -95,8 +95,8 @@ namespace ParserLibraryTests
 			var ruleList = CreateRuleListBase();
 			var actual = ruleList.Add("TEST");
 			Assert.AreEqual(1, ruleList.Rules.Count);
-			Assert.IsInstanceOfType(ruleList.Rules[0], typeof(Symbol));
-			Assert.AreEqual("TEST", (ruleList.Rules[0] as Symbol).Pattern);
+			Assert.IsInstanceOfType(ruleList.Rules[0], typeof(SymbolRule));
+			Assert.AreEqual("TEST", (ruleList.Rules[0] as SymbolRule).Pattern);
 			Assert.AreSame(actual, ruleList);
 		}
 

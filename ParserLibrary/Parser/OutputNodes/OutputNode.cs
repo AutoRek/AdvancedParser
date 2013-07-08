@@ -24,6 +24,7 @@ namespace ApiSoftware.Library35.Parsing
 	[XmlInclude(typeof(ErrorNode))]
 	public abstract class OutputNode
 	{
+
 		/// <summary>
 		/// Name of the field used for the record Id, if used.
 		/// </summary>
@@ -37,6 +38,12 @@ namespace ApiSoftware.Library35.Parsing
 		private List<OutputNode> children = new List<OutputNode>();
 
 		/// <summary>
+		/// The text the node refers to
+		/// </summary>
+		[XmlIgnore]
+		public string Text;
+
+		/// <summary>
 		/// Gets the list of child results to this result.
 		/// </summary>
 		/// <value>
@@ -46,7 +53,7 @@ namespace ApiSoftware.Library35.Parsing
 		[XmlElement(typeof(IntegerNode))]
 		[XmlElement(typeof(BlockNode))]
 		[XmlElement(typeof(ErrorNode))]
-		public IList<OutputNode> Children { get { return children; } }
+		public List<OutputNode> Children { get { return children; } }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the rule was successful.
@@ -54,7 +61,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		///   <c>true</c> if the rule was successful; otherwise, <c>false</c>.
 		/// </value>
-		[XmlIgnore]
+		[XmlAttribute]
 		public bool IsMatch { get; set; }
 
 		/// <summary>
@@ -91,15 +98,8 @@ namespace ApiSoftware.Library35.Parsing
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
 		public string GetErrorText()
 		{
-			if (Children.Count > 0)
-			{
-				// return the error text from the child
-				return Children.First(c => !c.IsMatch).GetErrorText();
-			}
-			else
-			{
-				return Rule.GetErrorText(this);
-			}
+			var child = Children.FirstOrDefault(c => !c.IsMatch);
+			if (child != null) return child.GetErrorText(); else return Rule.GetErrorText(this);
 		}
 
 		/// <summary>
@@ -122,10 +122,21 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Gets the value of the node.
 		/// </summary>
-		/// <returns>The value as a string.</returns>
-		virtual public object Value()
+		/// <returns>The value in the type the rule specified.</returns>
+		[XmlIgnore]
+		virtual public object Value
 		{
-			return Rule.GetValue(this);
+			get { return Rule.GetValue(this); }
+		}
+
+		/// <summary>
+		/// Gets the text value of the node.
+		/// </summary>
+		/// <returns>The value as a string.</returns>
+		[XmlIgnore]
+		virtual public string NodeText
+		{
+			get { return Text.Substring(Begin, End - Begin); }
 		}
 
 		/// <summary>
@@ -157,16 +168,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <param name="idStyle">The style for the generated ids.</param>
 		internal void Fill(DataSet dataSet, DataRow row, IdMode idMode, IdStyle idStyle)
 		{
-			var value = Value();
-
-			// If the current node specifies a column, populate the column of the
-			// current row with the node's value. (Create the column if necessary)
-			var columnName = Rule.Column;
-			if (!string.IsNullOrEmpty(columnName) && row != null)
-			{
-				if (!row.Table.Columns.Contains(columnName)) { row.Table.Columns.Add(columnName); }
-				row[columnName] = value;
-			}
+			var value = Value;
 
 			// If the node specifies a table, create a new row on that table as the
 			// current row. Create the table if necessary.
@@ -177,9 +179,33 @@ namespace ApiSoftware.Library35.Parsing
 				if (!dataSet.Tables.Contains(tableName)) { CreateTable(dataSet, idMode, tableName); }
 				row = dataSet.Tables[tableName].NewRow();
 				if (idStyle == IdStyle.Guid)
+				{
 					row[RecordIdField] = Guid.NewGuid();
+				}
 				dataSet.Tables[tableName].Rows.Add(row);
 			}
+
+			// If the current node specifies a column, populate the column of the
+			// current row with the node's value. (Create the column if necessary)
+			var columnName = Rule.Column;
+			if (!string.IsNullOrEmpty(columnName) && row != null)
+			{
+				if (!row.Table.Columns.Contains(columnName))
+				{
+					if (value == null)
+					{
+						// add the column without explicit type (will effectively be a string)
+						row.Table.Columns.Add(columnName);
+					}
+					else
+					{
+						// add the column in the correct type
+						row.Table.Columns.Add(columnName, value.GetType());
+					}
+				}
+				row[columnName] = value;
+			}
+
 			// Process all the child nodes into the current row.
 			foreach (var item in Children)
 			{
@@ -206,15 +232,17 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="OutputNode"/> class.
+		/// Initializes a new instance of the <see cref="OutputNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule the node corresponds to.</param>
+		/// <param name="text">The text the node refers to.</param>
 		/// <param name="index">The index position in the text.</param>
-		protected OutputNode(RuleBase rule, int index)
+		protected OutputNode(RuleBase rule, string text, int index)
 		{
 			Begin = index;
 			Rule = rule;
 			IsMatch = true;
+			Text = text;
 		}
 
 		/// <summary>

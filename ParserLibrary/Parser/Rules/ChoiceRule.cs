@@ -4,21 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A sequence rule
+	/// A choice rule.
 	/// </summary>
 	/// <remarks>
-	/// A sequence rule is used to recognise a sequence of symbols, where each
-	/// symbol may be literal or other value or a sub rule.
+	/// A choice rule allows the parser to try from a range different rules. The
+	/// parser will try each rule in turn and use the first successful rule as the
+	/// parse result.
+	/// 
+	/// For best performance in parsing, the most common situation should typically
+	/// be used as the first rule choice, provided the rules don't require to be in
+	/// a particular ordering to parse correctly.
 	/// </remarks>
-	public sealed class Sequence : RuleListBase
+	public sealed class ChoiceRule : RuleListBase
 	{
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
+		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
 		/// <returns>
 		/// The result of the parse.
@@ -31,39 +38,24 @@ namespace ApiSoftware.Library35.Parsing
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
-		public override OutputNode Parse(int position)
+		public override OutputNode Parse(string text, int position)
 		{
-			var result = new BlockNode(this, position);
+			OutputNode result = null;
+			OutputNode best = null;
 			foreach (var item in Rules)
 			{
-				var child = item.Parse(position);
-				result.Children.Add(child);
-				position = child.End;
-				if (!child.IsMatch)
-				{
-					//Grammar.ErrorNode = child;
-					result.IsMatch = false;
-					break;
-				}
+				result = item.Parse(text, position);
+				if (result.IsMatch) { return result; }
+				if (best == null || result.End > best.End) { best = result; }
 			}
-			// update result to last position
-			result.End = position;
-			return result;
+			return best;
 		}
 
+		[ExcludeFromCodeCoverage]
 		internal override string FormattedOutput(OutputNode node)
 		{
-			// use the template to build the string
-			var values = new string[node.Children.Count];
-			OutputNode child;
-			for (int i = 0; i < values.Length; i++)
-			{
-				child = node.Children[i];
-				values[i] = child.FormattedOutput();
-			}
-			if (Template == null) { return string.Join(string.Empty, values); } else { return Template.Values(values); }
+			throw new NotSupportedException("Formatted output is not supported on the ChoiceRule");
 		}
-
 	}
 
 }
