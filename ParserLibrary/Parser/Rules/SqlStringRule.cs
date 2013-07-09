@@ -21,7 +21,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class SqlStringRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*'(''|[^'])*'", RegexOptions.Compiled);
+		private Regex expression = new Regex(@"\G\s*'(''|[^'])*'");
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.

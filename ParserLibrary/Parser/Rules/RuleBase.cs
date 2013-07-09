@@ -16,6 +16,10 @@ namespace ApiSoftware.Library35.Parsing
 	[XmlInclude(typeof(RuleListBase))]
 	public abstract class RuleBase : IRule
 	{
+		/// <summary>
+		/// The rules hosting the parsing
+		/// </summary>
+		protected Rules rules;
 
 		/// <summary>
 		/// Gets or sets the name of the Rule
@@ -121,7 +125,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		virtual internal protected void Initialize(Rules rules)
 		{
-			//this.grammar = rules;
+			this.rules = rules;
 		}
 
 		/// <summary>

@@ -1,19 +1,19 @@
-﻿using ApiSoftware.Library35;
-using ApiSoftware.Library35.Parsing;
+﻿using ApiSoftware.Library35.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ParserLibraryTests
 {
 
-
 	/// <summary>
-	///This is a test class for RulesTest and is intended
-	///to contain all RulesTest Unit Tests
+	///This is a test class for OutputNodeTest and is intended
+	///to contain all OutputNodeTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class RulesTest
+	public class XmlExample
 	{
 
 		private TestContext testContextInstance;
@@ -65,38 +65,43 @@ namespace ParserLibraryTests
 		#endregion
 
 		/// <summary>
-		///A test for Rules Constructor
-		///</summary>
-		[TestMethod()]
-		public void RulesConstructorTest()
-		{
-			Rules target = new Rules();
-			Assert.IsNotNull(target.Rules);
-		}
-
-		/// <summary>
-		/// Verify that load xml loads OK by checking 2 rules at root level.
+		/// Parsing Example
 		/// </summary>
 		[TestMethod()]
-		public void LoadXmlTest()
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void ParsingTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol>A</Symbol><Sequence><SString/></Sequence></Rules>");
-			Assert.AreEqual(2, rules.Rules.Count);
+			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
 		}
 
-		/// <summary>
-		/// Verify fetching of named rules
-		/// </summary>
-		[TestMethod()]
-		public void RuleNameTest()
+		[TestMethod]
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void FillTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol Name='A'>A</Symbol><Sequence Name='B'><SString/></Sequence></Rules>");
-			var r1 = rules.Rules[1];
-			var r2 = rules["B"];
-			Assert.AreSame(r1, r2);
+			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.Inconclusive("XmlExample - FillTest");
 		}
 
+		[TestMethod]
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void GetFormattedOutput()
+		{
+			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
 
+			Assert.Inconclusive("XmlExample - GetFormattedOutput");
+		}
 
 	}
 }

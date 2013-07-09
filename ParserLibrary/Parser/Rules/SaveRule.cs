@@ -11,18 +11,25 @@ using System.Diagnostics;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A symbol rule.
+	/// A push rule.
 	/// </summary>
 	/// <remarks>
-	/// The symbol rule represents a single symbol in the content, e.g. a literal value
+	/// The save rule represents a single symbol in the content, e.g. a literal value
 	/// or a number or a string. The symbol is encoded using a conventional regex.
 	/// For example, encoding a symbol that allows optional preceding white space is 
 	/// achieved by including <c>\s*</c> as a prefix to the symbol.
 	/// 
+	/// The Save rule can only be used in a sequence. When the symbol is matched, it 
+	/// is saved onto the stack to be used by a back reference rule. At the end of
+	/// the sequence the saved position is automatically pulled from the stack.
+	/// 
+	/// The Save rule and BackRef rules work together to implement xml element matching
+	/// in the xml parser ensuring that the close element tag matches the opening tag.
+	/// 
 	/// When encoding literal values, especially punctuation, note that regex encoding 
 	/// must be used, e.g. an open bracket would be specified as <c>Pattern = @"\(";</c>.
 	/// </remarks>
-	public sealed class SymbolRule : RuleBase
+	public sealed class SaveRule : RuleBase
 	{
 		private Regex expression = null;
 		private string pattern;
@@ -64,6 +71,7 @@ namespace ApiSoftware.Library35.Parsing
 				if (match.Success)
 				{
 					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "SymbolRule");
+					rules.Symbols.Push(match.Value);
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
@@ -93,7 +101,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SymbolRule"/> class.
 		/// </summary>
-		public SymbolRule()
+		public SaveRule()
 		{
 			ErrorTemplate = "$: expected symbol matching regex pattern '{3}'.";
 		}
@@ -102,26 +110,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// Initializes a new instance of the <see cref="SymbolRule"/> class.
 		/// </summary>
 		/// <param name="pattern">The pattern to initialise with.</param>
-		public SymbolRule(string pattern)
+		public SaveRule(string pattern)
 			: this()
 		{
 			Pattern = pattern;
 		}
-
-		///// <summary>
-		///// Gets the error text for the node for this rule.
-		///// </summary>
-		///// <param name="node">The node.</param>
-		///// <returns>
-		///// The error text.
-		///// </returns>
-		//protected internal override string GetErrorText(OutputNode node)
-		//{
-		//    if (node == null) throw new ArgumentNullException("node");
-		//    var tp = new TextPoint(node.Text, node.End);
-		//    var errText = ErrorTemplate;
-		//    return string.Format(CultureInfo.InvariantCulture, errText, tp.Line, tp.Character, tp.Symbol, Pattern, tp.Index);
-		//}
 
 		internal override string FormattedOutput(OutputNode node)
 		{

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -40,12 +41,16 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
+			//Trace.WriteLine(Name + ":" + position, "ChoiceRule");
 			OutputNode result = null;
 			OutputNode best = null;
 			foreach (var item in Rules)
 			{
 				result = item.Parse(text, position);
-				if (result.IsMatch) { return result; }
+				if (result.IsMatch)
+				{
+					return result;
+				}
 				if (best == null || result.End > best.End) { best = result; }
 			}
 			return best;

@@ -1,7 +1,8 @@
-﻿using ApiSoftware.Library35;
-using ApiSoftware.Library35.Parsing;
+﻿using ApiSoftware.Library35.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ParserLibraryTests
@@ -9,11 +10,11 @@ namespace ParserLibraryTests
 
 
 	/// <summary>
-	///This is a test class for RulesTest and is intended
-	///to contain all RulesTest Unit Tests
+	///This is a test class for OutputNodeTest and is intended
+	///to contain all OutputNodeTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class RulesTest
+	public class GrammarExample
 	{
 
 		private TestContext testContextInstance;
@@ -64,39 +65,46 @@ namespace ParserLibraryTests
 		//
 		#endregion
 
-		/// <summary>
-		///A test for Rules Constructor
-		///</summary>
-		[TestMethod()]
-		public void RulesConstructorTest()
-		{
-			Rules target = new Rules();
-			Assert.IsNotNull(target.Rules);
-		}
 
 		/// <summary>
-		/// Verify that load xml loads OK by checking 2 rules at root level.
+		/// Parsing Example 1
 		/// </summary>
 		[TestMethod()]
-		public void LoadXmlTest()
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void ParsingExample1()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol>A</Symbol><Sequence><SString/></Sequence></Rules>");
-			Assert.AreEqual(2, rules.Rules.Count);
+			Assert.Inconclusive("TODO: Parsing Example 1");
 		}
 
 		/// <summary>
-		/// Verify fetching of named rules
+		/// Parsing Example 2
 		/// </summary>
 		[TestMethod()]
-		public void RuleNameTest()
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void ParsingExample2()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol Name='A'>A</Symbol><Sequence Name='B'><SString/></Sequence></Rules>");
-			var r1 = rules.Rules[1];
-			var r2 = rules["B"];
-			Assert.AreSame(r1, r2);
+			Assert.Inconclusive("TODO: Parsing Example 2");
 		}
 
+		/// <summary>
+		/// Parsing Example 3
+		/// </summary>
+		[TestMethod()]
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void ParsingExample3()
+		{
+			Assert.Inconclusive("TODO: Parsing Example 3");
+		}
 
+		/// <summary>
+		/// Parsing Example 4
+		/// </summary>
+		[TestMethod()]
+		[DeploymentItem("TestFiles", "TestFiles")]
+		public void ParsingExample4()
+		{
+			Assert.Inconclusive("TODO: Parsing Example 4");
+		}
 
 	}
 }

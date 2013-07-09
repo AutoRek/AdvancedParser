@@ -1,0 +1,84 @@
+﻿<!-- 
+Expression Parser 
+=================
+Parsing of simple boolean expressions with operator precedence 
+such as (A=B OR (1+2>=3))
+Output templates produce a simple functional equivalent.
+-->
+<Rules>
+	<Choice Name="Or">
+		<Sequence Template="OR({0},{2})">
+			<Include>And</Include>
+			<Symbol>\s*OR\s*</Symbol>
+			<Include>Or</Include>
+		</Sequence>
+		<Include>And</Include>
+	</Choice>
+
+	<Choice Name="And">
+		<Sequence Template="AND({0},{2})">
+			<Include>Equality</Include>
+			<Symbol>\s*AND\s*</Symbol>
+			<Include>And</Include>
+		</Sequence>
+		<Include>Equality</Include>
+	</Choice>
+
+	<Choice Name="Equality">
+		<Sequence Template="{1}({0},{2})">
+			<Include>Additive</Include>
+			<Choice>
+				<Symbol Template="EQ">\s*=\s*</Symbol>
+				<Symbol Template="NE">\s*!=\s*</Symbol>
+				<Symbol Template="GE">\s*&gt;=\s*</Symbol>
+				<Symbol Template="LE">\s*&lt;=\s*</Symbol>
+				<Symbol Template="GT">\s*&gt;\s*</Symbol>
+				<Symbol Template="LT">\s*&lt;\s*</Symbol>
+			</Choice>
+			<Include>Equality</Include>
+		</Sequence>
+		<Include>Additive</Include>
+	</Choice>
+
+	<Choice Name="Additive">
+		<Sequence Template="{1}({0},{2})">
+			<Include>Multiplicative</Include>
+			<Choice>
+				<Symbol Template="SUB">\s*\-\s*</Symbol>
+				<Symbol Template="ADD">\s*\+\s*</Symbol>
+			</Choice>
+			<Include>Additive</Include>
+		</Sequence>
+		<Include>Multiplicative</Include>
+	</Choice>
+
+	<Choice Name="Multiplicative">
+		<Sequence Template="{1}({0},{2})">
+			<Include>Unary</Include>
+			<Choice>
+				<Symbol Template="MUL">\s*\*\s*</Symbol>
+				<Symbol Template="DIV">\s*\/\s*</Symbol>
+			</Choice>
+			<Include>Multiplicative</Include>
+		</Sequence>
+		<Include>Unary</Include>
+	</Choice>
+
+	<Choice Name="Unary">
+		<Sequence>
+			<Symbol>\s*\(\s*</Symbol>
+			<Include>Or</Include>
+			<Symbol>\s*\)\s*</Symbol>
+		</Sequence>
+		<Include>Literal</Include>
+		<Include>Variable</Include>
+	</Choice>
+
+	<Choice Name="Literal">
+		<Integer />
+		<String Template="'{0}'" />
+	</Choice>
+
+	<Symbol Name="Variable" Template="{0}">\s*\w+</Symbol>
+
+</Rules>

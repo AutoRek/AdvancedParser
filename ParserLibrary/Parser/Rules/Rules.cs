@@ -18,6 +18,12 @@ namespace ApiSoftware.Library35.Parsing
 		private bool initialised;
 
 		/// <summary>
+		/// The symbol stack used during parsing
+		/// </summary>
+		[XmlIgnore]
+		public readonly Stack<string> Symbols = new Stack<string>();
+
+		/// <summary>
 		/// Gets the <see cref="ApiSoftware.Library35.Parsing.RuleBase"/> with the specified name.
 		/// </summary>
 		public RuleBase this[string name]

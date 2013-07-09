@@ -49,10 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parser\OutputNodes\BlockNode.cs" />
+    <Compile Include="Parser\OutputNodes\DateTimeNode.cs" />
     <Compile Include="Parser\OutputNodes\ErrorNode.cs" />
     <Compile Include="Parser\OutputNodes\IntegerNode.cs" />
     <Compile Include="Parser\OutputNodes\OutputNode.cs" />
     <Compile Include="Parser\OutputNodes\TextNode.cs" />
+    <Compile Include="Parser\Rules\BackReferenceRule.cs" />
+    <Compile Include="Parser\Rules\DateRule.cs" />
+    <Compile Include="Parser\Rules\SaveRule.cs" />
     <Compile Include="Parser\Rules\IfRule.cs" />
     <Compile Include="Parser\Rules\IRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

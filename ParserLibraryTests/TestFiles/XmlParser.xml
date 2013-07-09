@@ -1,4 +1,10 @@
-﻿<Rules>
+﻿<!--
+XML Parser
+==========
+Simple parsing of XML content including elements and attributes
+excluding comments, namespaces and xml declarations.
+-->
+<Rules>
 
 	<OneOrMore>
 		<Include>element</Include>
@@ -6,7 +12,7 @@
 
 	<Sequence Name='element'>
 		<Symbol>\s*&lt;</Symbol>
-		<Symbol>\w+</Symbol>
+		<Save>\w+</Save>	<!-- save the symbol for the back reference -->
 		<If Pattern='\s+\w'>
 			<OneOrMore>
 				<Include>attribute</Include>
@@ -19,7 +25,9 @@
 				<Optional>
 					<Include>content</Include>
 				</Optional>
-				<Symbol>&lt;/\w+></Symbol>
+				<Symbol>&lt;/</Symbol>
+				<BackRef/> <!-- match the saved symbol earlier -->
+				<Symbol>></Symbol>
 			</Sequence>
 		</Choice>
 	</Sequence>

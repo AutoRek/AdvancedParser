@@ -11,16 +11,15 @@ using System.Diagnostics;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// An integer rule.
+	/// A back reference rule.
 	/// </summary>
 	/// <remarks>
-	/// The integer rule parses a single integer value. 
-	/// Whitespace before the integer value is ignored.
+	/// The back reference rule matches a symbol previously matched and saved by the save rule.
 	/// </remarks>
-	[XmlRoot("Integer")]
-	public sealed class IntegerRule : RuleBase
+	public sealed class BackReferenceRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*\d+\b");
+		private string symbol;
+
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -42,15 +41,18 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			try
 			{
-				var match = expression.Match(text ?? string.Empty, position);
-				if (match.Success)
+				symbol = rules.Symbols.Peek();
+				//if (string.IsNullOrEmpty(pattern)) expression = new Regex(Regex.Escape(symbol));
+				if (string.Compare(text, position, symbol, 0, symbol.Length) == 0)
+				//var match = expression.Match(text ?? string.Empty, position);
+				//if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true", "IntegerRule");
-					return new IntegerNode(this, text, position, match.Length);
+					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "SymbolRule");
+					return new TextNode(this, text, position, symbol.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "IntegerRule");
+					//Trace.WriteLine(Name + ":" + position + ":false", "SymbolRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -61,23 +63,30 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Uses the integer rule to get the value of the node 
+		/// Gets the error text for the node for this rule.
 		/// </summary>
-		/// <param name="node">Node to get the value of.</param>
-		/// <returns>Object containing the integer value of the node (or null).</returns>
-		internal override object GetValue(OutputNode node)
+		/// <param name="node">The node.</param>
+		/// <returns>The error text.</returns>
+		internal override protected string GetErrorText(OutputNode node)
 		{
-			int i;
-			if (int.TryParse(node.NodeText, out i)) return i; else return null;
+			if (node == null) throw new ArgumentNullException("node");
+			var tp = new TextPoint(node.Text, node.Begin);
+			return string.Format(CultureInfo.InvariantCulture, GetErrorFormatString(), tp.Line, tp.Character, tp.Symbol, symbol, tp.Index);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerRule"/> class.
+		/// Initializes a new instance of the <see cref="SymbolRule"/> class.
 		/// </summary>
-		public IntegerRule()
+		public BackReferenceRule()
 		{
-			ErrorTemplate = "$: expected an integer value.";
+			ErrorTemplate = "$: expected symbol matching regex pattern '{3}'.";
 		}
+
+		internal override string FormattedOutput(OutputNode node)
+		{
+			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(Template, node.NodeText);
+		}
+
 	}
 
 }

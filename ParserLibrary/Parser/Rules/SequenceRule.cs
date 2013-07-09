@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -34,6 +35,9 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
+			int level = 0;
+			if (rules != null) level = rules.Symbols.Count;
+			//Trace.WriteLine(Name + ":" + position, "SequenceRule");
 			var result = new BlockNode(this, text, position);
 			foreach (var item in Rules)
 			{
@@ -42,13 +46,13 @@ namespace ApiSoftware.Library35.Parsing
 				position = child.End;
 				if (!child.IsMatch)
 				{
-					//Grammar.ErrorNode = child;
 					result.IsMatch = false;
 					break;
 				}
 			}
 			// update result to last position
 			result.End = position;
+			while (rules != null && rules.Symbols.Count > level) rules.Symbols.Pop();
 			return result;
 		}
 

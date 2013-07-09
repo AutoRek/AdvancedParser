@@ -32,6 +32,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// The rule.
 		/// </value>
 		[XmlElement("Symbol", typeof(SymbolRule))]
+		[XmlElement("BackRef", typeof(BackReferenceRule))]
+		[XmlElement("Save", typeof(SaveRule))]
 		[XmlElement("Integer", typeof(IntegerRule))]
 		[XmlElement("String", typeof(StringRule))]
 		[XmlElement("SString", typeof(SqlStringRule))]

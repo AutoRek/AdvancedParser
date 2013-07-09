@@ -14,7 +14,7 @@ namespace ParserLibraryTests
 	///to contain all OutputNodeTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class OutputNodeTest
+	public class PagedCSVExample
 	{
 
 		private TestContext testContextInstance;
@@ -65,13 +65,6 @@ namespace ParserLibraryTests
 		//
 		#endregion
 
-
-		internal virtual OutputNode CreateOutputNode()
-		{
-			// TODO: Instantiate an appropriate concrete class.
-			OutputNode target = null;
-			return target;
-		}
 
 		/// <summary>
 		///A test for Fill

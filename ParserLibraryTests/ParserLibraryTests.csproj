@@ -58,7 +58,12 @@
     <Compile Include="OutputTests\ErrorNodeTest.cs" />
     <Compile Include="OutputTests\IntegerNodeTest.cs" />
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
-    <Compile Include="OutputTests\OutputNodeTest.cs" />
+    <Compile Include="SystemTests\GrammarExample.cs" />
+    <Compile Include="SystemTests\SWIFTExample.cs" />
+    <Compile Include="SystemTests\PagedCSVExample.cs" />
+    <Compile Include="SystemTests\SimpleCSVExample.cs" />
+    <Compile Include="SystemTests\BooleanExpressionExample.cs" />
+    <Compile Include="SystemTests\XmlExample.cs" />
     <Compile Include="OutputTests\TextNodeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleTests\ChoiceTest.cs" />
@@ -102,6 +107,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\XmlParser.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\ExpressionParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

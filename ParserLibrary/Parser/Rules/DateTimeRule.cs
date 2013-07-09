@@ -17,10 +17,10 @@ namespace ApiSoftware.Library35.Parsing
 	/// The integer rule parses a single integer value. 
 	/// Whitespace before the integer value is ignored.
 	/// </remarks>
-	[XmlRoot("Integer")]
-	public sealed class IntegerRule : RuleBase
+	[XmlRoot("DateTime")]
+	public sealed class DateTimeRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*\d+\b");
+		private Regex expression = new Regex(@"\G\s*[0-9.:\\/-]+\b");
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -46,7 +46,7 @@ namespace ApiSoftware.Library35.Parsing
 				if (match.Success)
 				{
 					//Trace.WriteLine(Name + ":" + position + ":true", "IntegerRule");
-					return new IntegerNode(this, text, position, match.Length);
+					return new DateTimeNode(this, text, position, match.Length);
 				}
 				else
 				{
@@ -67,14 +67,14 @@ namespace ApiSoftware.Library35.Parsing
 		/// <returns>Object containing the integer value of the node (or null).</returns>
 		internal override object GetValue(OutputNode node)
 		{
-			int i;
-			if (int.TryParse(node.NodeText, out i)) return i; else return null;
+			DateTime i;
+			if (DateTime.TryParse(node.NodeText, out i)) return i; else return null;
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IntegerRule"/> class.
 		/// </summary>
-		public IntegerRule()
+		public DateTimeRule()
 		{
 			ErrorTemplate = "$: expected an integer value.";
 		}

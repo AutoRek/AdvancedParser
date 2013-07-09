@@ -42,10 +42,10 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.FormattedOutput = new System.Windows.Forms.TextBox();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.OutputNodes = new System.Windows.Forms.TreeView();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.ParseButton = new System.Windows.Forms.ToolStripButton();
-			this.OutputNodes = new System.Windows.Forms.TreeView();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -121,6 +121,7 @@
 			this.InputText.AcceptsTab = true;
 			this.InputText.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.InputText.Location = new System.Drawing.Point(0, 0);
+			this.InputText.MaxLength = 32767000;
 			this.InputText.Multiline = true;
 			this.InputText.Name = "InputText";
 			this.InputText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -235,6 +236,14 @@
 			this.tabPage4.Text = "Output Nodes";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
+			// OutputNodes
+			// 
+			this.OutputNodes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.OutputNodes.Location = new System.Drawing.Point(3, 3);
+			this.OutputNodes.Name = "OutputNodes";
+			this.OutputNodes.Size = new System.Drawing.Size(730, 291);
+			this.OutputNodes.TabIndex = 0;
+			// 
 			// toolStripContainer1
 			// 
 			// 
@@ -272,14 +281,6 @@
 			this.ParseButton.Size = new System.Drawing.Size(83, 22);
 			this.ParseButton.Text = "Parse Now";
 			this.ParseButton.Click += new System.EventHandler(this.ParseButton_Click);
-			// 
-			// OutputNodes
-			// 
-			this.OutputNodes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.OutputNodes.Location = new System.Drawing.Point(3, 3);
-			this.OutputNodes.Name = "OutputNodes";
-			this.OutputNodes.Size = new System.Drawing.Size(730, 291);
-			this.OutputNodes.TabIndex = 0;
 			// 
 			// TestWindow
 			// 
