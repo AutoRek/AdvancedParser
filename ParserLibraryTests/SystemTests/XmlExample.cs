@@ -69,10 +69,11 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void ParsingTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
 			var rules = Rules.LoadXml(xml);
 			var result = rules.Parse(data);
@@ -82,10 +83,11 @@ namespace ParserLibraryTests
 
 		[TestMethod]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void FillTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
 			var rules = Rules.LoadXml(xml);
 			var result = rules.Parse(data);
@@ -95,10 +97,11 @@ namespace ParserLibraryTests
 
 		[TestMethod]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void GetFormattedOutput()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
 			Assert.Inconclusive("XmlExample - GetFormattedOutput");
 		}

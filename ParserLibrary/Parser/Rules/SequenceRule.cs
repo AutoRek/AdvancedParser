@@ -39,6 +39,7 @@ namespace ApiSoftware.Library35.Parsing
 			if (rules != null) level = rules.Symbols.Count;
 			//Trace.WriteLine(Name + ":" + position, "SequenceRule");
 			var result = new BlockNode(this, text, position);
+			if (Rules.Count == 0) result.IsMatch = false;
 			foreach (var item in Rules)
 			{
 				var child = item.Parse(text, position);

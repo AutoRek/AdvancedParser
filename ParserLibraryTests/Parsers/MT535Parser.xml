@@ -1,0 +1,176 @@
+﻿<!--
+MT535 Inner Parser
+==================
+Parses the section 4 of an SWIFT MT535
+-->
+<Rules>
+
+<Sequence>
+  <Include>SequenceA</Include>
+  <If Pattern=":16R:SUBSAFE">
+    <OneOrMore>
+      <Include>SequenceB</Include>
+    </OneOrMore>
+  </If>
+  <If Pattern=":16R:ADDINFO">
+    <OneOrMore>
+      <Include>SequenceC</Include>
+    </OneOrMore>
+  </If>
+</Sequence>
+
+<Sequence Name="SequenceA">
+  <Include>16R-GENL</Include>
+  <OneOrMore>
+    <Include>MISC</Include>
+  </OneOrMore>
+  <Include>16S-GENL</Include>
+</Sequence>
+
+<Sequence Name="SequenceB">
+  <Include>16R-SUBSAFE</Include>
+    <Include>MISC</Include>
+    <If Pattern=":16R:FIN">
+     <OneOrMore>
+      <Include>SequenceB1</Include>
+     </OneOrMore>
+   </If>
+   <Include>MISC</Include>
+    <Include>16R-SUBSAFE</Include>
+</Sequence>
+
+<Sequence Name="SequenceB1">
+  <Include>16R-FIN</Include>
+  <If Pattern=":16R:SUBBAL">
+    <OneOrMore>
+      <Include>SequenceB1b</Include>
+    </OneOrMore>
+  </If>
+  <Include>MISC</Include>
+  <If Pattern=":16R:BREAK">
+    <OneOrMore>
+      <Include>Breakdown</Include>
+    </OneOrMore>
+  </If>
+  <Include>16S-FIN</Include>
+</Sequence>
+
+<Sequence Name="SequenceB1b">
+  <Include>16R-SUBBAL</Include>
+  <If Pattern=":16R:BREAK">
+    <OneOrMore>
+      <Include>Breakdown</Include>
+    </OneOrMore>
+  </If>
+  <Include>MISC</Include>
+  <Include>16S-SUBBAL</Include>
+</Sequence>
+
+<Sequence Name="Breakdown">
+  <Include>16R-BREAK</Include>
+  <Include>MISC</Include>
+  <Include>16S-BREAK</Include>
+</Sequence>
+
+<Sequence Name="SequenceC">
+  <Include>16R-ADDINFO</Include>
+    <Include>MISC</Include>
+  <Include>16R-ADDINFO</Include>
+</Sequence>
+
+
+
+<Sequence Name="MISC">
+  <Symbol>:\w+:(?&lt;!:16S:)</Symbol><Symbol>.*?\r\n</Symbol>
+</Sequence>
+
+
+
+
+
+<Sequence Name='16R-ADDINFO'><Symbol>:16R:ADDINFO\r\n</Symbol></Sequence>
+<Sequence Name='16R-SUBSAFE'><Symbol>:16R:SUBSAFE\r\n</Symbol></Sequence>
+<Sequence Name='16R-SUBBAL'><Symbol>:16R:SUBBAL\r\n</Symbol></Sequence>
+<Sequence Name='16R-BREAK'><Symbol>:16R:BREAK\r\n</Symbol></Sequence>
+<Sequence Name='16R-GENL'><Symbol>:16R:GENL\r\n</Symbol></Sequence>
+<Sequence Name='16R-LINK'><Symbol>:16R:LINK\r\n</Symbol></Sequence>
+<Sequence Name='16R-FIN'><Symbol>:16R:FIN\r\n</Symbol></Sequence>
+<Sequence Name='16R-FIA'><Symbol>:16R:FIA\r\n</Symbol></Sequence>
+<Sequence Name='16S-ADDINFO'><Symbol>:16S:ADDINFO\r\n</Symbol></Sequence>
+<Sequence Name='16S-SUBSAFE'><Symbol>:16S:SUBSAFE\r\n</Symbol></Sequence>
+<Sequence Name='16S-SUBBAL'><Symbol>:16S:SUBBAL\r\n</Symbol></Sequence>
+<Sequence Name='16S-BREAK'><Symbol>:16S:BREAK\r\n</Symbol></Sequence>
+<Sequence Name='16S-GENL'><Symbol>:16S:GENL\r\n</Symbol></Sequence>
+<Sequence Name='16S-LINK'><Symbol>:16S:LINK\r\n</Symbol></Sequence>
+<Sequence Name='16S-FIN'><Symbol>:16S:FIN\r\n</Symbol></Sequence>
+<Sequence Name='16S-FIA'><Symbol>:16S:FIA\r\n</Symbol></Sequence>
+
+
+<Sequence Name='11A'><Symbol>:11A:</Symbol><Symbol>:4!c//3!a\r\n</Symbol></Sequence>
+<Sequence Name='12a'><Symbol>:12a:</Symbol><Symbol>A, B, or C\r\n</Symbol></Sequence>
+<Sequence Name='13a'><Symbol>:13a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='13a'><Symbol>:13a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='13a'><Symbol>:13a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='13a'><Symbol>:13a:</Symbol><Symbol>A or J\r\n</Symbol></Sequence>
+<Sequence Name='13a'><Symbol>:13a:</Symbol><Symbol>A, B, or K\r\n</Symbol></Sequence>
+<Sequence Name='17B'><Symbol>:17B:</Symbol><Symbol>:4!c//1!a\r\n</Symbol></Sequence>
+<Sequence Name='17B'><Symbol>:17B:</Symbol><Symbol>:4!c//1!a\r\n</Symbol></Sequence>
+<Sequence Name='17B'><Symbol>:17B:</Symbol><Symbol>:4!c//1!a\r\n</Symbol></Sequence>
+<Sequence Name='19A'><Symbol>:19A:</Symbol><Symbol>:4!c//[N]3!a15d\r\n</Symbol></Sequence>
+<Sequence Name='19A'><Symbol>:19A:</Symbol><Symbol>:4!c//[N]3!a15d\r\n</Symbol></Sequence>
+<Sequence Name='19A'><Symbol>:19A:</Symbol><Symbol>:4!c//[N]3!a15d\r\n</Symbol></Sequence>
+<Sequence Name='19A'><Symbol>:19A:</Symbol><Symbol>:4!c//[N]3!a15d\r\n</Symbol></Sequence>
+<Sequence Name='19A'><Symbol>:19A:</Symbol><Symbol>:4!c//[N]3!a15d\r\n</Symbol></Sequence>
+<Sequence Name='20C'><Symbol>:20C:</Symbol><Symbol>:4!c//16x\r\n</Symbol></Sequence>
+<Sequence Name='20C'><Symbol>:20C:</Symbol><Symbol>:4!c//16x\r\n</Symbol></Sequence>
+<Sequence Name='22F'><Symbol>:22F:</Symbol><Symbol>:4!c/[8c]/4!c\r\n</Symbol></Sequence>
+<Sequence Name='22F'><Symbol>:22F:</Symbol><Symbol>:4!c/[8c]/4!c\r\n</Symbol></Sequence>
+<Sequence Name='22F'><Symbol>:22F:</Symbol><Symbol>:4!c/[8c]/4!c\r\n</Symbol></Sequence>
+<Sequence Name='22F'><Symbol>:22F:</Symbol><Symbol>:4!c/[8c]/4!c\r\n</Symbol></Sequence>
+<Sequence Name='22H'><Symbol>:22H:</Symbol><Symbol>:4!c//4!c\r\n</Symbol></Sequence>
+<Sequence Name='23G'><Symbol>:23G:</Symbol><Symbol>4!c[/4!c]\r\n</Symbol></Sequence>
+<Sequence Name='28E'><Symbol>:28E:</Symbol><Symbol>5n/4!c\r\n</Symbol></Sequence>
+<Sequence Name='35B'><Symbol>:35B:</Symbol><Symbol>[ISIN1!e12!c]\r\n</Symbol></Sequence>
+<Sequence Name='35B'><Symbol>:35B:</Symbol><Symbol>[ISIN1!e12!c]\r\n</Symbol></Sequence>
+<Sequence Name='36B'><Symbol>:36B:</Symbol><Symbol>:4!c//4!c/15d\r\n</Symbol></Sequence>
+<Sequence Name='36B'><Symbol>:36B:</Symbol><Symbol>:4!c//4!c/15d\r\n</Symbol></Sequence>
+<Sequence Name='36B'><Symbol>:36B:</Symbol><Symbol>:4!c//4!c/15d\r\n</Symbol></Sequence>
+<Sequence Name='70C'><Symbol>:70C:</Symbol><Symbol>:4!c//4*35x\r\n</Symbol></Sequence>
+<Sequence Name='70E'><Symbol>:70E:</Symbol><Symbol>:4!c//10*35x\r\n</Symbol></Sequence>
+<Sequence Name='70E'><Symbol>:70E:</Symbol><Symbol>:4!c//10*35x\r\n</Symbol></Sequence>
+<Sequence Name='90a'><Symbol>:90a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='90a'><Symbol>:90a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='90a'><Symbol>:90a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='90a'><Symbol>:90a:</Symbol><Symbol>A, B, or E\r\n</Symbol></Sequence>
+<Sequence Name='90a'><Symbol>:90a:</Symbol><Symbol>A, B, or E\r\n</Symbol></Sequence>
+<Sequence Name='92A'><Symbol>:92A:</Symbol><Symbol>:4!c//[N]15d\r\n</Symbol></Sequence>
+<Sequence Name='92B'><Symbol>:92B:</Symbol><Symbol>:4!c//3!a/3!a/15d\r\n</Symbol></Sequence>
+<Sequence Name='92B'><Symbol>:92B:</Symbol><Symbol>:4!c//3!a/3!a/15d\r\n</Symbol></Sequence>
+<Sequence Name='93a'><Symbol>:93a:</Symbol><Symbol>B or C\r\n</Symbol></Sequence>
+<Sequence Name='93B'><Symbol>:93B:</Symbol><Symbol>:4!c/[8c]/4!c/[N]15d\r\n</Symbol></Sequence>
+<Sequence Name='94a'><Symbol>:94a:</Symbol><Symbol>B or D\r\n</Symbol></Sequence>
+<Sequence Name='94a'><Symbol>:94a:</Symbol><Symbol>B, C, or F\r\n</Symbol></Sequence>
+<Sequence Name='94a'><Symbol>:94a:</Symbol><Symbol>B, C, or F\r\n</Symbol></Sequence>
+<Sequence Name='94B'><Symbol>:94B:</Symbol><Symbol>:4!c/[8c]/4!c[/30x]\r\n</Symbol></Sequence>
+<Sequence Name='95a'><Symbol>:95a:</Symbol><Symbol>P or R\r\n</Symbol></Sequence>
+<Sequence Name='95a'><Symbol>:95a:</Symbol><Symbol>P or R\r\n</Symbol></Sequence>
+<Sequence Name='95a'><Symbol>:95a:</Symbol><Symbol>P, Q, or R\r\n</Symbol></Sequence>
+<Sequence Name='97a'><Symbol>:97a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='97a'><Symbol>:97a:</Symbol><Symbol>A or B\r\n</Symbol></Sequence>
+<Sequence Name='98A'><Symbol>:98A:</Symbol><Symbol>:4!c//8!n\r\n</Symbol></Sequence>
+<Sequence Name='98a'><Symbol>:98a:</Symbol><Symbol>A or C\r\n</Symbol></Sequence>
+<Sequence Name='98a'><Symbol>:98a:</Symbol><Symbol>A or C\r\n</Symbol></Sequence>
+<Sequence Name='98a'><Symbol>:98a:</Symbol><Symbol>A, C, or E\r\n</Symbol></Sequence>
+<Sequence Name='98a'><Symbol>:98a:</Symbol><Symbol>A, C, or E\r\n</Symbol></Sequence>
+<Sequence Name='98a'><Symbol>:98a:</Symbol><Symbol>A, C, or E\r\n</Symbol></Sequence>
+<Sequence Name='99A'><Symbol>:99A:</Symbol><Symbol>:4!c//[N]3!n\r\n</Symbol></Sequence>
+<Sequence Name='99A'><Symbol>:99A:</Symbol><Symbol>:4!c//[N]3!n\r\n</Symbol></Sequence>
+
+
+
+
+
+
+
+
+</Rules>

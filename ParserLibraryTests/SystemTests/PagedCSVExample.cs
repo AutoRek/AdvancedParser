@@ -71,9 +71,10 @@ namespace ParserLibraryTests
 		///</summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void FillTest1()
 		{
-			var xml = File.ReadAllText("TestFiles\\SimplePagedCSV.xml");
+			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 
 			var rules = Rules.LoadXml(xml);
@@ -96,9 +97,10 @@ namespace ParserLibraryTests
 		///</summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void FillTest2()
 		{
-			var xml = File.ReadAllText("TestFiles\\SimplePagedCSV.xml");
+			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 
 			var rules = Rules.LoadXml(xml);
@@ -121,9 +123,10 @@ namespace ParserLibraryTests
 		///</summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("Parsers", "TestFiles")]
 		public void GetFormattedOutputTest_Full()
 		{
-			var xml = File.ReadAllText("TestFiles\\SimplePagedCSV.xml");
+			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 			var expected = File.ReadAllText("TestFiles\\SimplePagedCSV-output.txt");
 
