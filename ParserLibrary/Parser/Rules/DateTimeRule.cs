@@ -11,11 +11,11 @@ using System.Diagnostics;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// An integer rule.
+	/// A datetime rule.
 	/// </summary>
 	/// <remarks>
-	/// The integer rule parses a single integer value. 
-	/// Whitespace before the integer value is ignored.
+	/// The date time rule parses a single date time value. 
+	/// Whitespace before the date time value is ignored.
 	/// </remarks>
 	[XmlRoot("DateTime")]
 	public sealed class DateTimeRule : RuleBase
@@ -45,12 +45,12 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true", "IntegerRule");
+					//Trace.WriteLine(Name + ":" + position + ":true", "datetimeRule");
 					return new DateTimeNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "IntegerRule");
+					//Trace.WriteLine(Name + ":" + position + ":false", "datetimeRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -61,10 +61,10 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Uses the integer rule to get the value of the node 
+		/// Uses the date time rule to get the value of the node 
 		/// </summary>
 		/// <param name="node">Node to get the value of.</param>
-		/// <returns>Object containing the integer value of the node (or null).</returns>
+		/// <returns>Object containing the date time value of the node (or null).</returns>
 		internal override object GetValue(OutputNode node)
 		{
 			DateTime i;
@@ -72,11 +72,11 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerRule"/> class.
+		/// Initializes a new instance of the <see cref="DateTimeRule"/> class.
 		/// </summary>
 		public DateTimeRule()
 		{
-			ErrorTemplate = "$: expected an integer value.";
+			ErrorTemplate = "$: expected a date value.";
 		}
 	}
 

@@ -41,9 +41,10 @@ namespace ApiSoftware.Library35.Parsing
 		/// The rule.
 		/// </value>
 		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("Pull", typeof(BackReferenceRule))]
-		[XmlElement("Push", typeof(SaveRule))]
+		[XmlElement("BackRef", typeof(BackReferenceRule))]
+		[XmlElement("Save", typeof(SaveRule))]
 		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("DateTime", typeof(DateTimeRule))]
 		[XmlElement("String", typeof(StringRule))]
 		[XmlElement("SString", typeof(SqlStringRule))]
 		[XmlElement("Choice", typeof(ChoiceRule))]

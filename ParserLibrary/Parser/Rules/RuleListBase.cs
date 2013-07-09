@@ -24,6 +24,7 @@ namespace ApiSoftware.Library35.Parsing
 		[XmlElement("BackRef", typeof(BackReferenceRule))]
 		[XmlElement("Save", typeof(SaveRule))]
 		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("DateTime", typeof(DateTimeRule))]
 		[XmlElement("String", typeof(StringRule))]
 		[XmlElement("SString", typeof(SqlStringRule))]
 		[XmlElement("Choice", typeof(ChoiceRule))]

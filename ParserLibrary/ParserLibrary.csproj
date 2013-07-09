@@ -55,7 +55,7 @@
     <Compile Include="Parser\OutputNodes\OutputNode.cs" />
     <Compile Include="Parser\OutputNodes\TextNode.cs" />
     <Compile Include="Parser\Rules\BackReferenceRule.cs" />
-    <Compile Include="Parser\Rules\DateRule.cs" />
+    <Compile Include="Parser\Rules\DateTimeRule.cs" />
     <Compile Include="Parser\Rules\SaveRule.cs" />
     <Compile Include="Parser\Rules\IfRule.cs" />
     <Compile Include="Parser\Rules\IRule.cs" />
