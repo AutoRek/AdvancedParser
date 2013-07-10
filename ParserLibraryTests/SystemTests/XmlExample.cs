@@ -69,7 +69,7 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
@@ -83,7 +83,7 @@ namespace ParserLibraryTests
 
 		[TestMethod]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void FillTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
@@ -97,7 +97,7 @@ namespace ParserLibraryTests
 
 		[TestMethod]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void GetFormattedOutput()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");

@@ -74,7 +74,7 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
 			// Simple test that a simple equality gives the expected output
@@ -82,7 +82,7 @@ namespace ParserLibraryTests
 			var expected = "EQ(1,1)";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);	
+			var rules = Rules.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -93,7 +93,7 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
 			// Operator precedence automatically handled
@@ -101,7 +101,7 @@ namespace ParserLibraryTests
 			var expected = "ADD(1,MUL(2,3))";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);	
+			var rules = Rules.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -112,7 +112,7 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
 			// Complex test involving many operands and brackets and so on
@@ -120,7 +120,7 @@ namespace ParserLibraryTests
 			var expected = "OR(AND(EQ(1,1),EQ('X',A)),GT(ADD(1,MUL(2,3)),MUL(3,2)))";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);	
+			var rules = Rules.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -131,7 +131,7 @@ namespace ParserLibraryTests
 		/// </summary>
 		[TestMethod()]
 		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("Parsers", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
 			// Try a failing match
