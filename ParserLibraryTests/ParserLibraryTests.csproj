@@ -103,22 +103,22 @@
     <EmbeddedResource Include="TestFiles\SimplePagedCSV.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Parsers\CSVParser.xml">
+    <EmbeddedResource Include="TestParsers\CSVParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Parsers\XmlParser.xml">
+    <EmbeddedResource Include="TestParsers\XmlParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Parsers\ExpressionParser.xml">
+    <EmbeddedResource Include="TestParsers\ExpressionParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Parsers\PagedCSVParser.xml">
+    <EmbeddedResource Include="TestParsers\PagedCSVParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -128,7 +128,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Parsers\MT535Parser.xml">
+    <EmbeddedResource Include="TestParsers\MT535Parser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -142,7 +142,7 @@
     <Content Include="TestFiles\mt940_example_2.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Parsers\SWIFTOuterParser.xml" />
+    <Content Include="TestParsers\SWIFTOuterParser.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
