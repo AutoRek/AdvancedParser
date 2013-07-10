@@ -74,7 +74,13 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
-			Assert.Inconclusive("TODO: Parsing Example 1");
+			var xml = File.ReadAllText("TestFiles\\SWIFTOuterParser.xml");
+			var data = File.ReadAllText("TestFiles\\mt940_example_1.txt");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
 		}
 
 		/// <summary>
@@ -85,7 +91,13 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
-			Assert.Inconclusive("TODO: Parsing Example 2");
+			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
 		}
 
 		/// <summary>
@@ -96,7 +108,13 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
-			Assert.Inconclusive("TODO: Parsing Example 3");
+			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
 		}
 
 		/// <summary>
@@ -107,7 +125,13 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
-			Assert.Inconclusive("TODO: Parsing Example 4");
+			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
+
+			var rules = Rules.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
 		}
 	}
 }
