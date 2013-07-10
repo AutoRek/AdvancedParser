@@ -59,6 +59,8 @@
     <Compile Include="OutputTests\ErrorNodeTest.cs" />
     <Compile Include="OutputTests\IntegerNodeTest.cs" />
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
+    <Compile Include="RuleTests\BackReferenceTest.cs" />
+    <Compile Include="RuleTests\SaveTest.cs" />
     <Compile Include="RuleTests\DateTimeTest.cs" />
     <Compile Include="SystemTests\GrammarExample.cs" />
     <Compile Include="SystemTests\SWIFTExample.cs" />
