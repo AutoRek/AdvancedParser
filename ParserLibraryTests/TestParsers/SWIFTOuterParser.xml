@@ -12,14 +12,16 @@ SWIFT Shell
 			<Include>UserHeader</Include>
 		</Optional>
 		<Include>TextBlock</Include>
-		<Include>TrailerBlock</Include>
+		<Optional>
+			<Include>CustomTags</Include>
+		</Optional>
 	</Sequence>
 
 	<Sequence Name="BasicHeader">
 		<Symbol>\{1:</Symbol>
 		<Symbol>F|A|L</Symbol>
 		<Symbol>\d{2,2}</Symbol>
-		<Symbol>\w{12,12}</Symbol>
+		<Symbol>\w{11,11}</Symbol>
 		<Symbol>\d{4,4}</Symbol>
 		<Symbol>\d{6,6}</Symbol>
 		<Symbol>\}\s*</Symbol>
@@ -42,8 +44,8 @@ SWIFT Shell
 
 	<Sequence Name="TextBlock">
 		<Symbol>\{4:</Symbol>
-		<Symbol>[^}]*</Symbol>
-		<Symbol>\}\s*</Symbol>
+		<Symbol>(?ms).*(?=-\})</Symbol>
+		<Symbol>-\}</Symbol>
 	</Sequence>
 
 	<Sequence Name="TrailerBlock">
@@ -56,9 +58,7 @@ SWIFT Shell
 		<Symbol>I</Symbol>
 		<Symbol>\d{3,3}</Symbol>
 		<Symbol>\w{12,12}</Symbol>
-		<Symbol>S|U|N</Symbol>
-		<Symbol>1|2|3| </Symbol>
-		<Symbol>\d{3,3}</Symbol>
+		<Symbol>S\d\d\d\d|U\d\d\d\d|N</Symbol>
 	</Sequence>
 
 	<Sequence Name="OutputHeader">
@@ -73,11 +73,11 @@ SWIFT Shell
 
 	<OneOrMore Name="CustomTags">
 		<Sequence>
-		<Symbol>\{</Symbol>
-		<Symbol>\w+</Symbol>
-		<Symbol>:</Symbol>
-		<Symbol>[^}]*</Symbol>
-		<Symbol>\}\s*</Symbol>	
+			<Symbol>\{</Symbol>
+			<Symbol>\w+</Symbol>
+			<Symbol>:</Symbol>
+			<Symbol>[^}]*</Symbol>
+			<Symbol>\}\s*</Symbol>
 		</Sequence>
 	</OneOrMore>
 
