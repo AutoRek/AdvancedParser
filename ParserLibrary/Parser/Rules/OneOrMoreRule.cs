@@ -132,6 +132,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		protected internal override void Initialize(Rules rules)
 		{
+			if (OtherElements != null) throw new ArgumentException("OneOrMore rule only supports a single contained rule");
+
 			if (Rule == null) { throw new ArgumentException("'OneOrMore' rule must contain a rule"); }
 			base.Initialize(rules);
 

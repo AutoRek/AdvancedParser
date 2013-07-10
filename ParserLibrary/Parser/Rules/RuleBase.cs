@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
 using System.Globalization;
+using System.Xml;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -77,6 +78,15 @@ namespace ApiSoftware.Library35.Parsing
 		/// </value>
 		[XmlAttribute]
 		public string Column { get; set; }
+
+		/// <summary>
+		/// Gets or sets the other elements.
+		/// </summary>
+		/// <value>
+		/// The other elements.
+		/// </value>
+		[XmlAnyElement]
+		public XmlElement[] OtherElements { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the start.
