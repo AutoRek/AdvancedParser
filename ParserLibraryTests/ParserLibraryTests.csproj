@@ -133,12 +133,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\mt535_example_full.txt" />
     <Content Include="TestFiles\mt103_example_1.txt" />
     <Content Include="TestFiles\mt535_example_1.txt" />
     <Content Include="TestFiles\mt535_example_2.txt" />
     <Content Include="TestFiles\mt535_example_3.txt" />
     <Content Include="TestFiles\mt940_example_1.txt" />
     <Content Include="TestFiles\mt940_example_2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Parsers\SWIFTOuterParser.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
