@@ -97,7 +97,7 @@ Parses the section 4 of an SWIFT MT535
 
 	<Sequence Name="MISC">
 		<Symbol>:\w+:(?&lt;!:16S:)</Symbol>
-		<Symbol>.*?\r\n(?=:)</Symbol>
+		<Symbol>(?ms).*?\r\n(?=:)</Symbol>
 	</Sequence>
 
 
