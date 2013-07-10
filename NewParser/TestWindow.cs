@@ -52,7 +52,10 @@ namespace NewParser
 				else
 				{
 					var xml = result.XmlSerialize();
-					OutputText.Text += result.GetErrorText();
+					var err = result.GetErrorNode();
+					OutputText.Text += err.GetErrorText();
+					InputText.SelectionStart = err.Begin;
+					InputText.SelectionLength = err.End - err.Begin + 1;
 				}
 			}
 			catch (Exception ex)

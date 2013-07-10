@@ -98,8 +98,20 @@ namespace ApiSoftware.Library35.Parsing
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
 		public string GetErrorText()
 		{
+			var node = GetErrorNode();
+			return node.Rule.GetErrorText(node);
+			//var child = Children.FirstOrDefault(c => !c.IsMatch);
+			//if (child != null) return child.GetErrorText(); else return Rule.GetErrorText(this);
+		}
+
+		/// <summary>
+		/// Gets the error node.
+		/// </summary>
+		/// <returns></returns>
+		public OutputNode GetErrorNode()
+		{
 			var child = Children.FirstOrDefault(c => !c.IsMatch);
-			if (child != null) return child.GetErrorText(); else return Rule.GetErrorText(this);
+			if (child == null) return this; else return child.GetErrorNode();
 		}
 
 		/// <summary>
