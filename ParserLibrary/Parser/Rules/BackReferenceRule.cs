@@ -43,7 +43,7 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				symbol = rules.Symbols.Peek();
 				//if (string.IsNullOrEmpty(pattern)) expression = new Regex(Regex.Escape(symbol));
-				if (string.Compare(text, position, symbol, 0, symbol.Length) == 0)
+				if (!string.IsNullOrEmpty(text) && string.Compare(text, position, symbol, 0, symbol.Length) == 0)
 				//var match = expression.Match(text ?? string.Empty, position);
 				//if (match.Success)
 				{
@@ -79,7 +79,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public BackReferenceRule()
 		{
-			ErrorTemplate = "$: expected symbol matching regex pattern '{3}'.";
+			ErrorTemplate = "$: expected '{3}'.";
 		}
 
 		internal override string FormattedOutput(OutputNode node)

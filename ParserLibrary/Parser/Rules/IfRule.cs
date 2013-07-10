@@ -76,17 +76,12 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				if (expression.IsMatch(text ?? string.Empty, position))
 				{
-					if (Rule == null) return new ErrorNode(this, text, position);
 					return Rule.Parse(text, position);
 				}
 				else
 				{
 					return new BlockNode(this, text, position) { End = position };
 				}
-			}
-			catch (ArgumentNullException)
-			{
-				throw new ArgumentException("The 'Pattern' property must be set for an If rule.", "Pattern");
 			}
 			catch (ArgumentOutOfRangeException)
 			{
