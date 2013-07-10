@@ -111,6 +111,15 @@ namespace ParserLibraryTests
 			Assert.AreEqual("", result.Children[0].Value); // rule node is still included
 			Assert.AreEqual("B", result.Children[1].Value);
 
+			AssertUtils.RaisesException(typeof(ArgumentException), () =>
+			{
+				// No rule included should raise an error
+				var rule = CreateTestRule();
+				rule.Rule = null;
+				rules = new Rules();
+				rules.Add(rule);
+				rules.Parse("AB");
+			});
 		}
 
 
@@ -175,6 +184,7 @@ namespace ParserLibraryTests
 
 			// The reference rule should have been be replaced by an object reference to the if rule
 			Assert.AreSame(rule.Rule, rule);
+
 		}
 
 		/// <summary>

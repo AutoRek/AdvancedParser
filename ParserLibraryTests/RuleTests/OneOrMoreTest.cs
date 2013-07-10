@@ -119,6 +119,16 @@ namespace ParserLibraryTests
 
 			result = rules.Parse("B");
 			Assert.IsFalse(result.IsMatch);
+
+			AssertUtils.RaisesException(typeof(ArgumentException), () =>
+			{
+				// No rule included should raise an error
+				var rule = CreateTestRule();
+				rule.Rule = null;
+				rules = new Rules();
+				rules.Add(rule);
+				rules.Parse("AB");
+			});
 		}
 
 		/// <summary>
