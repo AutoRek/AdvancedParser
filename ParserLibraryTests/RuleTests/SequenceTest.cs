@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new SequenceRule();
 			rule.Initialize(rules);
 
@@ -85,7 +85,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParseTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Symbol>A</Symbol><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><Symbol>A</Symbol><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("AB");
@@ -111,7 +111,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParsePositionTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Symbol>A</Symbol><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><Symbol>A</Symbol><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("CAB", 1);
@@ -153,7 +153,7 @@ namespace ParserLibraryTests
 			rule.Rules[0] = new ReferenceRule("TestRule");
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.

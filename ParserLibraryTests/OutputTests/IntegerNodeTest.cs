@@ -157,8 +157,8 @@ namespace ParserLibraryTests
 			var text = "1";
 
 			var rule = new IntegerRule();
-			rule.Table = "TestTable";					// set a table for Fill test
-			rule.Column = "TestColumn";					// set a column for Fill test
+			rule.Record = "TestTable";					// set a table for Fill test
+			rule.Field = "TestColumn";					// set a column for Fill test
 			rule.Template = "[{0:n2}]<{0:n2}>";			// set an interesting template for formatted output
 			rule.ErrorTemplate = "({0}|{1}|{2}|{3})";	// set an error template with all properties
 

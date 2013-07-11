@@ -6,7 +6,6 @@ using System.Data;
 namespace ParserLibraryTests
 {
 
-
 	/// <summary>
 	///This is a test class for RuleBaseTest and is intended
 	///to contain all RuleBaseTest Unit Tests
@@ -64,12 +63,12 @@ namespace ParserLibraryTests
 		#endregion
 
 		/// <summary>
-		/// Test that the table property correctly causes the table to be created and populated.
+		/// Record property is used to assign the new record to the table in Fill
 		/// </summary>
 		[TestMethod()]
-		public void TableTest()
+		public void RecordTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Sequence Table='T'><Symbol Column='C'>\s*\d+</Symbol></Sequence></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Sequence Record='T'><Symbol Field='C'>\s*\d+</Symbol></Sequence></OneOrMore></Rules>");
 			var result = rules.Parse("123 456 789");
 			using (var ds = new DataSet())
 			{
@@ -85,12 +84,12 @@ namespace ParserLibraryTests
 		}
 
 		/// <summary>
-		/// A test for Column
+		/// Field property is used to generate table columns in Fill
 		/// </summary>
 		[TestMethod()]
-		public void ColumnTest()
+		public void FieldTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Sequence Table='T'><Symbol Column='C'>\s*\d+</Symbol></Sequence></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Sequence Record='T'><Symbol Field='C'>\s*\d+</Symbol></Sequence></OneOrMore></Rules>");
 			var result = rules.Parse("123 456 789");
 			using (var ds = new DataSet())
 			{

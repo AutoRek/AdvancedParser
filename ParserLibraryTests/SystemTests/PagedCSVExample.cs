@@ -77,7 +77,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			using (var ds = new DataSet())
@@ -103,7 +103,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			using (var ds = new DataSet())
@@ -130,7 +130,7 @@ namespace ParserLibraryTests
 			var data = File.ReadAllText("TestFiles\\SimplePagedCSV.txt");
 			var expected = File.ReadAllText("TestFiles\\SimplePagedCSV-output.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			var output = result.FormattedOutput();

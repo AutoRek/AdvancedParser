@@ -84,7 +84,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ValueTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol>1</Symbol></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Symbol>1</Symbol></Rules>");
 			var result = rules.Parse("2");
 			//var node = new ErrorNode(rules.Rules[0], text, 0);
 			Assert.AreEqual(string.Empty, result.Value);
@@ -154,8 +154,8 @@ namespace ParserLibraryTests
 			var text = "A";								// Deliberately wrong data for integer rule.
 
 			var rule = new IntegerRule();
-			rule.Table = "TestTable";					// set a table for Fill test
-			rule.Column = "TestColumn";					// set a column for Fill test
+			rule.Record = "TestTable";					// set a table for Fill test
+			rule.Field = "TestColumn";					// set a column for Fill test
 			rule.Template = "[{0:n2}]<{0:n2}>";			// set an interesting template for formatted output
 			rule.ErrorTemplate = "({0}|{1}|{2}|{3})";	// set an error template with all properties
 

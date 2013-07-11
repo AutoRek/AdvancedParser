@@ -66,7 +66,7 @@ namespace NewParser
 			//GrammarXml.SelectionTabs
 			try
 			{
-				var grammar = Rules.LoadXml(GrammarXml.Text);
+				var grammar = Parser.LoadXml(GrammarXml.Text);
 
 				Properties.Settings.Default.RulesXml = GrammarXml.Text;
 				Properties.Settings.Default.InputText = InputText.Text;

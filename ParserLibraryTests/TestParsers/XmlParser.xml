@@ -43,8 +43,8 @@ excluding comments, namespaces and xml declarations.
 		<Symbol>\s*\w+</Symbol>
 		<Symbol>\s*=</Symbol>
 		<Choice>
-			<String/>
-			<SString/>
+			<String Important="true"/>
+			<SString Important="true"/>
 		</Choice>
 	</Sequence>
 

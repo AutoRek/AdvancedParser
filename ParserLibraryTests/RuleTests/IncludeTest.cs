@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void IncludeConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new ReferenceRule();
 			rule.Initialize(rules);
 			Assert.IsNull(rule.ErrorTemplate);
@@ -84,7 +84,7 @@ namespace ParserLibraryTests
 		public void ParseTest()
 		{
 			// rule ABA where B can be 'B' or another ABA rule.
-			var rules = Rules.LoadXml(@"<Rules><Sequence Name='ABA'><Symbol>A</Symbol><Choice><Include>ABA</Include><Symbol>B</Symbol></Choice><Symbol>A</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence Name='ABA'><Symbol>A</Symbol><Choice><Include>ABA</Include><Symbol>B</Symbol></Choice><Symbol>A</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("ABA");
@@ -110,7 +110,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void ReferenceTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Choice><Include>A</Include><Symbol>B</Symbol></Choice><Symbol Name='A'>A</Symbol></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Choice><Include>A</Include><Symbol>B</Symbol></Choice><Symbol Name='A'>A</Symbol></Rules>");
 
 			// Include rule should switch pointers to the named rule
 			Assert.AreSame(

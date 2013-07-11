@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new BackReferenceRule();
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
@@ -175,7 +175,7 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.
@@ -224,7 +224,7 @@ namespace ParserLibraryTests
 			var rule = new BackReferenceRule();
 			rule.Name = "TestRule";
 			rule.Template = "[{0}]";
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 			rules.Initialize();
 			rules.Symbols.Push("A"); // fake we have already read an A in a previous save rule

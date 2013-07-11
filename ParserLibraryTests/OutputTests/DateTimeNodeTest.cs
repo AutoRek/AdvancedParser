@@ -157,8 +157,8 @@ namespace ParserLibraryTests
 			var text = "20/10/2010";
 
 			var rule = new DateTimeRule();
-			rule.Table = "TestTable";							// set a table for Fill test
-			rule.Column = "TestColumn";							// set a column for Fill test
+			rule.Record = "TestTable";							// set a table for Fill test
+			rule.Field = "TestColumn";							// set a column for Fill test
 			rule.Template = "[{0:yyyyMMdd}]<{0:yyyy-MM-dd}>";	// set an interesting template for formatted output
 			rule.ErrorTemplate = "({0}|{1}|{2}|{3})";			// set an error template with all properties
 

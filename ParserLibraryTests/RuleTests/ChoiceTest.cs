@@ -68,7 +68,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new ChoiceRule();
 			rule.Initialize(rules);
 			Assert.IsNull(rule.ErrorTemplate);
@@ -195,7 +195,7 @@ namespace ParserLibraryTests
 		[TestMethod]
 		public override void GetFormattedOutputTest()
 		{
-			var rules = Rules.LoadXml("<Rules><Sequence Template=':{0}:'><Choice><Symbol Template='[{0}]'>A</Symbol><Symbol>B</Symbol></Choice></Sequence></Rules>");
+			var rules = Parser.LoadXml("<Rules><Sequence Template=':{0}:'><Choice><Symbol Template='[{0}]'>A</Symbol><Symbol>B</Symbol></Choice></Sequence></Rules>");
 			var result = rules.Parse("A");
 			var output = result.FormattedOutput();
 			Assert.AreEqual(":[A]:", output);
@@ -220,7 +220,7 @@ namespace ParserLibraryTests
 			rule.Rules[0] = new ReferenceRule("TestRule");
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.

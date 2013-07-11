@@ -20,22 +20,26 @@ namespace ApiSoftware.Library35.Parsing
 		string Name { get; set; }
 
 		/// <summary>
-		/// Gets or sets the column name the rule will populate (if any).
+		/// Gets or sets the field name the rule parses (if any).
 		/// </summary>
 		/// <value>
 		/// The column name.
 		/// </value>
 		[XmlAttribute]
-		string Column { get; set; }
+		string Field { get; set; }
 
 		/// <summary>
-		/// Gets or sets the table name the rule will populate (if any).
+		/// Gets or sets the name of the new record the rule will populate (if any).
 		/// </summary>
 		/// <value>
-		/// The table name.
+		/// The record name.
 		/// </value>
+		/// <remarks>
+		/// The record name is commonly used as the table name when filling a data set
+		/// or the element name when generating XML.
+		/// </remarks>
 		[XmlAttribute]
-		string Table { get; set; }
+		string Record { get; set; }
 
 		/// <summary>
 		/// Gets or sets the rule's output template.

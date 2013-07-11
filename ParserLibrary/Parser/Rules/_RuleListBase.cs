@@ -64,7 +64,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		protected internal override void Initialize(Rules rules)
+		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
 			foreach (var rule in Rules)
@@ -91,9 +91,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Resolves the include rules.
 		/// </summary>
-		protected internal override void ResolveIncludes(Rules rules)
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0",
+			Justification = "Base class does validation")]
+		protected internal override void ResolveIncludes(Parser rules)
 		{
-			if (rules == null) throw new ArgumentNullException("rules");
+			base.ResolveIncludes(rules);
 			for (int i = 0; i < Rules.Count; i++)
 			{
 				var includeRule = Rules[i] as ReferenceRule;

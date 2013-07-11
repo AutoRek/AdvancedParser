@@ -148,10 +148,10 @@ namespace ParserLibraryTests
 
 			var rule = new SequenceRule();
 			rule.Add("A", "B"); // shortcut to add the symbol patterns
-			rule.Table = "TestTable";
-			rule.Rules[0].Column = "Column1";
+			rule.Record = "TestTable";
+			rule.Rules[0].Field = "Column1";
 			rule.Rules[0].Template = "-{0}-";	// individual template for 1st symbol
-			rule.Rules[1].Column = "Column2";
+			rule.Rules[1].Field = "Column2";
 			rule.Rules[1].Template = ":{0}:";	// individual template for 2nd symbol
 			rule.Template = "[{0}]<{1}>";		// Sequence template for both symbols
 

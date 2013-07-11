@@ -77,7 +77,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\SWIFTOuterParser.xml");
 			var data = File.ReadAllText("TestFiles\\mt940_example_1.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.IsTrue(result.IsMatch);
@@ -94,7 +94,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.IsTrue(result.IsMatch);
@@ -111,7 +111,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.IsTrue(result.IsMatch);
@@ -128,7 +128,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.IsTrue(result.IsMatch);

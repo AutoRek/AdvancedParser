@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new StringRule();
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
@@ -179,7 +179,7 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.

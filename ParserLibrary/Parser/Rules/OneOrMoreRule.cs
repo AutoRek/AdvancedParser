@@ -110,7 +110,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		protected internal override void Initialize(Rules rules)
+		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
 			if (Separator != null) { Separator.Initialize(rules); }

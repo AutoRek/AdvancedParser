@@ -46,7 +46,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		protected internal override void Initialize(Rules rules)
+		protected internal override void Initialize(Parser rules)
 		{
 			if (Rule == null) { throw new ArgumentException(this.GetType().Name + " must contain a rule."); }
 			if (OtherElements != null) throw new ArgumentException(this.GetType().Name + " only supports a single contained rule.");
@@ -74,9 +74,16 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Resolves the include rules.
 		/// </summary>
-		protected internal override void ResolveIncludes(Rules rules)
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0",
+			Justification = "Base class does the validation")]
+		protected internal override void ResolveIncludes(Parser rules)
 		{
-			Rule = ApplyInclude(Rule, rules);
+			base.ResolveIncludes(rules);
+			if (Rule is ReferenceRule)
+			{
+				var refName = ((ReferenceRule)Rule).Reference;
+				Rule = rules[refName];
+			}
 		}
 	}
 

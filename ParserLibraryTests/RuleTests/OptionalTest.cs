@@ -69,7 +69,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new OptionalRule();
 			rule.Rule = new SymbolRule("A");
 			rule.Initialize(rules);
@@ -83,7 +83,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void ResolveIncludesTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Optional Name='A'><Include>A</Include></Optional></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Optional Name='A'><Include>A</Include></Optional></Rules>");
 
 			// ResolveIncludes already called - just check the self reference
 			var rule = (rules["A"] as OptionalRule);
@@ -96,7 +96,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParseTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("AB");
@@ -116,7 +116,7 @@ namespace ParserLibraryTests
 				// No rule included should raise an error
 				var rule = CreateTestRule();
 				rule.Rule = null;
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rules.Parse("AB");
 			});
@@ -133,7 +133,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParsePositionTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><Optional><Symbol>A</Symbol></Optional><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("CAB", 1);
@@ -176,7 +176,7 @@ namespace ParserLibraryTests
 			rule.Rule = new ReferenceRule("TestRule");
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.

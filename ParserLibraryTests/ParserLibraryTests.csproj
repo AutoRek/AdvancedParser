@@ -59,6 +59,7 @@
     <Compile Include="OutputTests\ErrorNodeTest.cs" />
     <Compile Include="OutputTests\IntegerNodeTest.cs" />
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
+    <Compile Include="ParserUtilitiesTest.cs" />
     <Compile Include="RuleTests\BackReferenceTest.cs" />
     <Compile Include="RuleTests\SaveTest.cs" />
     <Compile Include="RuleTests\DateTimeTest.cs" />
@@ -159,6 +160,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestParsers\SWIFTOuterParser.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\SimpleCSV.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\SimpleCSV_error.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

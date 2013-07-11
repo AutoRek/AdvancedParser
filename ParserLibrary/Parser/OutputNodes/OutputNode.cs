@@ -168,7 +168,7 @@ namespace ApiSoftware.Library35.Parsing
 
 			// If the node specifies a table, create a new row on that table as the
 			// current row. Create the table if necessary.
-			var tableName = Rule.Table;
+			var tableName = Rule.Record;
 			if (!string.IsNullOrEmpty(tableName))
 			{
 				// create a new row in the named table
@@ -183,7 +183,7 @@ namespace ApiSoftware.Library35.Parsing
 
 			// If the current node specifies a column, populate the column of the
 			// current row with the node's value. (Create the column if necessary)
-			var columnName = Rule.Column;
+			var columnName = Rule.Field;
 			if (!string.IsNullOrEmpty(columnName) && row != null)
 			{
 				if (!row.Table.Columns.Contains(columnName))

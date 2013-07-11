@@ -19,6 +19,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class ErrorNode : OutputNode
 	{
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ErrorNode" /> class.
 		/// </summary>
@@ -30,6 +31,7 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			IsMatch = false;
 			End = index;
+			if (rule != null && rule.Important) rule.parserRules.ErrorNode = this;
 		}
 
 		/// <summary>

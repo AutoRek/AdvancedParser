@@ -39,7 +39,6 @@ namespace ApiSoftware.Library35.Parsing
 			if (parserRules != null) level = parserRules.Symbols.Count;
 			//Trace.WriteLine(Name + ":" + position, "SequenceRule");
 			var result = new BlockNode(this, text, position);
-			if (Rules.Count == 0) result.IsMatch = false;
 			foreach (var item in Rules)
 			{
 				var child = item.Parse(text, position);
@@ -48,6 +47,7 @@ namespace ApiSoftware.Library35.Parsing
 				if (!child.IsMatch)
 				{
 					result.IsMatch = false;
+					if (Important) parserRules.ErrorNode = child;
 					break;
 				}
 			}

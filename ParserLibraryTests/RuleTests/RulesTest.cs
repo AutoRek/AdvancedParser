@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void RulesConstructorTest()
 		{
-			Rules target = new Rules();
+			Parser target = new Parser();
 			Assert.IsNotNull(target.Rules);
 		}
 
@@ -80,7 +80,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void LoadXmlTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol>A</Symbol><Sequence><SString/></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Symbol>A</Symbol><Sequence><SString/></Sequence></Rules>");
 			Assert.AreEqual(2, rules.Rules.Count);
 		}
 
@@ -90,7 +90,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void RuleNameTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Symbol Name='A'>A</Symbol><Sequence Name='B'><SString/></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Symbol Name='A'>A</Symbol><Sequence Name='B'><SString/></Sequence></Rules>");
 			var r1 = rules.Rules[1];
 			var r2 = rules["B"];
 			Assert.AreSame(r1, r2);

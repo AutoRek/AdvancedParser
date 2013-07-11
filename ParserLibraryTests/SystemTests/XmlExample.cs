@@ -75,7 +75,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
 			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.IsTrue(result.IsMatch);
@@ -89,7 +89,7 @@ namespace ParserLibraryTests
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
 			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
 			Assert.Inconclusive("XmlExample - FillTest");

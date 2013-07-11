@@ -23,7 +23,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields",
 			Justification = "For performance reasons, this protected member is a field.")]
-		protected Rules parserRules;
+		[XmlIgnore]
+		public Parser parserRules;
 
 		/// <summary>
 		/// Gets or sets the name of the Rule
@@ -71,7 +72,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// a Column attribute, where columns will be added automatically.
 		/// </remarks>
 		[XmlAttribute]
-		public string Table { get; set; }
+		public string Record { get; set; }
 
 		/// <summary>
 		/// Gets or sets the column name.
@@ -80,7 +81,20 @@ namespace ApiSoftware.Library35.Parsing
 		/// The column.
 		/// </value>
 		[XmlAttribute]
-		public string Column { get; set; }
+		public string Field { get; set; }
+
+		/// <summary>
+		/// Gets or sets the Important flag.
+		/// </summary>
+		/// <value>
+		/// The Important flag.
+		/// </value>
+		/// <remarks>
+		/// If the rule is marked Important, the failures of this rule will be 
+		/// reported in preference to any other errors.
+		/// </remarks>
+		[XmlAttribute]
+		public bool Important { get; set; }
 
 		/// <summary>
 		/// Gets or sets the other elements.
@@ -138,7 +152,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		virtual internal protected void Initialize(Rules rules)
+		virtual internal protected void Initialize(Parser rules)
 		{
 			this.parserRules = rules;
 		}
@@ -157,27 +171,9 @@ namespace ApiSoftware.Library35.Parsing
 		/// Resolves the include rules.
 		/// </summary>
 		/// <param name="rules">Base rules to lookup against.</param>
-		virtual internal protected void ResolveIncludes(Rules rules)
-		{
-
-		}
-
-		/// <summary>
-		/// Applies the 'include' reference rule.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="rule">The potential reference rule.</param>
-		/// <param name="rules">The rules.</param>
-		/// <returns>The original rule or the referenced rule, if the original rule was a reference.</returns>
-		protected static T ApplyInclude<T>(T rule, RuleListBase rules) where T : RuleBase
+		virtual internal protected void ResolveIncludes(Parser rules)
 		{
 			if (rules == null) throw new ArgumentNullException("rules");
-			var include = rule as ReferenceRule;
-			if (include != null)
-			{
-				rule = rules[include.Reference] as T;
-			}
-			return rule;
 		}
 
 		/// <summary>

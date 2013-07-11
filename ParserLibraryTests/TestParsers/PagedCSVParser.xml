@@ -9,28 +9,28 @@
 		<Include>end</Include>
 	</Sequence>
 
-	<Sequence Name='header' Table='H' Template='&lt;H {0} {2} {4} {6}/&gt;'>
-		<Symbol Column="h1" Template="h1='{0}'">\w+</Symbol>
+	<Sequence Name='header' Record='H' Template='&lt;H {0} {2} {4} {6}/&gt;'>
+		<Symbol Field="h1" Template="h1='{0}'">\w+</Symbol>
 		<Symbol>,</Symbol>
-		<SString Column="h2" Template="h2='{0}'"/>
+		<SString Field="h2" Template="h2='{0}'"/>
 		<Symbol>,</Symbol>
-		<String Column="h3" Template="h3='{0}'" />
+		<String Field="h3" Template="h3='{0}'" />
 		<Symbol>,</Symbol>
-		<Integer Column="h4" Template="h4='{0}'" />
+		<Integer Field="h4" Template="h4='{0}'" />
 		<Symbol>\s+</Symbol>
 		<OneOrMore>
 			<Include>row</Include>
 		</OneOrMore>
 	</Sequence>
 
-	<Sequence Name='row' Table='R'>
-		<Integer Column="r1"/>
+	<Sequence Name='row' Record='R'>
+		<Integer Field="r1"/>
 		<Symbol>,</Symbol>
-		<Symbol Column="r2">\w+</Symbol>
+		<Symbol Field="r2">\w+</Symbol>
 		<Symbol>,</Symbol>
-		<Integer Column="r3"/>
+		<Integer Field="r3"/>
 		<Symbol>,</Symbol>
-		<SString Column="r4"/>
+		<SString Field="r4"/>
 		<Symbol>\s+</Symbol>
 	</Sequence>
 

@@ -68,7 +68,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new IfRule();
 			rule.Pattern = "A";
 			rule.Rule = new SymbolRule("A");
@@ -88,7 +88,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParseTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><If Pattern='A'><Symbol>A</Symbol></If><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><If Pattern='A'><Symbol>A</Symbol></If><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("AB");
@@ -108,7 +108,7 @@ namespace ParserLibraryTests
 				// Pattern missing should raise an error
 				var rule = CreateTestRule();
 				rule.Pattern = null;
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rules.Parse("AB");
 			});
@@ -118,7 +118,7 @@ namespace ParserLibraryTests
 				// No rule included should raise an error
 				var rule = CreateTestRule();
 				rule.Rule = null;
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rules.Parse("AB");
 			});
@@ -134,7 +134,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParsePositionTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><Sequence><If Pattern='A'><Symbol>A</Symbol></If><Symbol>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><If Pattern='A'><Symbol>A</Symbol></If><Symbol>B</Symbol></Sequence></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("CAB", 1);
@@ -172,7 +172,7 @@ namespace ParserLibraryTests
 		[TestMethod]
 		public override void GetFormattedOutputTest()
 		{
-			var rules = Rules.LoadXml("<Rules><Sequence Template=':{0}{1}:'><If Pattern='A'><Symbol Template='[{0}]'>A</Symbol></If><Symbol Template='({0})'>B</Symbol></Sequence></Rules>");
+			var rules = Parser.LoadXml("<Rules><Sequence Template=':{0}{1}:'><If Pattern='A'><Symbol Template='[{0}]'>A</Symbol></If><Symbol Template='({0})'>B</Symbol></Sequence></Rules>");
 			var result = rules.Parse("AB");
 			var output = result.FormattedOutput();
 			Assert.AreEqual(":[A](B):", output);
@@ -202,7 +202,7 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			rule.Rule = new ReferenceRule("TestRule");
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 			// Initialise all the rules in the rule list.
 			rules.Initialize();
@@ -214,7 +214,7 @@ namespace ParserLibraryTests
 			var seq = new SequenceRule();
 			seq.Add(new ReferenceRule("TestRule"));
 			rule.Rule = seq;
-			rules = new Rules();
+			rules = new Parser();
 			rules.Add(rule);
 			rules.Initialize();
 			Assert.AreSame(seq.Rules[0], rule);
@@ -222,14 +222,14 @@ namespace ParserLibraryTests
 			// If the rule or pattern is not set, Initialise will raise an error
 			AssertUtils.RaisesException(typeof(ArgumentException), () =>
 			{
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rule.Pattern = null;
 				rules.Initialize();
 			});
 			AssertUtils.RaisesException(typeof(ArgumentException), () =>
 			{
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rule.Pattern = "A";
 				rule.Rule = null;
@@ -238,7 +238,7 @@ namespace ParserLibraryTests
 			AssertUtils.RaisesException(typeof(ArgumentException), () =>
 			{
 				// Attempting to put 2 rules in If rule raises error
-				rules = Rules.LoadXml(@"<Rules><If Pattern='A'><Symbol>A</Symbol><Symbol>B</Symbol></If></Rules>");
+				rules = Parser.LoadXml(@"<Rules><If Pattern='A'><Symbol>A</Symbol><Symbol>B</Symbol></If></Rules>");
 				rules.Initialize();
 			});
 

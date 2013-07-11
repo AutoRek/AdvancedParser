@@ -82,7 +82,7 @@ namespace ParserLibraryTests
 			var expected = "EQ(1,1)";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -101,7 +101,7 @@ namespace ParserLibraryTests
 			var expected = "ADD(1,MUL(2,3))";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -120,7 +120,7 @@ namespace ParserLibraryTests
 			var expected = "OR(AND(EQ(1,1),EQ('X',A)),GT(ADD(1,MUL(2,3)),MUL(3,2)))";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsTrue(result.IsMatch);
 			Assert.AreEqual(expected, result.FormattedOutput());
@@ -138,7 +138,7 @@ namespace ParserLibraryTests
 			var text = "1+*2*3";
 
 			var xml = File.ReadAllText("TestFiles\\ExpressionParser.xml");
-			var rules = Rules.LoadXml(xml);
+			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(text);
 			Assert.IsFalse(result.IsMatch);
 		}

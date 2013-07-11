@@ -13,7 +13,8 @@ namespace ApiSoftware.Library35.Parsing
 	/// A list of named rules for parsing text.
 	/// </summary>
 	[Serializable]
-	public sealed class Rules : RuleListBase
+	[XmlRoot("Rules")]
+	public sealed class Parser : RuleListBase
 	{
 		private bool initialised;
 
@@ -40,7 +41,7 @@ namespace ApiSoftware.Library35.Parsing
 				var eof = new SymbolRule("\\s*$");
 				eof.Initialize(this);
 				var atEnd = eof.Parse(text, result.End);
-				if (atEnd.IsMatch) return result; else return atEnd;
+				if (atEnd.IsMatch) return result; else return ErrorNode ?? atEnd;
 			}
 			else
 			{
@@ -98,14 +99,20 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		/// <param name="xml">The Xml that contains the parsing rules.</param>
 		/// <returns>A grammar for the parsing rules.</returns>
-		public static Rules LoadXml(string xml)
+		public static Parser LoadXml(string xml)
 		{
-			var rules = Objects.XmlDeserialize<Rules>(xml);
+			var rules = Objects.XmlDeserialize<Parser>(xml);
 			rules.Initialize();
 			return rules;
 		}
 
-
+		/// <summary>
+		/// Gets or sets the error node.
+		/// </summary>
+		/// <value>
+		/// The error node.
+		/// </value>
+		public OutputNode ErrorNode { get; set; }
 	}
 
 

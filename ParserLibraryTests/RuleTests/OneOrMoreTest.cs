@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
-			var rules = new Rules();
+			var rules = new Parser();
 			var rule = new OneOrMoreRule();
 			rule.Rule = new SymbolRule("A");
 			rule.Initialize(rules);
@@ -84,7 +84,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void ResolveIncludesTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore Name='A'><Include>A</Include></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore Name='A'><Include>A</Include></OneOrMore></Rules>");
 
 			// ResolveIncludes already called - just check the self reference
 			var rule = (rules["A"] as OneOrMoreRule);
@@ -97,7 +97,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParseTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Symbol>A</Symbol></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Symbol>A</Symbol></OneOrMore></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("A");
@@ -125,7 +125,7 @@ namespace ParserLibraryTests
 				// No rule included should raise an error
 				var rule = CreateTestRule();
 				rule.Rule = null;
-				rules = new Rules();
+				rules = new Parser();
 				rules.Add(rule);
 				rules.Parse("AB");
 			});
@@ -137,7 +137,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void ParseWithSeparatorTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Separator>,</Separator><Symbol>A</Symbol></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Separator>,</Separator><Symbol>A</Symbol></OneOrMore></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("A");
@@ -171,7 +171,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void RuleTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Symbol>B</Symbol></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Symbol>B</Symbol></OneOrMore></Rules>");
 			Assert.IsInstanceOfType(rules.Rules[0], typeof(OneOrMoreRule));
 			Assert.IsInstanceOfType((rules.Rules[0] as OneOrMoreRule).Rule, typeof(SymbolRule));
 		}
@@ -182,7 +182,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public void SeparatorTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Separator>B</Separator><Symbol>A</Symbol></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Separator>B</Separator><Symbol>A</Symbol></OneOrMore></Rules>");
 			Assert.IsInstanceOfType(rules.Rules[0], typeof(OneOrMoreRule));
 			Assert.IsInstanceOfType((rules.Rules[0] as OneOrMoreRule).Separator, typeof(SymbolRule));
 			Assert.AreEqual("B", (rules.Rules[0] as OneOrMoreRule).Separator.Pattern);
@@ -198,7 +198,7 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ParsePositionTest()
 		{
-			var rules = Rules.LoadXml(@"<Rules><OneOrMore><Symbol>A</Symbol></OneOrMore></Rules>");
+			var rules = Parser.LoadXml(@"<Rules><OneOrMore><Symbol>A</Symbol></OneOrMore></Rules>");
 
 			OutputNode result;
 			result = rules.Parse("CA", 1);
@@ -248,7 +248,7 @@ namespace ParserLibraryTests
 			rule.Rule = new ReferenceRule("TestRule");
 
 			// Create the rule list and add the rule 
-			var rules = new Rules();
+			var rules = new Parser();
 			rules.Add(rule);
 
 			// Initialise all the rules in the rule list.

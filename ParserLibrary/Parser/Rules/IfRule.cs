@@ -78,7 +78,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		protected internal override void Initialize(Rules rules)
+		protected internal override void Initialize(Parser rules)
 		{
 			if (string.IsNullOrEmpty(pattern)) { throw new ArgumentException("'If' rule requires the 'Pattern' property to be provided"); }
 			base.Initialize(rules);

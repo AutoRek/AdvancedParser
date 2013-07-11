@@ -1,43 +1,30 @@
 ﻿<Rules>
-	<!-- Example of a paged CSV directly encoded in the parser -->
+	<!-- Example of a CSV directly encoded in the parser -->
 	<!-- In this example, header rows are ahead of groups of rows and an end row finished off -->
 	<!-- The rules have been set up with both Table/Column and Template properties -->
 	<Sequence Name='root'>
+		<Sequence Template='{0}:{2}:{4}:{6}&#13;&#10;'>
+			<Symbol Field="h1" Template="{0}" >\w+</Symbol>
+			<Symbol>,</Symbol>
+			<SString Field="h2" />
+			<Symbol>,</Symbol>
+			<String Field="h3" />
+			<Symbol>,</Symbol>
+			<Integer Field="h4" />
+			<Symbol>\s+</Symbol>
+		</Sequence>
 		<OneOrMore>
-			<Include>header</Include>
-		</OneOrMore>
-		<Include>end</Include>
-	</Sequence>
-
-	<Sequence Name='header' Table='H' Template='&lt;H {0} {2} {4} {6}/&gt;'>
-		<Symbol Column="h1" Template="h1='{0}'">\w+</Symbol>
-		<Symbol>,</Symbol>
-		<SString Column="h2" Template="h2='{0}'"/>
-		<Symbol>,</Symbol>
-		<String Column="h3" Template="h3='{0}'" />
-		<Symbol>,</Symbol>
-		<Integer Column="h4" Template="h4='{0}'" />
-		<Symbol>\s+</Symbol>
-		<OneOrMore>
-			<Include>row</Include>
+			<Sequence Name='row' Record='R' Important='true' Template='{0}|{2}|{4:n2}|{6}&#13;&#10;'>
+				<Integer Field="r1"/>
+				<Symbol>,</Symbol>
+				<Symbol Field="r2" Template="{0}">\w+</Symbol>
+				<Symbol>,</Symbol>
+				<Integer Field="r3"/>
+				<Symbol>,</Symbol>
+				<SString Field="r4"/>
+				<Symbol>\s+</Symbol>
+			</Sequence>
 		</OneOrMore>
 	</Sequence>
 
-	<Sequence Name='row' Table='R'>
-		<Integer Column="r1"/>
-		<Symbol>,</Symbol>
-		<Symbol Column="r2">\w+</Symbol>
-		<Symbol>,</Symbol>
-		<Integer Column="r3"/>
-		<Symbol>,</Symbol>
-		<SString Column="r4"/>
-		<Symbol>\s+</Symbol>
-	</Sequence>
-
-	<Sequence Name="end">
-		<Symbol>\w+</Symbol>
-		<Symbol>,</Symbol>
-		<Symbol>\w+</Symbol>
-		<Symbol>\s*</Symbol>
-	</Sequence>
 </Rules>
