@@ -100,5 +100,21 @@ namespace ParserLibraryTests
 			Assert.AreSame(actual, ruleList);
 		}
 
+		[TestMethod]
+		public void IndexerTest()
+		{
+			var ruleList = CreateRuleListBase();
+			var rule1 = new SymbolRule("TEST");
+			var rule2 = new SymbolRule("TEST");
+			rule2.Name = "Name";
+			ruleList.Add(rule1);
+			ruleList.Add(rule2);
+			Assert.AreSame(rule2, ruleList["Name"]);
+			AssertUtils.RaisesException(typeof(KeyNotFoundException), () => 
+			{
+				Assert.AreSame(rule1, ruleList["NotFound"]);
+			});
+		}
+
 	}
 }

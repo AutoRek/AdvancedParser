@@ -15,12 +15,15 @@ namespace ApiSoftware.Library35.Parsing
 	/// </summary>
 	[Serializable]
 	[XmlInclude(typeof(RuleListBase))]
+	[XmlInclude(typeof(RuleHolderBase))]
 	public abstract class RuleBase : IRule
 	{
 		/// <summary>
 		/// The rules hosting the parsing
 		/// </summary>
-		protected Rules rules;
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields",
+			Justification = "For performance reasons, this protected member is a field.")]
+		protected Rules parserRules;
 
 		/// <summary>
 		/// Gets or sets the name of the Rule
@@ -85,6 +88,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The other elements.
 		/// </value>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays",
+			Justification = "Internal use only: This property is only used to detect errors in grammar configuration.")]
 		[XmlAnyElement]
 		public XmlElement[] OtherElements { get; set; }
 
@@ -135,7 +140,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		virtual internal protected void Initialize(Rules rules)
 		{
-			this.rules = rules;
+			this.parserRules = rules;
 		}
 
 		/// <summary>
@@ -164,7 +169,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <param name="rule">The potential reference rule.</param>
 		/// <param name="rules">The rules.</param>
 		/// <returns>The original rule or the referenced rule, if the original rule was a reference.</returns>
-		protected static T ApplyInclude<T>(T rule, Rules rules) where T : RuleBase
+		protected static T ApplyInclude<T>(T rule, RuleListBase rules) where T : RuleBase
 		{
 			if (rules == null) throw new ArgumentNullException("rules");
 			var include = rule as ReferenceRule;
@@ -217,14 +222,14 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			if (node == null) throw new ArgumentNullException("node");
 			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, GetErrorFormatString(), tp.Line, tp.Character, tp.Symbol, string.Empty, tp.Index);
+			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, string.Empty, tp.Index);
 		}
 
 		/// <summary>
 		/// Gets the actual error format string based on the error template property.
 		/// </summary>
-		/// <returns></returns>
-		protected string GetErrorFormatString()
+		/// <returns>The string template to use for the error text.</returns>
+		protected string CreateErrorFormatString()
 		{
 			var errText = "Error at '{2}' (line {0}, position {1})";
 			if (!string.IsNullOrEmpty(ErrorTemplate)) errText = ErrorTemplate.Replace("$", errText);

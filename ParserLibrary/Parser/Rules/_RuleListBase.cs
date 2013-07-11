@@ -20,6 +20,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The rules.
 		/// </value>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists",
+			Justification = "Performance critical - use generic list")]
 		[XmlElement("Symbol", typeof(SymbolRule))]
 		[XmlElement("BackRef", typeof(BackReferenceRule))]
 		[XmlElement("Save", typeof(SaveRule))]
@@ -34,6 +36,24 @@ namespace ApiSoftware.Library35.Parsing
 		[XmlElement("Optional", typeof(OptionalRule))]
 		[XmlElement("If", typeof(IfRule))]
 		public List<RuleBase> Rules { get { return ruleList; } }
+
+		/// <summary>
+		/// Gets the <see cref="ApiSoftware.Library35.Parsing.RuleBase"/> with the specified name.
+		/// </summary>
+		public RuleBase this[string name]
+		{
+			get
+			{
+				try
+				{
+					return Rules.First(r => r.Name == name);
+				}
+				catch (InvalidOperationException e)
+				{
+					throw new KeyNotFoundException("Attempt to reference rule with name '" + name + "' but no such rule exist. Check rule names against rule references.", e);
+				}
+			}
+		}
 
 		/// <summary>
 		/// Initialises the rule with the grammar.
@@ -119,12 +139,15 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public virtual RuleListBase Add(params string[] patterns)
 		{
-			var sequence = new SequenceRule();
-			foreach (var pattern in patterns)
+			if (patterns != null)
 			{
-				sequence.Add(pattern);
+				var sequence = new SequenceRule();
+				foreach (var pattern in patterns)
+				{
+					sequence.Add(pattern);
+				}
+				Add(sequence);
 			}
-			Add(sequence);
 			return this;
 		}
 

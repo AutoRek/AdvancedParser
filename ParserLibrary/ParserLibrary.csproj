@@ -35,6 +35,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiSoftware.Library35">
       <HintPath>..\..\..\..\..\..\Projects\AutoRek50\AutoRek.Library\ApiSoftware.Library35\bin\Debug\ApiSoftware.Library35.dll</HintPath>
@@ -48,24 +54,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Parser\OutputNodes\BlockNode.cs" />
     <Compile Include="Parser\OutputNodes\DateTimeNode.cs" />
     <Compile Include="Parser\OutputNodes\ErrorNode.cs" />
     <Compile Include="Parser\OutputNodes\IntegerNode.cs" />
     <Compile Include="Parser\OutputNodes\OutputNode.cs" />
     <Compile Include="Parser\OutputNodes\TextNode.cs" />
+    <Compile Include="Parser\ParserUtilities.cs" />
     <Compile Include="Parser\Rules\BackReferenceRule.cs" />
+    <Compile Include="Parser\Rules\_RuleHolderBase.cs" />
     <Compile Include="Parser\Rules\DateTimeRule.cs" />
     <Compile Include="Parser\Rules\SaveRule.cs" />
     <Compile Include="Parser\Rules\IfRule.cs" />
-    <Compile Include="Parser\Rules\IRule.cs" />
+    <Compile Include="Parser\Rules\_IRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Parser\Rules\ChoiceRule.cs" />
     <Compile Include="Parser\Rules\OptionalRule.cs" />
     <Compile Include="Parser\Rules\IntegerRule.cs" />
     <Compile Include="Parser\Rules\OneOrMoreRule.cs" />
-    <Compile Include="Parser\Rules\RuleBase.cs" />
-    <Compile Include="Parser\Rules\RuleListBase.cs" />
+    <Compile Include="Parser\Rules\_RuleBase.cs" />
+    <Compile Include="Parser\Rules\_RuleListBase.cs" />
     <Compile Include="Parser\Rules\ReferenceRule.cs" />
     <Compile Include="Parser\Rules\Rules.cs" />
     <Compile Include="Parser\Rules\SequenceRule.cs" />
@@ -79,6 +88,9 @@
     <Content Include="Samples\CSVtext.txt" />
     <Content Include="Samples\SimplePagedCSV.txt" />
     <Content Include="Samples\SimplePagedCSV.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -20,26 +20,10 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// The symbol stack used during parsing
 		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields",
+			Justification = "For performance reasons, this public member is a field.")]
 		[XmlIgnore]
-		public readonly Stack<string> Symbols = new Stack<string>();
-
-		/// <summary>
-		/// Gets the <see cref="ApiSoftware.Library35.Parsing.RuleBase"/> with the specified name.
-		/// </summary>
-		public RuleBase this[string name]
-		{
-			get
-			{
-				try
-				{
-					return Rules.First(r => r.Name == name);
-				}
-				catch (InvalidOperationException e)
-				{
-					throw new InvalidOperationException("Attempt to reference rule with name '" + name + "' but no such rule exist. Check rule names against rule references.", e);
-				}
-			}
-		}
+		public Stack<string> Symbols = new Stack<string>();
 
 		/// <summary>
 		/// Parses the specified text using the grammar.
@@ -106,7 +90,7 @@ namespace ApiSoftware.Library35.Parsing
 		[ExcludeFromCodeCoverage]
 		internal override string FormattedOutput(OutputNode node)
 		{
-			throw new NotSupportedException("FormattedOutput is not supported from the Rules collection");
+			throw new NotSupportedException();
 		}
 
 		/// <summary>

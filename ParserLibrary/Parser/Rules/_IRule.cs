@@ -114,6 +114,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The rules.
 		/// </value>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists",
+			Justification = "Performance critical - use generic list")]
 		List<RuleBase> Rules { get; }
 	}
 

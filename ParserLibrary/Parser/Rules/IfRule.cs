@@ -16,7 +16,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// will be applied and must match. Otherwise the rule is skipped and will
 	/// return an empty block.
 	/// </remarks>
-	public sealed class IfRule : RuleBase
+	public sealed class IfRule : RuleHolderBase
 	{
 		private Regex expression = null;
 		private string pattern;
@@ -33,26 +33,6 @@ namespace ApiSoftware.Library35.Parsing
 			get { return pattern; }
 			set { pattern = value; expression = new Regex("\\G" + pattern); } // The \G forces the pattern to start at the current position.
 		}
-
-		/// <summary>
-		/// Gets or sets the rule to be conditionally applied.
-		/// </summary>
-		/// <value>
-		/// The rule.
-		/// </value>
-		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("BackRef", typeof(BackReferenceRule))]
-		[XmlElement("Save", typeof(SaveRule))]
-		[XmlElement("Integer", typeof(IntegerRule))]
-		[XmlElement("DateTime", typeof(DateTimeRule))]
-		[XmlElement("String", typeof(StringRule))]
-		[XmlElement("SString", typeof(SqlStringRule))]
-		[XmlElement("Choice", typeof(ChoiceRule))]
-		[XmlElement("Sequence", typeof(SequenceRule))]
-		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
-		[XmlElement("Include", typeof(ReferenceRule))]
-		// Do not include Optional or If as meaningless here
-		public RuleBase Rule { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -100,36 +80,10 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		protected internal override void Initialize(Rules rules)
 		{
-			if (Rule == null) { throw new ArgumentException("'If' rule must contain a rule"); }
 			if (string.IsNullOrEmpty(pattern)) { throw new ArgumentException("'If' rule requires the 'Pattern' property to be provided"); }
 			base.Initialize(rules);
-			if (Rule != null) { Rule.Initialize(rules); }
 		}
 
-		/// <summary>
-		/// Resolves the include rules.
-		/// </summary>
-		/// <param name="rules">Base rules to lookup against.</param>
-		protected internal override void GetRulesContainingIncludes(ICollection<RuleBase> rules)
-		{
-			if (rules == null) throw new ArgumentNullException("rules");
-			if (Rule is ReferenceRule)
-			{
-				rules.Add(this);
-			}
-			else
-			{
-				Rule.GetRulesContainingIncludes(rules);
-			}
-		}
-
-		/// <summary>
-		/// Resolves the include rules.
-		/// </summary>
-		protected internal override void ResolveIncludes(Rules rules)
-		{
-			Rule = ApplyInclude(Rule, rules);
-		}
 
 	}
 

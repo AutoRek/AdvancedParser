@@ -38,10 +38,15 @@ namespace ApiSoftware.Library35.Parsing
 		private List<OutputNode> children = new List<OutputNode>();
 
 		/// <summary>
-		/// The text the node refers to
+		/// The text the node refers to.
 		/// </summary>
+		/// <remarks>
+		/// For performance reasons, this is a publicly visible field.
+		/// </remarks>
 		[XmlIgnore]
-		public string Text;
+		public string Text { get { return text; } }
+
+		private string text;
 
 		/// <summary>
 		/// Gets the list of child results to this result.
@@ -49,6 +54,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The list of child nodes.
 		/// </value>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists",
+			Justification = "Performance critical - use generic list")]
 		[XmlElement(typeof(TextNode))]
 		[XmlElement(typeof(IntegerNode))]
 		[XmlElement(typeof(BlockNode))]
@@ -92,29 +99,6 @@ namespace ApiSoftware.Library35.Parsing
 		public RuleBase Rule { get; internal set; }
 
 		/// <summary>
-		/// Gets the error.
-		/// </summary>
-		/// <returns></returns>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-		public string GetErrorText()
-		{
-			var node = GetErrorNode();
-			return node.Rule.GetErrorText(node);
-			//var child = Children.FirstOrDefault(c => !c.IsMatch);
-			//if (child != null) return child.GetErrorText(); else return Rule.GetErrorText(this);
-		}
-
-		/// <summary>
-		/// Gets the error node.
-		/// </summary>
-		/// <returns></returns>
-		public OutputNode GetErrorNode()
-		{
-			var child = Children.FirstOrDefault(c => !c.IsMatch);
-			if (child == null) return this; else return child.GetErrorNode();
-		}
-
-		/// <summary>
 		/// Gets the formatted output for the node.
 		/// </summary>
 		/// <returns></returns>
@@ -148,7 +132,7 @@ namespace ApiSoftware.Library35.Parsing
 		[XmlIgnore]
 		virtual public string NodeText
 		{
-			get { return Text.Substring(Begin, End - Begin); }
+			get { return text.Substring(Begin, End - Begin); }
 		}
 
 		/// <summary>
@@ -254,7 +238,7 @@ namespace ApiSoftware.Library35.Parsing
 			Begin = index;
 			Rule = rule;
 			IsMatch = true;
-			Text = text;
+			this.text = text;
 		}
 
 		/// <summary>

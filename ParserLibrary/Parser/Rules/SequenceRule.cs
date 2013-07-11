@@ -36,7 +36,7 @@ namespace ApiSoftware.Library35.Parsing
 		public override OutputNode Parse(string text, int position)
 		{
 			int level = 0;
-			if (rules != null) level = rules.Symbols.Count;
+			if (parserRules != null) level = parserRules.Symbols.Count;
 			//Trace.WriteLine(Name + ":" + position, "SequenceRule");
 			var result = new BlockNode(this, text, position);
 			if (Rules.Count == 0) result.IsMatch = false;
@@ -53,7 +53,7 @@ namespace ApiSoftware.Library35.Parsing
 			}
 			// update result to last position
 			result.End = position;
-			while (rules != null && rules.Symbols.Count > level) rules.Symbols.Pop();
+			while (parserRules != null && parserRules.Symbols.Count > level) parserRules.Symbols.Pop();
 			return result;
 		}
 
@@ -80,9 +80,12 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override RuleListBase Add(params string[] patterns)
 		{
-			foreach (var pattern in patterns)
+			if (patterns != null)
 			{
-				Add(pattern);
+				foreach (var pattern in patterns)
+				{
+					Add(pattern);
+				}
 			}
 			return this;
 		}

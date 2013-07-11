@@ -110,6 +110,7 @@ namespace ParserLibraryTests
 		public override void GetErrorTextTest()
 		{
 			var node = CreateTestNode();
+			node.IsMatch = false;
 			Assert.AreEqual("Error at 'AB' (line 0, position 0)", node.GetErrorText());
 		}
 

@@ -15,7 +15,7 @@ namespace ApiSoftware.Library35.Parsing
 	/// a list of parameters. The Separator is optional, but if used, can improve performance
 	/// as the rule will only consider additional items if it first finds the separator.
 	/// </remarks>
-	public sealed class OneOrMoreRule : RuleBase
+	public sealed class OneOrMoreRule : RuleHolderBase
 	{
 		/// <summary>
 		/// Gets or sets the separator that separates the repeating elements.
@@ -24,26 +24,6 @@ namespace ApiSoftware.Library35.Parsing
 		/// The separator.
 		/// </value>
 		public SymbolRule Separator { get; set; }
-
-		/// <summary>
-		/// Gets or sets the rule to be used as the repeating element.
-		/// </summary>
-		/// <value>
-		/// The rule.
-		/// </value>
-		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("BackRef", typeof(BackReferenceRule))]
-		[XmlElement("Save", typeof(SaveRule))]
-		[XmlElement("Integer", typeof(IntegerRule))]
-		[XmlElement("DateTime", typeof(DateTimeRule))]
-		[XmlElement("String", typeof(StringRule))]
-		[XmlElement("SString", typeof(SqlStringRule))]
-		[XmlElement("Choice", typeof(ChoiceRule))]
-		[XmlElement("Sequence", typeof(SequenceRule))]
-		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
-		[XmlElement("Include", typeof(ReferenceRule))]
-		// Do not include Optional or If as meaningless here
-		public RuleBase Rule { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -132,13 +112,8 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		protected internal override void Initialize(Rules rules)
 		{
-			if (OtherElements != null) throw new ArgumentException("OneOrMore rule only supports a single contained rule");
-
-			if (Rule == null) { throw new ArgumentException("'OneOrMore' rule must contain a rule"); }
 			base.Initialize(rules);
-
 			if (Separator != null) { Separator.Initialize(rules); }
-			Rule.Initialize(rules);
 		}
 
 		/// <summary>
@@ -147,28 +122,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// <param name="rules">Base rules to lookup against.</param>
 		protected internal override void GetRulesContainingIncludes(ICollection<RuleBase> rules)
 		{
-			if (rules == null) throw new ArgumentNullException("rules");
-			if (Rule is ReferenceRule) // || Separator is Include) // currently Separator is a symbol only
-			{
-				rules.Add(this);
-			}
-			if (Rule != null)
-			{
-				Rule.GetRulesContainingIncludes(rules);
-			}
+			base.GetRulesContainingIncludes(rules);
 			if (Separator != null)
 			{
 				Separator.GetRulesContainingIncludes(rules);
 			}
-		}
-
-		/// <summary>
-		/// Resolves the include rules.
-		/// </summary>
-		protected internal override void ResolveIncludes(Rules rules)
-		{
-			Separator = ApplyInclude(Separator, rules);
-			Rule = ApplyInclude(Rule, rules);
 		}
 
 		internal override string FormattedOutput(OutputNode node)

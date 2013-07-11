@@ -59,7 +59,7 @@ namespace ApiSoftware.Library35.Parsing
 		[ExcludeFromCodeCoverage]
 		internal override string FormattedOutput(OutputNode node)
 		{
-			throw new NotSupportedException("Formatted output is not supported on the ChoiceRule");
+			throw new NotSupportedException();
 		}
 	}
 

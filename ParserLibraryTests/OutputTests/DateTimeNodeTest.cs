@@ -126,6 +126,7 @@ namespace ParserLibraryTests
 		public override void GetErrorTextTest()
 		{
 			var node = CreateTestNode();
+			node.IsMatch = false;
 			Assert.AreEqual("(0|0|20|)", node.GetErrorText());
 		}
 

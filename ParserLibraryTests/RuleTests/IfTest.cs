@@ -75,6 +75,7 @@ namespace ParserLibraryTests
 			rule.Initialize(rules);
 			Assert.IsNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
+			Assert.AreEqual("A", rule.Pattern);
 		}
 
 
@@ -200,17 +201,23 @@ namespace ParserLibraryTests
 			// Create an if rule with its Rule as a reference to itself
 			var rule = CreateTestRule();
 			rule.Rule = new ReferenceRule("TestRule");
-
 			// Create the rule list and add the rule 
 			var rules = new Rules();
 			rules.Add(rule);
-
 			// Initialise all the rules in the rule list.
 			rules.Initialize();
-
 			// The reference rule should have been be replaced by an object reference to the if rule
 			Assert.AreSame(rule.Rule, rule);
 
+			// Same test but the reference rule is in a sequence in the rule.
+			rule = CreateTestRule();
+			var seq = new SequenceRule();
+			seq.Add(new ReferenceRule("TestRule"));
+			rule.Rule = seq;
+			rules = new Rules();
+			rules.Add(rule);
+			rules.Initialize();
+			Assert.AreSame(seq.Rules[0], rule);
 
 			// If the rule or pattern is not set, Initialise will raise an error
 			AssertUtils.RaisesException(typeof(ArgumentException), () =>
@@ -228,6 +235,13 @@ namespace ParserLibraryTests
 				rule.Rule = null;
 				rules.Initialize();
 			});
+			AssertUtils.RaisesException(typeof(ArgumentException), () =>
+			{
+				// Attempting to put 2 rules in If rule raises error
+				rules = Rules.LoadXml(@"<Rules><If Pattern='A'><Symbol>A</Symbol><Symbol>B</Symbol></If></Rules>");
+				rules.Initialize();
+			});
+
 		}
 
 		/// <summary>

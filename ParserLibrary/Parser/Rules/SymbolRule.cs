@@ -87,7 +87,7 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			if (node == null) throw new ArgumentNullException("node");
 			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, GetErrorFormatString(), tp.Line, tp.Character, tp.Symbol, pattern, tp.Index);
+			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, pattern, tp.Index);
 		}
 
 		/// <summary>
@@ -108,24 +108,9 @@ namespace ApiSoftware.Library35.Parsing
 			Pattern = pattern;
 		}
 
-		///// <summary>
-		///// Gets the error text for the node for this rule.
-		///// </summary>
-		///// <param name="node">The node.</param>
-		///// <returns>
-		///// The error text.
-		///// </returns>
-		//protected internal override string GetErrorText(OutputNode node)
-		//{
-		//    if (node == null) throw new ArgumentNullException("node");
-		//    var tp = new TextPoint(node.Text, node.End);
-		//    var errText = ErrorTemplate;
-		//    return string.Format(CultureInfo.InvariantCulture, errText, tp.Line, tp.Character, tp.Symbol, Pattern, tp.Index);
-		//}
-
 		internal override string FormattedOutput(OutputNode node)
 		{
-			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(Template, node.NodeText);
+			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(CultureInfo.CurrentCulture, Template, node.NodeText);
 		}
 
 		/// <summary>

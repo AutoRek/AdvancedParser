@@ -14,27 +14,8 @@ namespace ApiSoftware.Library35.Parsing
 	/// <remarks>
 	/// An optional rule allows the parser to try a rule without failing if there is no match.
 	/// </remarks>
-	public sealed class OptionalRule : RuleBase
+	public sealed class OptionalRule : RuleHolderBase
 	{
-		/// <summary>
-		/// Gets or sets the rule to be optionally applied.
-		/// </summary>
-		/// <value>
-		/// The rule.
-		/// </value>
-		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("BackRef", typeof(BackReferenceRule))]
-		[XmlElement("Save", typeof(SaveRule))]
-		[XmlElement("Integer", typeof(IntegerRule))]
-		[XmlElement("DateTime", typeof(DateTimeRule))]
-		[XmlElement("String", typeof(StringRule))]
-		[XmlElement("SString", typeof(SqlStringRule))]
-		[XmlElement("Choice", typeof(ChoiceRule))]
-		[XmlElement("Sequence", typeof(SequenceRule))]
-		[XmlElement("OneOrMore", typeof(OneOrMoreRule))]
-		[XmlElement("Include", typeof(ReferenceRule))]
-		// Do not include Optional or If as meaningless here
-		public RuleBase Rule { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -63,49 +44,6 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				return new BlockNode(this, text, position) { End = position };
 			}
-		}
-
-		/// <summary>
-		/// Initialises the rule with the grammar.
-		/// </summary>
-		/// <param name="rules">The grammar to initialise with.</param>
-		/// <remarks>
-		/// All rules are initialised with the root-level node that represents
-		/// the grammar to give each rule access to the other named rules and
-		/// to the text being parsed.
-		/// </remarks>
-		protected internal override void Initialize(Rules rules)
-		{
-			if (Rule == null) { throw new ArgumentException("'Optional' rule must contain a rule"); }
-			base.Initialize(rules);
-			Rule.Initialize(rules);
-		}
-
-		/// <summary>
-		/// Builds a list of all rules that contain named references to other
-		/// rules which will require to be resolved.
-		/// </summary>
-		/// <param name="rules">The rules containing named rule references.</param>
-		protected internal override void GetRulesContainingIncludes(ICollection<RuleBase> rules)
-		{
-			if (rules == null) throw new ArgumentNullException("rules");
-			if (Rule is ReferenceRule)
-			{
-				rules.Add(this);
-			}
-			else
-			{
-				Rule.GetRulesContainingIncludes(rules);
-			}
-		}
-
-		/// <summary>
-		/// Resolves the include rules.
-		/// </summary>
-		/// <param name="rules">Base rules to lookup against.</param>
-		protected internal override void ResolveIncludes(Rules rules)
-		{
-			Rule = ApplyInclude(Rule, rules);
 		}
 
 	}

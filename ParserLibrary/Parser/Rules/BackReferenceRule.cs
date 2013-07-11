@@ -41,11 +41,8 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			try
 			{
-				symbol = rules.Symbols.Peek();
-				//if (string.IsNullOrEmpty(pattern)) expression = new Regex(Regex.Escape(symbol));
-				if (!string.IsNullOrEmpty(text) && string.Compare(text, position, symbol, 0, symbol.Length) == 0)
-				//var match = expression.Match(text ?? string.Empty, position);
-				//if (match.Success)
+				symbol = parserRules.Symbols.Peek();
+				if (!string.IsNullOrEmpty(text) && string.Compare(text, position, symbol, 0, symbol.Length, StringComparison.Ordinal) == 0)
 				{
 					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "SymbolRule");
 					return new TextNode(this, text, position, symbol.Length);
@@ -71,7 +68,7 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			if (node == null) throw new ArgumentNullException("node");
 			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, GetErrorFormatString(), tp.Line, tp.Character, tp.Symbol, symbol, tp.Index);
+			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, symbol, tp.Index);
 		}
 
 		/// <summary>
@@ -84,7 +81,7 @@ namespace ApiSoftware.Library35.Parsing
 
 		internal override string FormattedOutput(OutputNode node)
 		{
-			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(Template, node.NodeText);
+			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(CultureInfo.CurrentCulture, Template, node.NodeText);
 		}
 
 	}
