@@ -7,11 +7,11 @@ namespace ParserLibraryTests
 
 
 	/// <summary>
-	///This is a test class for SymbolTest and is intended
-	///to contain all SymbolTest Unit Tests
+	///This is a test class for DecimalTest and is intended
+	///to contain all DecimalTest Unit Tests
 	///</summary>
 	[TestClass()]
-	public class SymbolTest : RuleTestsBaseClass
+	public class DecimalTest : RuleTestsBaseClass
 	{
 
 
@@ -65,46 +65,32 @@ namespace ParserLibraryTests
 
 
 		/// <summary>
-		/// A test for Symbol Constructor
-		/// </summary>
+		///A test for Decimal Constructor
+		///</summary>
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
 			var rules = new Parser();
-			var rule = new SymbolRule();
+			var rule = new DecimalRule();
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
 
 		/// <summary>
-		/// A test for Symbol Constructor
-		/// </summary>
-		[TestMethod()]
-		public void ConstructorTest2()
-		{
-			var rules = new Parser();
-			var rule = new SymbolRule("TEST");
-			rule.Initialize(rules);
-			Assert.IsNotNull(rule.ErrorTemplate);
-			Assert.IsNull(rule.Template);
-			Assert.AreEqual("TEST", rule.Pattern);
-		}
-
-		/// <summary>
-		/// A test for Parse
-		/// </summary>
+		///A test for Parse
+		///</summary>
 		[TestMethod()]
 		public override void ParseTest()
 		{
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("A B");
+			result = rule.Parse("123.4 B");
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual("A", result.Value);
+			Assert.AreEqual(123.4M, result.Value);
 
-			result = rule.Parse("B A");
+			result = rule.Parse("A B");
 			Assert.IsFalse(result.IsMatch);
 
 			result = rule.Parse(null);
@@ -124,9 +110,9 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("C A B", 2);
+			result = rule.Parse("A 123.4 B", 2);
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual("A", result.Value);
+			Assert.AreEqual(123.4M, result.Value);
 
 			result = rule.Parse("A B", 2);
 			Assert.IsFalse(result.IsMatch);
@@ -141,7 +127,7 @@ namespace ParserLibraryTests
 		public override void ParseErrorInput()
 		{
 			var rule = CreateTestRule();
-			var text = "A";
+			var text = "1";
 			var result = rule.Parse(text, 3);
 		}
 
@@ -155,13 +141,9 @@ namespace ParserLibraryTests
 		public override void GetFormattedOutputTest()
 		{
 			var rule = CreateTestRule();
-			var result = rule.Parse("A");
+			var result = rule.Parse("1.23");
 			var output = result.FormattedOutput();
-			Assert.AreEqual("[A]", output);
-
-			// if the symbol rule has no template, it does not provide formatted output by default
-			rule.Template = null;
-			Assert.AreEqual("", result.FormattedOutput());
+			Assert.AreEqual("[1.23]", output);
 		}
 
 		/// <summary>
@@ -172,7 +154,7 @@ namespace ParserLibraryTests
 		public override void ToStringTest()
 		{
 			var rule = CreateTestRule();
-			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.SymbolRule(A)", rule.ToString());
+			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.DecimalRule", rule.ToString());
 		}
 
 		/// <summary>
@@ -194,7 +176,7 @@ namespace ParserLibraryTests
 			// Initialise all the rules in the rule list.
 			rules.Initialize();
 
-			// No errors mean pass as integer rule is not changed on initialise.
+			// No errors mean pass as decimal rule is not changed on initialise.
 		}
 
 		/// <summary>
@@ -208,11 +190,11 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("A");
-			Assert.AreEqual("A", rule.GetValue(result));
+			result = rule.Parse("1,234.23");
+			Assert.AreEqual(1234.23M, rule.GetValue(result));
 
-			result = rule.Parse("1");
-			Assert.AreEqual("", rule.GetValue(result));
+			result = rule.Parse("A");
+			Assert.AreEqual(null, rule.GetValue(result));
 		}
 
 		/// <summary>
@@ -226,18 +208,29 @@ namespace ParserLibraryTests
 		public override void GetErrorTextTest()
 		{
 			var rule = CreateTestRule();
-			var result = rule.Parse("B");
+			var result = rule.Parse("A");
 			var error = rule.GetErrorText(result);
-			Assert.AreEqual("Error at 'B' (line 0, position 0): expected symbol matching regex pattern 'A'.", error);
-			//Assert.AreEqual("A", error);
+			Assert.AreEqual("Error at 'A' (line 0, position 0): expected an decimal value.", error);
 		}
 
-
-		private SymbolRule CreateTestRule()
+		/// <summary>
+		///A test for GetErrorReason
+		///</summary>
+		[TestMethod()]
+		public void GetErrorReasonTest()
 		{
-			var rule = new SymbolRule("A");
+			var rules = Parser.LoadXml(@"<Rules><Sequence><Symbol>A</Symbol><Decimal/></Sequence></Rules>");
+			OutputNode result;
+			result = rules.Parse("AB");
+			var error = result.GetErrorText();
+			Assert.AreEqual("Error at 'B' (line 0, position 1): expected an decimal value.", error);
+		}
+
+		private DecimalRule CreateTestRule()
+		{
+			var rule = new DecimalRule();
 			rule.Name = "TestRule";
-			rule.Template = "[{0}]";
+			rule.Template = "[{0:n2}]";
 			return rule;
 		}
 	}

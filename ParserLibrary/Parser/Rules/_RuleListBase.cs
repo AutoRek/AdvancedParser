@@ -23,9 +23,12 @@ namespace ApiSoftware.Library35.Parsing
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists",
 			Justification = "Performance critical - use generic list")]
 		[XmlElement("Symbol", typeof(SymbolRule))]
+		[XmlElement("CrLf", typeof(CrLfRule))]
+		[XmlElement("Whitespace", typeof(WhitespaceRule))]
 		[XmlElement("BackRef", typeof(BackReferenceRule))]
 		[XmlElement("Save", typeof(SaveRule))]
 		[XmlElement("Integer", typeof(IntegerRule))]
+		[XmlElement("Decimal", typeof(DecimalRule))]
 		[XmlElement("DateTime", typeof(DateTimeRule))]
 		[XmlElement("String", typeof(StringRule))]
 		[XmlElement("SString", typeof(SqlStringRule))]

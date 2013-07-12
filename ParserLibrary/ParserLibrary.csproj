@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Parser\OutputNodes\BlockNode.cs" />
+    <Compile Include="Parser\OutputNodes\DecimalNode.cs" />
     <Compile Include="Parser\OutputNodes\DateTimeNode.cs" />
     <Compile Include="Parser\OutputNodes\ErrorNode.cs" />
     <Compile Include="Parser\OutputNodes\IntegerNode.cs" />
@@ -63,6 +64,9 @@
     <Compile Include="Parser\OutputNodes\TextNode.cs" />
     <Compile Include="Parser\ParserUtilities.cs" />
     <Compile Include="Parser\Rules\BackReferenceRule.cs" />
+    <Compile Include="Parser\Rules\DecimalRule.cs" />
+    <Compile Include="Parser\Rules\WhitespaceRule.cs" />
+    <Compile Include="Parser\Rules\CrLfRule.cs" />
     <Compile Include="Parser\Rules\_RuleHolderBase.cs" />
     <Compile Include="Parser\Rules\DateTimeRule.cs" />
     <Compile Include="Parser\Rules\SaveRule.cs" />

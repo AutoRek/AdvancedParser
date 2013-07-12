@@ -55,12 +55,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutputTests\BlockNodeTest.cs" />
+    <Compile Include="OutputTests\DecimalNodeTest.cs" />
     <Compile Include="OutputTests\DateTimeNodeTest.cs" />
     <Compile Include="OutputTests\ErrorNodeTest.cs" />
     <Compile Include="OutputTests\IntegerNodeTest.cs" />
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
     <Compile Include="ParserUtilitiesTest.cs" />
     <Compile Include="RuleTests\BackReferenceTest.cs" />
+    <Compile Include="RuleTests\CrLfTest.cs" />
+    <Compile Include="RuleTests\WhitespaceTest.cs" />
+    <Compile Include="RuleTests\DecimalTest.cs" />
     <Compile Include="RuleTests\SaveTest.cs" />
     <Compile Include="RuleTests\DateTimeTest.cs" />
     <Compile Include="SystemTests\GrammarExample.cs" />

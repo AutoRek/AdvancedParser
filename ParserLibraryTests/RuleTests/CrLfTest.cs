@@ -7,20 +7,20 @@ namespace ParserLibraryTests
 
 
 	/// <summary>
-	///This is a test class for SymbolTest and is intended
-	///to contain all SymbolTest Unit Tests
-	///</summary>
+	/// This is a test class for CrLfTest and is intended
+	/// to contain all CrLfTest Unit Tests
+	/// </summary>
 	[TestClass()]
-	public class SymbolTest : RuleTestsBaseClass
+	public class CrLfTest : RuleTestsBaseClass
 	{
 
 
 		private TestContext testContextInstance;
 
 		/// <summary>
-		///Gets or sets the test context which provides
-		///information about and functionality for the current test run.
-		///</summary>
+		/// Gets or sets the test context which provides
+		/// information about and functionality for the current test run.
+		/// </summary>
 		public TestContext TestContext
 		{
 			get
@@ -65,34 +65,20 @@ namespace ParserLibraryTests
 
 
 		/// <summary>
-		/// A test for Symbol Constructor
+		/// A test for CrLf Constructor
 		/// </summary>
 		[TestMethod()]
 		public override void ConstructorTest()
 		{
 			var rules = new Parser();
-			var rule = new SymbolRule();
+			var rule = new CrLfRule();
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
 
 		/// <summary>
-		/// A test for Symbol Constructor
-		/// </summary>
-		[TestMethod()]
-		public void ConstructorTest2()
-		{
-			var rules = new Parser();
-			var rule = new SymbolRule("TEST");
-			rule.Initialize(rules);
-			Assert.IsNotNull(rule.ErrorTemplate);
-			Assert.IsNull(rule.Template);
-			Assert.AreEqual("TEST", rule.Pattern);
-		}
-
-		/// <summary>
-		/// A test for Parse
+		/// All consecutive CrLf is read as one block.
 		/// </summary>
 		[TestMethod()]
 		public override void ParseTest()
@@ -100,9 +86,9 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("A B");
+			result = rule.Parse("\r\n B");
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual("A", result.Value);
+			Assert.AreEqual("\r\n", result.Value);
 
 			result = rule.Parse("B A");
 			Assert.IsFalse(result.IsMatch);
@@ -124,11 +110,11 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("C A B", 2);
+			result = rule.Parse("C\r\n A B", 1);
 			Assert.IsTrue(result.IsMatch);
-			Assert.AreEqual("A", result.Value);
+			Assert.AreEqual("\r\n", result.Value);
 
-			result = rule.Parse("A B", 2);
+			result = rule.Parse("A B", 1);
 			Assert.IsFalse(result.IsMatch);
 		}
 
@@ -155,11 +141,11 @@ namespace ParserLibraryTests
 		public override void GetFormattedOutputTest()
 		{
 			var rule = CreateTestRule();
-			var result = rule.Parse("A");
+			var result = rule.Parse("\r\n ");
 			var output = result.FormattedOutput();
-			Assert.AreEqual("[A]", output);
+			Assert.AreEqual("[\r\n]", output);
 
-			// if the symbol rule has no template, it does not provide formatted output by default
+			// if the CrLf rule has no template, it does not provide formatted output by default
 			rule.Template = null;
 			Assert.AreEqual("", result.FormattedOutput());
 		}
@@ -172,7 +158,7 @@ namespace ParserLibraryTests
 		public override void ToStringTest()
 		{
 			var rule = CreateTestRule();
-			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.SymbolRule(A)", rule.ToString());
+			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.CrLfRule", rule.ToString());
 		}
 
 		/// <summary>
@@ -208,8 +194,8 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			OutputNode result;
 
-			result = rule.Parse("A");
-			Assert.AreEqual("A", rule.GetValue(result));
+			result = rule.Parse("\r\n\t ");
+			Assert.AreEqual("\r\n", rule.GetValue(result));
 
 			result = rule.Parse("1");
 			Assert.AreEqual("", rule.GetValue(result));
@@ -228,14 +214,14 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			var result = rule.Parse("B");
 			var error = rule.GetErrorText(result);
-			Assert.AreEqual("Error at 'B' (line 0, position 0): expected symbol matching regex pattern 'A'.", error);
+			Assert.AreEqual("Error at 'B' (line 0, position 0): expected CrLf", error);
 			//Assert.AreEqual("A", error);
 		}
 
 
-		private SymbolRule CreateTestRule()
+		private CrLfRule CreateTestRule()
 		{
-			var rule = new SymbolRule("A");
+			var rule = new CrLfRule();
 			rule.Name = "TestRule";
 			rule.Template = "[{0}]";
 			return rule;
