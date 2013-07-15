@@ -19,7 +19,7 @@ namespace ApiSoftware.Library35.Parsing
 	{
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerNode" /> class.
+		/// Initializes a new instance of the <see cref="DateTimeNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule.</param>
 		/// <param name="text">The text.</param>
@@ -32,7 +32,7 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerNode"/> class.
+		/// Initializes a new instance of the <see cref="DateTimeNode"/> class.
 		/// </summary>
 		[ExcludeFromCodeCoverage]
 		private DateTimeNode()

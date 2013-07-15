@@ -18,10 +18,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// If the rule is unsuccessful, the Position is left unchanged.
 	/// </remarks>
 	[Serializable]
-	[XmlInclude(typeof(TextNode))]
-	[XmlInclude(typeof(IntegerNode))]
-	[XmlInclude(typeof(BlockNode))]
-	[XmlInclude(typeof(ErrorNode))]
 	public abstract class OutputNode
 	{
 
@@ -58,6 +54,8 @@ namespace ApiSoftware.Library35.Parsing
 			Justification = "Performance critical - use generic list")]
 		[XmlElement(typeof(TextNode))]
 		[XmlElement(typeof(IntegerNode))]
+		[XmlElement(typeof(DateTimeNode))]
+		[XmlElement(typeof(DecimalNode))]
 		[XmlElement(typeof(BlockNode))]
 		[XmlElement(typeof(ErrorNode))]
 		public List<OutputNode> Children { get { return children; } }
