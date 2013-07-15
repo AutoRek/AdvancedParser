@@ -21,10 +21,10 @@ individual message components in the Text Block.
 	<Sequence Name="BasicHeader">
 		<Symbol>\{1:</Symbol>
 		<Symbol Field="AppIdent"    >F|A|L</Symbol>
-		<Symbol Field="ServiceId"   >\d{2,2}</Symbol>
-		<Symbol Field="LTIdent"     >\w{11,11}</Symbol>
-		<Symbol Field="SessionNbr"  >\d{4,4}</Symbol>
-		<Symbol Field="SequenceNbr" >\d{6,6}</Symbol>
+		<Symbol Field="ServiceId"   >\d{2}</Symbol>
+		<Symbol Field="LTIdent"     >\w{11}</Symbol>
+		<Symbol Field="SessionNbr"  >\d{4}</Symbol>
+		<Symbol Field="SequenceNbr" >\d{6}</Symbol>
 		<Symbol>\}\s*</Symbol>
 	</Sequence>
 
@@ -57,18 +57,18 @@ individual message components in the Text Block.
 
 	<Sequence Name="InputHeader">
 		<Symbol Field="InOut">I</Symbol>
-		<Symbol Field="MessageType">\d{3,3}</Symbol>
-		<Symbol Field="Receiver">\w{12,12}</Symbol>
+		<Symbol Field="MessageType">\d{3}</Symbol>
+		<Symbol Field="Receiver">\w{12}</Symbol>
 		<Symbol Field="Priority">(S\d\d\d\d)|(U\d\d\d\d)|N</Symbol>
 	</Sequence>
 
 	<Sequence Name="OutputHeader">
 		<Symbol>O</Symbol>
-		<Symbol>\d{3,3}</Symbol>
-		<Symbol>\d{4,4}</Symbol>
-		<Symbol>\w{28,28}</Symbol>
-		<Symbol>\d{6,6}</Symbol>
-		<Symbol>\d{4,4}</Symbol>
+		<Symbol>\d{3}</Symbol>
+		<Symbol>\d{4}</Symbol>
+		<Symbol>\w{28}</Symbol>
+		<Symbol>\d{6}</Symbol>
+		<Symbol>\d{4}</Symbol>
 		<Symbol>S|U|N</Symbol>
 	</Sequence>
 
