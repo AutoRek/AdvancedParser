@@ -1,11 +1,12 @@
 <!--
-SWIFT Shell
-===========
-
+SWIFT Generic 
+=============
+Parses the SWIFT outer message structure without reading the 
+individual message components in the Text Block.
 -->
 <Rules>
 
-	<Sequence>
+	<Sequence Record="Message">
 		<Include>BasicHeader</Include>
 		<Include>ApplicationHeader</Include>
 		<Optional>
@@ -13,17 +14,17 @@ SWIFT Shell
 		</Optional>
 		<Include>TextBlock</Include>
 		<Optional>
-			<Include>CustomTags</Include>
+			<Include>TrailerBlock</Include>
 		</Optional>
 	</Sequence>
 
 	<Sequence Name="BasicHeader">
 		<Symbol>\{1:</Symbol>
-		<Symbol>F|A|L</Symbol>
-		<Symbol>\d{2,2}</Symbol>
-		<Symbol>\w{11,11}</Symbol>
-		<Symbol>\d{4,4}</Symbol>
-		<Symbol>\d{6,6}</Symbol>
+		<Symbol Field="AppIdent"    >F|A|L</Symbol>
+		<Symbol Field="ServiceId"   >\d{2,2}</Symbol>
+		<Symbol Field="LTIdent"     >\w{11,11}</Symbol>
+		<Symbol Field="SessionNbr"  >\d{4,4}</Symbol>
+		<Symbol Field="SequenceNbr" >\d{6,6}</Symbol>
 		<Symbol>\}\s*</Symbol>
 	</Sequence>
 
@@ -45,7 +46,7 @@ SWIFT Shell
 	<Sequence Name="TextBlock">
 		<Symbol>\{4:</Symbol>
 		<Symbol>(?ms).*(?=-\})</Symbol>
-		<Symbol>-\}</Symbol>
+		<Symbol>-\}\s*</Symbol>
 	</Sequence>
 
 	<Sequence Name="TrailerBlock">
@@ -55,10 +56,10 @@ SWIFT Shell
 	</Sequence>
 
 	<Sequence Name="InputHeader">
-		<Symbol>I</Symbol>
-		<Symbol>\d{3,3}</Symbol>
-		<Symbol>\w{12,12}</Symbol>
-		<Symbol>S\d\d\d\d|U\d\d\d\d|N</Symbol>
+		<Symbol Field="InOut">I</Symbol>
+		<Symbol Field="MessageType">\d{3,3}</Symbol>
+		<Symbol Field="Receiver">\w{12,12}</Symbol>
+		<Symbol Field="Priority">(S\d\d\d\d)|(U\d\d\d\d)|N</Symbol>
 	</Sequence>
 
 	<Sequence Name="OutputHeader">
@@ -76,7 +77,7 @@ SWIFT Shell
 			<Symbol>\{</Symbol>
 			<Symbol>\w+</Symbol>
 			<Symbol>:</Symbol>
-			<Symbol>[^}]*</Symbol>
+			<Symbol>.*?(?=\})</Symbol>
 			<Symbol>\}\s*</Symbol>
 		</Sequence>
 	</OneOrMore>

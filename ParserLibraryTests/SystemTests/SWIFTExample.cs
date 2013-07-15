@@ -74,7 +74,7 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
-			var xml = File.ReadAllText("TestFiles\\SWIFTOuterParser.xml");
+			var xml = File.ReadAllText("TestFiles\\SWIFT-Generic.xml");
 			var data = File.ReadAllText("TestFiles\\mt940_example_1.txt");
 
 			var rules = Parser.LoadXml(xml);
@@ -91,7 +91,7 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
-			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
 			var rules = Parser.LoadXml(xml);
@@ -108,7 +108,7 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
-			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
 			var rules = Parser.LoadXml(xml);
@@ -125,7 +125,7 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
-			var xml = File.ReadAllText("TestFiles\\MT535Parser.xml");
+			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
 			var data = File.ReadAllText("TestFiles\\mt535_example_1.txt");
 
 			var rules = Parser.LoadXml(xml);
