@@ -71,7 +71,7 @@ namespace ParserLibraryTests
 		public override void ConstructorTest()
 		{
 			var rules = new Parser();
-			var rule = new CrLfRule();
+			var rule = new CrlfRule();
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
@@ -158,7 +158,7 @@ namespace ParserLibraryTests
 		public override void ToStringTest()
 		{
 			var rule = CreateTestRule();
-			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.CrLfRule", rule.ToString());
+			Assert.AreEqual("TestRule:ApiSoftware.Library35.Parsing.CrlfRule", rule.ToString());
 		}
 
 		/// <summary>
@@ -219,9 +219,9 @@ namespace ParserLibraryTests
 		}
 
 
-		private CrLfRule CreateTestRule()
+		private CrlfRule CreateTestRule()
 		{
-			var rule = new CrLfRule();
+			var rule = new CrlfRule();
 			rule.Name = "TestRule";
 			rule.Template = "[{0}]";
 			return rule;

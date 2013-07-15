@@ -62,7 +62,7 @@
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
     <Compile Include="ParserUtilitiesTest.cs" />
     <Compile Include="RuleTests\BackReferenceTest.cs" />
-    <Compile Include="RuleTests\CrLfTest.cs" />
+    <Compile Include="RuleTests\CrlfTest.cs" />
     <Compile Include="RuleTests\WhitespaceTest.cs" />
     <Compile Include="RuleTests\DecimalTest.cs" />
     <Compile Include="RuleTests\SaveTest.cs" />
@@ -179,6 +179,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TestParsers\CSVParserB.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="TestParsers\SWIFT-readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

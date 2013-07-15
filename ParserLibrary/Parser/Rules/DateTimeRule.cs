@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A datetime rule.
+	/// A date time rule.
 	/// </summary>
 	/// <remarks>
 	/// The date time rule parses a single date time value. 
@@ -20,7 +20,27 @@ namespace ApiSoftware.Library35.Parsing
 	[XmlRoot("DateTime")]
 	public sealed class DateTimeRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*[0-9.:\\/-]+\b");
+		private const string defaultPattern = @"\s*[0-9.:\\/-]+\b";
+		private Regex expression = new Regex(@"\G" + defaultPattern);
+		private string pattern = defaultPattern;
+
+		/// <summary>
+		/// Gets or sets the pattern that represents the symbol.
+		/// </summary>
+		/// <value>
+		/// The pattern.
+		/// </value>
+		/// <remarks>
+		/// A default pattern is provided and used if the pattern is not supplied explicitly.
+		/// Supplying an explicit pattern allows more specific control of the content that
+		/// the rule can parse.
+		/// </remarks>
+		[XmlText]
+		public string Pattern
+		{
+			get { return pattern; }
+			set { pattern = value; expression = new Regex("\\G" + pattern); } // The \G forces the pattern to start at the current position.
+		}
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.

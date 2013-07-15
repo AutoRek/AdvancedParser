@@ -60,26 +60,32 @@ namespace ApiSoftware.Library35.Parsing
 		public string Template { get; set; }
 
 		/// <summary>
-		/// Gets or sets the table name.
+		/// Gets or sets the record name.
 		/// </summary>
 		/// <value>
-		/// The table name.
+		/// The record name.
 		/// </value>
 		/// <remarks>
-		/// This is used when collecting parsed nodes into table.
-		/// Each node that the rule creates will create a new row for the named
-		/// table. The values of the row will be set using any symbols containing 
-		/// a Column attribute, where columns will be added automatically.
+		/// This property is used by the <c>Node.Fill()</c> and the <c>Node.ToXml()</c> methods.
+		/// See <see cref="OutputNode.Fill(System.Data.DataSet)"/> for details on the Fill method and how to populate
+		/// data sets from parsed data, and  <see cref="ParserUtilities.ToXml(OutputNode)"/> for details on the 
+		/// ToXml method and how to pull Xml nodes from parsed data.
 		/// </remarks>
 		[XmlAttribute]
 		public string Record { get; set; }
 
 		/// <summary>
-		/// Gets or sets the column name.
+		/// Gets or sets the field name.
 		/// </summary>
 		/// <value>
-		/// The column.
+		/// The field.
 		/// </value>
+		/// <remarks>
+		/// This property is used by the <c>Node.Fill()</c> and the <c>Node.ToXml()</c> methods.
+		/// See <see cref="OutputNode.Fill(System.Data.DataSet)"/> for details on the Fill method and how to populate
+		/// data sets from parsed data, and  <see cref="ParserUtilities.ToXml(OutputNode)"/> for details on the 
+		/// ToXml method and how to pull Xml nodes from parsed data.
+		/// </remarks>
 		[XmlAttribute]
 		public string Field { get; set; }
 

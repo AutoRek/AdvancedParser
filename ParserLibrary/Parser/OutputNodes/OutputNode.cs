@@ -139,6 +139,17 @@ namespace ApiSoftware.Library35.Parsing
 		/// Fills the specified data set with data from this node and its children.
 		/// </summary>
 		/// <param name="dataSet">The data set to fill.</param>
+		/// <remarks>
+		/// <para>
+		/// Each node that the rule creates will create a new row for the named
+		/// table. The values of the row will be set using any symbols containing 
+		/// a Column attribute, where columns will be added automatically.
+		/// Node.Fill()
+		/// This method collects node values into data sets. The record name is used as the 
+		/// table name of the new record and the field name is used to determine the column
+		/// that the node will populate. Tables are added automatically
+		/// </para>
+		/// </remarks>
 		public void Fill(DataSet dataSet)
 		{
 			Fill(dataSet, null, IdMode.None, IdStyle.None);

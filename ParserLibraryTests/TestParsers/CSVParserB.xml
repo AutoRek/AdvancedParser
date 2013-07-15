@@ -1,0 +1,31 @@
+﻿<Rules>
+	<!-- Example of a CSV directly encoded in the parser -->
+	<!-- In this example, header rows are ahead of groups of rows and an end row finished off -->
+	<!-- The rules have been set up with both Table/Column and Template properties -->
+	<!-- This version uses explicit attribute qualifiers -->
+	<Sequence Name='root'>
+		<Sequence Template='{0}:{2}:{4}:{6}&#13;&#10;'>
+			<Symbol Field="h1" Template="{0}" >\w+</Symbol>
+			<Symbol>,</Symbol>
+			<SString Field="h2" />
+			<Symbol>,</Symbol>
+			<String Field="h3" />
+			<Symbol>,</Symbol>
+			<Integer Field="h4" />
+			<Symbol>\s+</Symbol>
+		</Sequence>
+		<OneOrMore>
+			<Sequence Name='row' Record='R' Important='true' Template='{0}|{2}|{4:n2}|{6}&#13;&#10;'>
+				<Integer Field="@r1"/>
+				<Symbol>,</Symbol>
+				<Symbol Field="@r2" Template="{0}">\w+</Symbol>
+				<Symbol>,</Symbol>
+				<Integer Field="r3"/>
+				<Symbol>,</Symbol>
+				<SString Field="r4"/>
+				<Symbol>\s+</Symbol>
+			</Sequence>
+		</OneOrMore>
+	</Sequence>
+
+</Rules>

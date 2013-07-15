@@ -66,7 +66,7 @@
     <Compile Include="Parser\Rules\BackReferenceRule.cs" />
     <Compile Include="Parser\Rules\DecimalRule.cs" />
     <Compile Include="Parser\Rules\WhitespaceRule.cs" />
-    <Compile Include="Parser\Rules\CrLfRule.cs" />
+    <Compile Include="Parser\Rules\CrlfRule.cs" />
     <Compile Include="Parser\Rules\_RuleHolderBase.cs" />
     <Compile Include="Parser\Rules\DateTimeRule.cs" />
     <Compile Include="Parser\Rules\SaveRule.cs" />

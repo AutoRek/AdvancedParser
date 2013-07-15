@@ -94,9 +94,10 @@ namespace ApiSoftware.Library35.Parsing
 			if (!string.IsNullOrEmpty(tableName)) writer.WriteStartElement(tableName);
 			if (!string.IsNullOrEmpty(columnName))
 			{
-				if (columnName.StartsWith("@", StringComparison.Ordinal) || useAttributes)
+				if (useAttributes || columnName.StartsWith("@", StringComparison.Ordinal))
 				{
-					writer.WriteAttributeString(columnName.TrimStart('@'), node.NodeText);
+					columnName = columnName.TrimStart('@');
+					writer.WriteAttributeString(columnName, node.NodeText);
 				}
 				else
 				{

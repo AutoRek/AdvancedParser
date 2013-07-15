@@ -20,7 +20,27 @@ namespace ApiSoftware.Library35.Parsing
 	[XmlRoot("Decimal")]
 	public sealed class DecimalRule : RuleBase
 	{
-		private Regex expression = new Regex(@"\G\s*[\d,.]+\b");
+		private const string defaultPattern = @"\s*[\d,.]+\b";
+		private Regex expression = new Regex(@"\G" + defaultPattern);
+		private string pattern = defaultPattern;
+
+		/// <summary>
+		/// Gets or sets the pattern that represents the symbol.
+		/// </summary>
+		/// <value>
+		/// The pattern.
+		/// </value>
+		/// <remarks>
+		/// A default pattern is provided and used if the pattern is not supplied explicitly.
+		/// Supplying an explicit pattern allows more specific control of the content that
+		/// the rule can parse.
+		/// </remarks>
+		[XmlText]
+		public string Pattern
+		{
+			get { return pattern; }
+			set { pattern = value; expression = new Regex("\\G" + pattern); } // The \G forces the pattern to start at the current position.
+		}
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.

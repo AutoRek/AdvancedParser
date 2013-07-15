@@ -24,7 +24,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// The rule.
 		/// </value>
 		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("CrLf", typeof(CrLfRule))]
+		[XmlElement("CrLf", typeof(CrlfRule))]
 		[XmlElement("Whitespace", typeof(WhitespaceRule))]
 		[XmlElement("BackRef", typeof(BackReferenceRule))]
 		[XmlElement("Save", typeof(SaveRule))]

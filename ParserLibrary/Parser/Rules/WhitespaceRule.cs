@@ -17,6 +17,8 @@ namespace ApiSoftware.Library35.Parsing
 	/// The Whitespace rule represents required white space in the content.
 	/// The whitespace can include line breaks and line feeds.
 	/// </remarks>
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Whitespace",
+		Justification = "Whitespace is considered a single word in this context")]
 	public sealed class WhitespaceRule : RuleBase
 	{
 		private Regex expression = new Regex("\\G\\s+", RegexOptions.Singleline);

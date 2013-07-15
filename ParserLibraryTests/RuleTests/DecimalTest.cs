@@ -75,6 +75,9 @@ namespace ParserLibraryTests
 			rule.Initialize(rules);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
+			Assert.IsNotNull(rule.Pattern);
+			rule.Pattern = "TEST";
+			Assert.AreEqual("TEST", rule.Pattern);
 		}
 
 		/// <summary>
@@ -95,6 +98,21 @@ namespace ParserLibraryTests
 
 			result = rule.Parse(null);
 			Assert.IsFalse(result.IsMatch);
+
+			// Can also override the regex for parsing e.g. to set fixed width content:
+			// 3 digits is not matched
+			rule.Pattern = @"[\d.,]{6}";
+			result = rule.Parse("123.4 B");
+			Assert.IsFalse(result.IsMatch);
+
+			// 4 digits is matched
+			result = rule.Parse("123.45 B");
+			Assert.IsTrue(result.IsMatch);
+
+			// 5 digits is matched because there is no \b at the end of the symbol
+			result = rule.Parse("123.456 B");
+			Assert.IsTrue(result.IsMatch);
+
 		}
 
 		/// <summary>

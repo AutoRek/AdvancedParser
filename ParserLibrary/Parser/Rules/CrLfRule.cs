@@ -11,12 +11,13 @@ using System.Diagnostics;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A CrLf rule.
+	/// A Crlf rule.
 	/// </summary>
 	/// <remarks>
-	/// The CrLf rule represents a single CrLf in the content.
+	/// The Crlf rule represents a single Crlf in the content.
 	/// </remarks>
-	public sealed class CrLfRule : RuleBase
+	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Crlf")]
+	public sealed class CrlfRule : RuleBase
 	{
 		private Regex expression = new Regex("\\G\\r\\n");
 
@@ -71,9 +72,9 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="CrLfRule"/> class.
+		/// Initializes a new instance of the <see cref="CrlfRule"/> class.
 		/// </summary>
-		public CrLfRule()
+		public CrlfRule()
 		{
 			ErrorTemplate = "$: expected CrLf";
 		}
