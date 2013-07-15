@@ -82,7 +82,7 @@ namespace NewParser
 					OutputText.Text += "\r\n" + result.XmlSerialize();
 					FormattedOutput.Text = result.FormattedOutput();
 					var ds = new DataSet();
-					result.Fill(ds);
+					result.Fill(ds, IdMode.RowAndParents, IdStyle.Guid);
 					OutputData.DataSource = ds;
 					Tables.TabPages.Clear();
 					foreach (DataTable table in ds.Tables) { Tables.TabPages.Add(table.TableName); }

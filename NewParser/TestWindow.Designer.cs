@@ -187,7 +187,7 @@
 			// 
 			this.Tables.Alignment = System.Windows.Forms.TabAlignment.Bottom;
 			this.Tables.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.Tables.Location = new System.Drawing.Point(3, 274);
+			this.Tables.Location = new System.Drawing.Point(3, 264);
 			this.Tables.Multiline = true;
 			this.Tables.Name = "Tables";
 			this.Tables.SelectedIndex = 0;
@@ -245,7 +245,7 @@
 			this.OutputNodes.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.OutputNodes.Location = new System.Drawing.Point(3, 3);
 			this.OutputNodes.Name = "OutputNodes";
-			this.OutputNodes.Size = new System.Drawing.Size(730, 291);
+			this.OutputNodes.Size = new System.Drawing.Size(730, 281);
 			this.OutputNodes.TabIndex = 0;
 			// 
 			// toolStripContainer1
@@ -284,6 +284,7 @@
 			this.ParseButton.Name = "ParseButton";
 			this.ParseButton.Size = new System.Drawing.Size(83, 22);
 			this.ParseButton.Text = "Parse Now";
+			this.ParseButton.ToolTipText = "Parse Now (F5)";
 			this.ParseButton.Click += new System.EventHandler(this.ParseButton_Click);
 			// 
 			// statusStrip
