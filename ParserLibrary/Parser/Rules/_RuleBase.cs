@@ -67,7 +67,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </value>
 		/// <remarks>
 		/// This property is used by the <c>Node.Fill()</c> and the <c>Node.ToXml()</c> methods.
-		/// See <see cref="OutputNode.Fill(System.Data.DataSet)"/> for details on the Fill method and how to populate
+		/// See <see cref="ParserUtilities.Fill(OutputNode, System.Data.DataSet)"/> for details on the Fill method and how to populate
 		/// data sets from parsed data, and  <see cref="ParserUtilities.ToXml(OutputNode)"/> for details on the 
 		/// ToXml method and how to pull Xml nodes from parsed data.
 		/// </remarks>
@@ -82,7 +82,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </value>
 		/// <remarks>
 		/// This property is used by the <c>Node.Fill()</c> and the <c>Node.ToXml()</c> methods.
-		/// See <see cref="OutputNode.Fill(System.Data.DataSet)"/> for details on the Fill method and how to populate
+		/// See <see cref="ParserUtilities.Fill(OutputNode, System.Data.DataSet)"/> for details on the Fill method and how to populate
 		/// data sets from parsed data, and  <see cref="ParserUtilities.ToXml(OutputNode)"/> for details on the 
 		/// ToXml method and how to pull Xml nodes from parsed data.
 		/// </remarks>
