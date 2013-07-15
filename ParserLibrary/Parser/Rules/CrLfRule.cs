@@ -44,12 +44,12 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "CrLfRule");
+					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "CrlfRule");
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "CrLfRule");
+					//Trace.WriteLine(Name + ":" + position + ":false", "CrlfRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -76,7 +76,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public CrlfRule()
 		{
-			ErrorTemplate = "$: expected CrLf";
+			ErrorTemplate = "$: expected Crlf";
 		}
 
 		internal override string FormattedOutput(OutputNode node)

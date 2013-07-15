@@ -23,7 +23,7 @@ namespace ApiSoftware.Library35.Parsing
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists",
 			Justification = "Performance critical - use generic list")]
 		[XmlElement("Symbol", typeof(SymbolRule))]
-		[XmlElement("CrLf", typeof(CrlfRule))]
+		[XmlElement("Crlf", typeof(CrlfRule))]
 		[XmlElement("Whitespace", typeof(WhitespaceRule))]
 		[XmlElement("BackRef", typeof(BackReferenceRule))]
 		[XmlElement("Save", typeof(SaveRule))]

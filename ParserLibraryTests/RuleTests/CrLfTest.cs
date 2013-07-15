@@ -7,11 +7,11 @@ namespace ParserLibraryTests
 
 
 	/// <summary>
-	/// This is a test class for CrLfTest and is intended
-	/// to contain all CrLfTest Unit Tests
+	/// This is a test class for CrlfTest and is intended
+	/// to contain all CrlfTest Unit Tests
 	/// </summary>
 	[TestClass()]
-	public class CrLfTest : RuleTestsBaseClass
+	public class CrlfTest : RuleTestsBaseClass
 	{
 
 
@@ -65,7 +65,7 @@ namespace ParserLibraryTests
 
 
 		/// <summary>
-		/// A test for CrLf Constructor
+		/// A test for Crlf Constructor
 		/// </summary>
 		[TestMethod()]
 		public override void ConstructorTest()
@@ -78,7 +78,7 @@ namespace ParserLibraryTests
 		}
 
 		/// <summary>
-		/// All consecutive CrLf is read as one block.
+		/// All consecutive Crlf is read as one block.
 		/// </summary>
 		[TestMethod()]
 		public override void ParseTest()
@@ -145,7 +145,7 @@ namespace ParserLibraryTests
 			var output = result.FormattedOutput();
 			Assert.AreEqual("[\r\n]", output);
 
-			// if the CrLf rule has no template, it does not provide formatted output by default
+			// if the Crlf rule has no template, it does not provide formatted output by default
 			rule.Template = null;
 			Assert.AreEqual("", result.FormattedOutput());
 		}
@@ -214,7 +214,7 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			var result = rule.Parse("B");
 			var error = rule.GetErrorText(result);
-			Assert.AreEqual("Error at 'B' (line 0, position 0): expected CrLf", error);
+			Assert.AreEqual("Error at 'B' (line 0, position 0): expected Crlf", error);
 			//Assert.AreEqual("A", error);
 		}
 
