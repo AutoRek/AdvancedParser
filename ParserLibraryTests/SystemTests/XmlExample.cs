@@ -86,13 +86,18 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void FillTest()
 		{
+			// Xml is not set up with any record/fields so dataset is completely empty
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
 			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
 			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 
-			Assert.Inconclusive("XmlExample - FillTest");
+			using (var ds = new DataSet())
+			{
+				result.Fill(ds);
+				Assert.AreEqual(0, ds.Tables.Count);
+			}
 		}
 
 		[TestMethod]
@@ -100,10 +105,15 @@ namespace ParserLibraryTests
 		[DeploymentItem("TestParsers", "TestFiles")]
 		public void GetFormattedOutput()
 		{
+			// Just default content, so only the text values get output
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
 			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
 
-			Assert.Inconclusive("XmlExample - GetFormattedOutput");
+			var rules = Parser.LoadXml(xml);
+			var result = rules.Parse(data);
+			var output = result.FormattedOutput();
+
+			Assert.AreEqual(@"element\s+\wcontentattribute", output);
 		}
 
 	}
