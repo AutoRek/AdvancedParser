@@ -37,7 +37,7 @@ namespace ApiSoftware.Library35.Parsing
 		public string Pattern
 		{
 			get { return pattern; }
-			set { pattern = value; expression = new Regex("\\G" + pattern); } // The \G forces the pattern to start at the current position.
+			set { pattern = value; expression = new Regex("\\G" + pattern, RegexOptions.Singleline); } // The \G forces the pattern to start at the current position.
 		}
 
 		/// <summary>
