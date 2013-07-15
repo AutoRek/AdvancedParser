@@ -43,6 +43,23 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Gets or sets the format used to parse the value.
+		/// </summary>
+		/// <value>
+		/// The format provider object
+		/// </value>
+		/// <remarks>
+		/// The invariant culture is used by default. To fully override the invariant culture
+		/// in a rule, include a Format tag and the required options of the format info object 
+		/// in element form, e.g. 
+		/// <code>
+		/// <![CDATA[ <Decimal><Format><NumberDecimalSeparator>,</NumberDecimalSeparator></Format></Decimal> ]]>
+		/// </code>
+		/// </remarks>
+		[XmlElement]
+		public NumberFormatInfo Format { get; set; }
+
+		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
@@ -88,7 +105,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			decimal i;
-			if (decimal.TryParse(node.NodeText, out i)) return i; else return null;
+			if (decimal.TryParse(node.NodeText, NumberStyles.Any, Format, out i)) return i; else return null;
 		}
 
 		/// <summary>
@@ -97,6 +114,7 @@ namespace ApiSoftware.Library35.Parsing
 		public DecimalRule()
 		{
 			ErrorTemplate = "$: expected an decimal value.";
+			Format = NumberFormatInfo.InvariantInfo;
 		}
 	}
 

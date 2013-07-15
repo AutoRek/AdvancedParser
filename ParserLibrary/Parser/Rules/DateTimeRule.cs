@@ -43,6 +43,23 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Gets or sets the format used to parse the value.
+		/// </summary>
+		/// <value>
+		/// The format provider object
+		/// </value>
+		/// <remarks>
+		/// The invariant culture is used by default. To fully override the invariant culture
+		/// in a rule, include a Format tag and the required options of the format info object 
+		/// in element form, e.g. 
+		/// <code>
+		/// <![CDATA[ <Decimal><Format><NumberDecimalSeparator>,</NumberDecimalSeparator></Format></Decimal> ]]>
+		/// </code>
+		/// </remarks>
+		[XmlElement]
+		public DateTimeFormatInfo Format { get; set; }
+
+		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
@@ -97,6 +114,7 @@ namespace ApiSoftware.Library35.Parsing
 		public DateTimeRule()
 		{
 			ErrorTemplate = "$: expected a date value.";
+			Format = DateTimeFormatInfo.InvariantInfo;
 		}
 	}
 

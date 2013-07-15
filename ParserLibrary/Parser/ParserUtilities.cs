@@ -7,6 +7,10 @@ using System.Data;
 
 namespace ApiSoftware.Library35.Parsing
 {
+	//class ParserException : SyntaxErrorException
+	//{
+	//}
+
 	/// <summary>
 	/// Different record ID generation styles.
 	/// </summary>
