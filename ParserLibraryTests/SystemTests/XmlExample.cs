@@ -73,7 +73,7 @@ namespace ParserLibraryTests
 		public void ParsingTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
 
 			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
@@ -88,7 +88,7 @@ namespace ParserLibraryTests
 		{
 			// Xml is not set up with any record/fields so dataset is completely empty
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
 
 			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
@@ -107,14 +107,31 @@ namespace ParserLibraryTests
 		{
 			// Just default content, so only the text values get output
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
-			var data = File.ReadAllText("TestFiles\\XmlSample.xml");
+			var data = File.ReadAllText("TestFiles\\XmlParser.xml");
 
 			var rules = Parser.LoadXml(xml);
 			var result = rules.Parse(data);
 			var output = result.FormattedOutput();
 
-			Assert.AreEqual(@"element\s+\wcontentattribute", output);
+			Assert.AreEqual(@"element\s+\wtruetrueComment must end with -->contentattributetruetrue", output);
 		}
 
+		[TestMethod]
+		[DeploymentItem("TestFiles", "TestFiles")]
+		[DeploymentItem("TestParsers", "TestFiles")]
+		public void GetErrorOutput()
+		{
+			// Check the error of the error sample
+			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
+			var data = File.ReadAllText("TestFiles\\XmlSample.xml.err");
+
+			var rules = Parser.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsFalse(result.IsMatch);
+			
+			var output = result.GetErrorText();
+			Assert.AreEqual(@"Comment must end with -->", output);
+		}
 	}
 }

@@ -117,6 +117,7 @@
   <ItemGroup>
     <EmbeddedResource Include="TestParsers\XmlParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +131,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\XmlSample.xml">
+    <None Include="TestFiles\XmlSample.xml.err">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\mt535_example_full.txt">

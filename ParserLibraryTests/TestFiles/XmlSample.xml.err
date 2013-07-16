@@ -3,6 +3,7 @@ XML Parser
 ==========
 Simple parsing of XML content including elements and attributes and comments,
 but excluding namespaces and xml declarations and CDATA sections.
+THIS FILE INCLUDES A DELIBERATE ERROR
 -->
 <Rules>
 
@@ -30,7 +31,7 @@ but excluding namespaces and xml declarations and CDATA sections.
 						</Optional>
 						<Symbol>&lt;/</Symbol>
 						<BackRef Important="true"/>
-						<!-- match the saved symbol earlier -->
+						<!-- match the saved symbol earlier --->
 						<Symbol>></Symbol>
 					</Sequence>
 				</Choice>
