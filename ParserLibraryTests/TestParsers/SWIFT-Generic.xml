@@ -22,7 +22,7 @@ individual message components in the Text Block.
 		<Symbol>\{1:</Symbol>
 		<Symbol Field="AppIdent"    >F|A|L</Symbol>
 		<Symbol Field="ServiceId"   >\d{2}</Symbol>
-		<Symbol Field="LTIdent"     >\w{11}</Symbol>
+		<Symbol Field="LTIdent"     >\w{12}</Symbol>
 		<Symbol Field="SessionNbr"  >\d{4}</Symbol>
 		<Symbol Field="SequenceNbr" >\d{6}</Symbol>
 		<Symbol>\}\s*</Symbol>
