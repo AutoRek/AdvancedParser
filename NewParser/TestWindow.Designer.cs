@@ -49,6 +49,8 @@
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.TimeTaken = new System.Windows.Forms.ToolStripStatusLabel();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.ToXmlTreeView = new System.Windows.Forms.TreeView();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -68,6 +70,7 @@
 			this.toolStripContainer1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip.SuspendLayout();
+			this.tabPage5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -137,9 +140,10 @@
 			// tabControl1
 			// 
 			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -317,6 +321,24 @@
 			this.TimeTaken.Name = "TimeTaken";
 			this.TimeTaken.Size = new System.Drawing.Size(100, 17);
 			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.ToXmlTreeView);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Size = new System.Drawing.Size(736, 287);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "ToXml";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// ToXmlTreeView
+			// 
+			this.ToXmlTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ToXmlTreeView.Location = new System.Drawing.Point(0, 0);
+			this.ToXmlTreeView.Name = "ToXmlTreeView";
+			this.ToXmlTreeView.Size = new System.Drawing.Size(736, 287);
+			this.ToXmlTreeView.TabIndex = 1;
+			// 
 			// TestWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -356,6 +378,7 @@
 			this.toolStrip1.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
 			this.statusStrip.PerformLayout();
+			this.tabPage5.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -383,5 +406,7 @@
 		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
 		private System.Windows.Forms.ToolStripStatusLabel TimeTaken;
+		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.TreeView ToXmlTreeView;
 	}
 }

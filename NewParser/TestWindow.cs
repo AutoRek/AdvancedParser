@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ApiSoftware.Library35;
 using ApiSoftware.Library35.Parsing;
 using System.Diagnostics;
+using System.Xml;
 
 namespace NewParser
 {
@@ -63,7 +64,6 @@ namespace NewParser
 
 		private void ParseNow()
 		{
-			//GrammarXml.SelectionTabs
 			try
 			{
 				var grammar = Parser.LoadXml(GrammarXml.Text);
@@ -76,10 +76,10 @@ namespace NewParser
 				var result = grammar.Parse(InputText.Text);
 				timer.Stop();
 				OutputText.Text = string.Format("{0:n2}ms", timer.Elapsed.TotalMilliseconds);
+				PopulateXml(OutputNodes, result.XmlSerialize());
 				if (result.IsMatch)
 				{
 					OutputText.Text += "\r\nParses OK";
-					OutputText.Text += "\r\n" + result.XmlSerialize();
 					FormattedOutput.Text = result.FormattedOutput();
 					var ds = new DataSet();
 					result.Fill(ds, IdMode.RowAndParents, IdStyle.Guid);
@@ -87,7 +87,7 @@ namespace NewParser
 					Tables.TabPages.Clear();
 					foreach (DataTable table in ds.Tables) { Tables.TabPages.Add(table.TableName); }
 					if (ds.Tables.Count > 0) { OutputData.DataMember = ds.Tables[0].TableName; }
-					//OutputText.Text += "\r\n" + ds.GetXml();
+					PopulateXml(ToXmlTreeView, result.ToXml());
 					StatusLabel.Text = "Parsed OK";
 					StatusLabel.BackColor = Color.DarkGreen;
 					StatusLabel.ForeColor = Color.White;
@@ -115,6 +115,41 @@ namespace NewParser
 				TimeTaken.Text = "";
 				OutputText.Text = ex.FullText();
 			}
+		}
+
+		private void PopulateXml(TreeView treeView, string xmlString)
+		{
+			try
+			{
+				treeView.Nodes.Clear();
+				var xml = new XmlDocument();
+				xml.LoadXml(xmlString);
+				var root = treeView.Nodes.Add("Root");
+				PopulateXml(xml.DocumentElement, root);
+			}
+			catch (Exception e)
+			{
+				OutputText.Text += e.Message;
+			}
+		}
+
+		private void PopulateXml(XmlNode xml, TreeNode treeNode)
+		{
+			treeNode.Text = "<" + xml.Name;
+			foreach (XmlAttribute attr in xml.Attributes)
+			{
+				treeNode.Text += " " + attr.Name + "=\"" + attr.Value + "\"";
+			}
+			treeNode.Text += ">";
+			if (xml.HasChildNodes)
+			{
+				foreach (XmlNode xmlnode in xml.ChildNodes)
+				{
+					var node = treeNode.Nodes.Add("<" + xmlnode.Name + "> := " + xmlnode.Value);
+					PopulateXml(xmlnode, node);
+				}
+			}
+			treeNode.Expand();
 		}
 
 		private void GrammarXml_TextChanged(object sender, EventArgs e)
