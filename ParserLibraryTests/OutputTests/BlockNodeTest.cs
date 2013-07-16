@@ -81,13 +81,6 @@ namespace ParserLibraryTests
 		[TestMethod()]
 		public override void ValueTest()
 		{
-			//// Use a sequence with a correct symbol. 
-			//// This will parse and return a block node as the root node.
-			//var rules = Rules.LoadXml(@"<Rules><Sequence><Symbol>1</Symbol><Symbol>2</Symbol></Sequence></Rules>");
-			//var result = rules.Parse("12");
-			//Assert.AreEqual("12", result.Value);
-
-
 			var node = CreateTestNode();
 			Assert.AreEqual("AB", node.Value);
 		}

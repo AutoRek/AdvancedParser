@@ -124,7 +124,7 @@ namespace ApiSoftware.Library35.Parsing
 		public DateTimeRule()
 		{
 			ErrorTemplate = "$: expected a date value.";
-			//Format = DateTimeFormatInfo.InvariantInfo;
+
 		}
 	}
 

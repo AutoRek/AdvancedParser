@@ -99,12 +99,6 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		OutputNode Parse(string text, int position);
 
-		///// <summary>
-		///// Builds a list of all rules that contain named references to other
-		///// rules which will require to be resolved.
-		///// </summary>
-		///// <param name="rules">The rules containing named rule references.</param>
-		//void GetRulesContainingIncludes(ICollection<IRule> rules);
 	}
 
 	/// <summary>

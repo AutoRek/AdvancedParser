@@ -215,7 +215,6 @@ namespace ParserLibraryTests
 			var result = rule.Parse("B");
 			var error = rule.GetErrorText(result);
 			Assert.AreEqual("Error at 'B' (line 0, position 0): expected Crlf", error);
-			//Assert.AreEqual("A", error);
 		}
 
 

@@ -86,7 +86,6 @@ namespace ParserLibraryTests
 		{
 			var rules = Parser.LoadXml(@"<Rules><Symbol>1</Symbol></Rules>");
 			var result = rules.Parse("2");
-			//var node = new ErrorNode(rules.Rules[0], text, 0);
 			Assert.AreEqual(string.Empty, result.Value);
 		}
 

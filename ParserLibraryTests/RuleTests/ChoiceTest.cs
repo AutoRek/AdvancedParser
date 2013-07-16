@@ -261,17 +261,5 @@ namespace ParserLibraryTests
 			return rule;
 		}
 
-
 	}
 }
-
-// MOVE TO BLOCK NODE TO GET ERROR FROM A BLOCK WITH CHILD NODES
-//// For a partial match in a series of rules, return the error of the longest match.
-//// Rule will match AB or ACD.
-//rule = new ChoiceRule();
-//rule.Add("A", "B");
-//rule.Add("A", "C", "D");
-
-//result = rule.Parse("ACX");
-//text = rule.GetErrorText(result.Children[2]);
-//Assert.AreEqual("Error at line 0, position 2, 'X': expected symbol matching regex pattern 'D'", text);
