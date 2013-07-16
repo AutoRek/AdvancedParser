@@ -21,7 +21,7 @@ SWIFT Shell
 		<Symbol>\{1:</Symbol>
 		<Symbol Field="AppIdent"    >F|A|L</Symbol>
 		<Symbol Field="ServiceId"   >\d{2}</Symbol>
-		<Symbol Field="LTIdent"     >\w{11}</Symbol>
+		<Symbol Field="LTIdent"     >\w{12}</Symbol>
 		<Symbol Field="SessionNbr"  >\d{4}</Symbol>
 		<Symbol Field="SequenceNbr" >\d{6}</Symbol>
 		<Symbol>\}\s*</Symbol>
@@ -83,39 +83,57 @@ SWIFT Shell
 
 	<Sequence Name="MT940">
 		<Include>20</Include>
-		<Include>25</Include>
-		<Include>28C</Include>
-		<Include>60F</Include>
-		<OneOrMore>
-			<Sequence Record="TransactionBlock">
-				<Include>61</Include>
-				<Include>86</Include>
+		<Choice>
+			<Sequence>
+				<Include>25I</Include>
+				<Include>28C</Include>
+				<Include>60F</Include>
+				<OneOrMore>
+					<Sequence Record="TransactionBlock">
+						<Include>61</Include>
+						<Include>86I</Include>
+					</Sequence>
+				</OneOrMore>
 			</Sequence>
-		</OneOrMore>
+			<Sequence>
+				<Include>25D</Include>
+				<Include>28C</Include>
+				<Include>60F</Include>
+				<OneOrMore>
+					<Sequence Record="TransactionBlock">
+						<Include>61</Include>
+						<Include>86D</Include>
+					</Sequence>
+				</OneOrMore>
+			</Sequence>
+		</Choice>
 		<Include>62F</Include>
 	</Sequence>
 
 	<Sequence Name="20">
 		<Symbol>:20:</Symbol>
-		<Symbol Field="AccountOwner">.{1,16}</Symbol>
+		<Symbol Field="AccountOwner">[^:]{1,16}</Symbol>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
 
-	<Sequence Name="25">
+	<Sequence Name="25I">
 		<Symbol >:25:</Symbol>
-		<Choice>
-			<Sequence>
-				<Symbol Field="Country">\w{2}</Symbol>
-				<Symbol Field="ControlNo">\d{2}</Symbol>
-				<Symbol Field="BranchSortCode">\d{8}</Symbol>
-				<Symbol Field="AccountNumber">\d{16}</Symbol>
-			</Sequence>
-			<Sequence>
-				<Symbol Field="BankId">\w{8}</Symbol>
-				<Symbol>\/</Symbol>
-				<Symbol Field="AccountNumber">\d{12}</Symbol>
-			</Sequence>
-		</Choice>
+		<Sequence>
+			<Symbol Field="Country">\w{2}</Symbol>
+			<Symbol Field="ControlNo">\d{2}</Symbol>
+			<Symbol Field="BranchSortCode">\d{8}</Symbol>
+			<Symbol Field="AccountNumber">\d{16}</Symbol>
+		</Sequence>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="25D">
+		<Symbol >:25:</Symbol>
+		<Sequence>
+			<Symbol Field="BankId">\w{8}</Symbol>
+			<Symbol>\/</Symbol>
+			<Symbol Field="AccountNumber">\d{12}</Symbol>
+		</Sequence>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
 
@@ -152,11 +170,209 @@ SWIFT Shell
 		<Symbol>(?ms)\s*?(?=:)</Symbol>
 	</Sequence>
 
-	<Sequence Name="86">
-		<Symbol>:86:</Symbol>
-		<Symbol>(?ms).*?(?=^:)</Symbol>
-		<Symbol>(?ms)\s*</Symbol>
-	</Sequence>
+	<Optional Name="86I">
+		<Sequence>
+			<Symbol>:86:</Symbol>
+			<Symbol Field="Business Transaction Code">\s?.{1,3}</Symbol>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*00</Symbol>
+					<Symbol Field="Transaction Description">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*20</Symbol>
+					<Symbol Field="Details of Payer/Beneficiary">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*21</Symbol>
+					<Symbol Field="Details of Payer/Beneficiary 2">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*22</Symbol>
+					<Symbol Field="Original Amount / order’s currency">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*23</Symbol>
+					<Symbol Field="Commission (in account` s currency)">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*24</Symbol>
+					<Symbol Field="Details of payment">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*25</Symbol>
+					<Symbol Field="Details of payment 2">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*26</Symbol>
+					<Symbol Field="Details of payment 3">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*27</Symbol>
+					<Symbol Field="Details of payment 4">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*28</Symbol>
+					<Symbol Field="Details of payment 5">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*29</Symbol>
+					<Symbol Field="Details of payment 6">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*30</Symbol>
+					<Symbol Field="Swift Bank Code Beneficiary">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*31</Symbol>
+					<Symbol Field="Payers/Beneficiary Account">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*32</Symbol>
+					<Symbol Field="Payers/Beneficiary Account">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*38</Symbol>
+					<Symbol Field="IBAN">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Symbol>(?ms).*?(?=:)</Symbol>
+			<Symbol>(?ms)\s*</Symbol>
+		</Sequence>
+	</Optional>
+
+	<Optional Name="86D">
+		<Sequence>
+			<Symbol>:86:</Symbol>
+			<Symbol Field="Business Transaction Code">\s?.{1,3}</Symbol>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*00</Symbol>
+					<Symbol Field="Transaction Description">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*20</Symbol>
+					<Symbol Field="Debit / Credit Account/Bank Code with leading zeroes">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*21</Symbol>
+					<Symbol Field="Transaction Number">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*22</Symbol>
+					<Symbol Field="Clients Information">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*23</Symbol>
+					<Symbol Field="Clients Information 2">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*24</Symbol>
+					<Symbol Field="Advice for the Beneficiary">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*25</Symbol>
+					<Symbol Field="Advice for the Beneficiary 2">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*26</Symbol>
+					<Symbol Field="Advice for the Beneficiary 3">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*27</Symbol>
+					<Symbol Field="Advice for the Beneficiary 4">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*28</Symbol>
+					<Symbol Field="Advice for the Beneficiary 5">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*29</Symbol>
+					<Symbol Field="Advice for the Beneficiary 6">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*30</Symbol>
+					<Symbol Field="Debit / Credit Bank Code">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*31</Symbol>
+					<Symbol Field="Debit / Credit Account of Beneficiary">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*32</Symbol>
+					<Symbol Field="Name of Beneficiary">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*33</Symbol>
+					<Symbol Field="Name of Beneficiary 2">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Optional>
+				<Sequence>
+					<Symbol>\?\s*38</Symbol>
+					<Symbol Field="IBAN">[^:?]*</Symbol>
+				</Sequence>
+			</Optional>
+			<Symbol>(?ms).*?(?=:)</Symbol>
+			<Symbol>(?ms)\s*</Symbol>
+		</Sequence>
+	</Optional>
 
 	<Sequence Name="62F">
 		<Symbol>:62F:</Symbol>
