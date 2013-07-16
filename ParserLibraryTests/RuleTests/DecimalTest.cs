@@ -228,7 +228,7 @@ namespace ParserLibraryTests
 			var rule = CreateTestRule();
 			var result = rule.Parse("A");
 			var error = rule.GetErrorText(result);
-			Assert.AreEqual("Error at 'A' (line 0, position 0): expected an decimal value.", error);
+			Assert.AreEqual("Error at 'A' (line 0, position 0): expected a decimal value.", error);
 		}
 
 		/// <summary>
@@ -241,7 +241,7 @@ namespace ParserLibraryTests
 			OutputNode result;
 			result = rules.Parse("AB");
 			var error = result.GetErrorText();
-			Assert.AreEqual("Error at 'B' (line 0, position 1): expected an decimal value.", error);
+			Assert.AreEqual("Error at 'B' (line 0, position 1): expected a decimal value.", error);
 		}
 
 		private DecimalRule CreateTestRule()

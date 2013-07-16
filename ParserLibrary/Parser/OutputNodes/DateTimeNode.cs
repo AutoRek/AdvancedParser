@@ -10,10 +10,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A result node containing an datetime value.
+	/// A result node containing a datetime value.
 	/// </summary>
 	/// <remarks>
-	/// The GetValue method returns an datetime valued object.
+	/// The GetValue method returns a datetime valued object.
 	/// </remarks>
 	public sealed class DateTimeNode : OutputNode
 	{

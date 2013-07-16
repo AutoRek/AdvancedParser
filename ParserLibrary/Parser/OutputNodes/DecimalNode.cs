@@ -10,10 +10,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace ApiSoftware.Library35.Parsing
 {
 	/// <summary>
-	/// A result node containing an decimal value.
+	/// A result node containing a decimal value.
 	/// </summary>
 	/// <remarks>
-	/// The GetValue method returns an decimal valued object.
+	/// The GetValue method returns a decimal valued object.
 	/// </remarks>
 	public sealed class DecimalNode : OutputNode
 	{

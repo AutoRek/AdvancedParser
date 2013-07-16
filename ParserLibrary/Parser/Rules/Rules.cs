@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -17,6 +18,30 @@ namespace ApiSoftware.Library35.Parsing
 	public sealed class Parser : RuleListBase
 	{
 		private bool initialised;
+
+		/// <summary>
+		/// Gets or sets the default number format.
+		/// </summary>
+		/// <value>
+		/// The default number format.
+		/// </value>
+		/// <remarks>
+		/// The invariant format is used by default if no explicit value is set.
+		/// </remarks>
+		[XmlElement]
+		public NumberFormatInfo NumberFormat { get; set; }
+
+		/// <summary>
+		/// Gets or sets the default date time format.
+		/// </summary>
+		/// <value>
+		/// The default date time format.
+		/// </value>
+		/// <remarks>
+		/// The invariant format is used by default if no explicit value is set.
+		/// </remarks>
+		[XmlElement]
+		public DateTimeFormatInfo DateTimeFormat { get; set; }
 
 		/// <summary>
 		/// The symbol stack used during parsing
@@ -113,6 +138,16 @@ namespace ApiSoftware.Library35.Parsing
 		/// The error node.
 		/// </value>
 		public OutputNode ErrorNode { get; set; }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Parser"/> class.
+		/// </summary>
+		public Parser()
+			: base()
+		{
+			NumberFormat = (NumberFormatInfo)NumberFormatInfo.InvariantInfo.Clone();
+			DateTimeFormat = (DateTimeFormatInfo)DateTimeFormatInfo.InvariantInfo.Clone();
+		}
 	}
 
 

@@ -98,6 +98,16 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Initialises the rule with the grammar.
+		/// </summary>
+		/// <param name="rules">The grammar to initialise with.</param>
+		protected internal override void Initialize(Parser rules)
+		{
+			base.Initialize(rules);
+			if (Format == null) Format = parserRules.DateTimeFormat;
+		}
+
+		/// <summary>
 		/// Uses the date time rule to get the value of the node 
 		/// </summary>
 		/// <param name="node">Node to get the value of.</param>
@@ -105,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			DateTime i;
-			if (DateTime.TryParse(node.NodeText, out i)) return i; else return null;
+			if (DateTime.TryParse(node.NodeText, Format, DateTimeStyles.AssumeLocal, out i)) return i; else return null;
 		}
 
 		/// <summary>
@@ -114,7 +124,7 @@ namespace ApiSoftware.Library35.Parsing
 		public DateTimeRule()
 		{
 			ErrorTemplate = "$: expected a date value.";
-			Format = DateTimeFormatInfo.InvariantInfo;
+			//Format = DateTimeFormatInfo.InvariantInfo;
 		}
 	}
 

@@ -43,6 +43,23 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Gets or sets the format used to parse the value.
+		/// </summary>
+		/// <value>
+		/// The format provider object
+		/// </value>
+		/// <remarks>
+		/// The invariant culture is used by default. To fully override the invariant culture
+		/// in a rule, include a Format tag and the required options of the format info object 
+		/// in element form, e.g. 
+		/// <code>
+		/// <![CDATA[ <Decimal><Format><NumberDecimalSeparator>,</NumberDecimalSeparator></Format></Decimal> ]]>
+		/// </code>
+		/// </remarks>
+		[XmlElement]
+		public NumberFormatInfo Format { get; set; }
+
+		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
@@ -81,6 +98,16 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Initialises the rule with the grammar.
+		/// </summary>
+		/// <param name="rules">The grammar to initialise with.</param>
+		protected internal override void Initialize(Parser rules)
+		{
+			base.Initialize(rules);
+			if (Format == null) Format = parserRules.NumberFormat;
+		}
+
+		/// <summary>
 		/// Uses the integer rule to get the value of the node 
 		/// </summary>
 		/// <param name="node">Node to get the value of.</param>
@@ -88,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			int i;
-			if (int.TryParse(node.NodeText, out i)) return i; else return null;
+			if (int.TryParse(node.NodeText, NumberStyles.Integer, Format, out i)) return i; else return null;
 		}
 
 		/// <summary>

@@ -98,6 +98,16 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Initialises the rule with the grammar.
+		/// </summary>
+		/// <param name="rules">The grammar to initialise with.</param>
+		protected internal override void Initialize(Parser rules)
+		{
+			base.Initialize(rules);
+			if (Format == null) Format = parserRules.NumberFormat;
+		}
+
+		/// <summary>
 		/// Uses the decimal rule to get the value of the node 
 		/// </summary>
 		/// <param name="node">Node to get the value of.</param>
@@ -105,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			decimal i;
-			if (decimal.TryParse(node.NodeText, NumberStyles.Any, Format, out i)) return i; else return null;
+			if (decimal.TryParse(node.NodeText, NumberStyles.Number, Format, out i)) return i; else return null;
 		}
 
 		/// <summary>
@@ -113,8 +123,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public DecimalRule()
 		{
-			ErrorTemplate = "$: expected an decimal value.";
-			Format = NumberFormatInfo.InvariantInfo;
+			ErrorTemplate = "$: expected a decimal value.";
 		}
 	}
 
