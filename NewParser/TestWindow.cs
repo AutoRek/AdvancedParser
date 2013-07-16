@@ -154,7 +154,9 @@ namespace NewParser
 
 		private void GrammarXml_TextChanged(object sender, EventArgs e)
 		{
-
+			GrammarXml.SelectAll();
+			GrammarXml.SelectionColor = Color.Black;
+			GrammarXml.SelectionBackColor = Color.White;
 		}
 
 	}
