@@ -121,11 +121,13 @@ namespace NewParser
 		{
 			try
 			{
+				treeView.SuspendLayout();
 				treeView.Nodes.Clear();
 				var xml = new XmlDocument();
 				xml.LoadXml(xmlString);
 				var root = treeView.Nodes.Add("Root");
 				PopulateXml(xml.DocumentElement, root);
+				treeView.ResumeLayout();
 			}
 			catch (Exception e)
 			{
@@ -154,9 +156,25 @@ namespace NewParser
 
 		private void GrammarXml_TextChanged(object sender, EventArgs e)
 		{
+
+		}
+
+		private void ResetTextColors()
+		{
 			GrammarXml.SelectAll();
 			GrammarXml.SelectionColor = Color.Black;
 			GrammarXml.SelectionBackColor = Color.White;
+			GrammarXml.DeselectAll();
+		}
+
+		private void GrammarXml_Leave(object sender, EventArgs e)
+		{
+
+		}
+
+		private void resetColoursButton_Click(object sender, EventArgs e)
+		{
+			ResetTextColors();
 		}
 
 	}

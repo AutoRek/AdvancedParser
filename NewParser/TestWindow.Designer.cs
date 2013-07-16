@@ -36,21 +36,22 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.OutputText = new System.Windows.Forms.TextBox();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.OutputNodes = new System.Windows.Forms.TreeView();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.FormattedOutput = new System.Windows.Forms.TextBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.Tables = new System.Windows.Forms.TabControl();
 			this.OutputData = new System.Windows.Forms.DataGridView();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.FormattedOutput = new System.Windows.Forms.TextBox();
-			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.OutputNodes = new System.Windows.Forms.TreeView();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.ToXmlTreeView = new System.Windows.Forms.TreeView();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.ParseButton = new System.Windows.Forms.ToolStripButton();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.TimeTaken = new System.Windows.Forms.ToolStripStatusLabel();
-			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.ToXmlTreeView = new System.Windows.Forms.TreeView();
+			this.resetColoursButton = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -61,16 +62,16 @@
 			this.splitContainer2.SuspendLayout();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.tabPage4.SuspendLayout();
+			this.tabPage3.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OutputData)).BeginInit();
-			this.tabPage3.SuspendLayout();
-			this.tabPage4.SuspendLayout();
+			this.tabPage5.SuspendLayout();
 			this.toolStripContainer1.ContentPanel.SuspendLayout();
 			this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.statusStrip.SuspendLayout();
-			this.tabPage5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -103,6 +104,7 @@
 			this.GrammarXml.Text = resources.GetString("GrammarXml.Text");
 			this.GrammarXml.WordWrap = false;
 			this.GrammarXml.TextChanged += new System.EventHandler(this.GrammarXml_TextChanged);
+			this.GrammarXml.Leave += new System.EventHandler(this.GrammarXml_Leave);
 			// 
 			// splitContainer2
 			// 
@@ -175,6 +177,47 @@
 			this.OutputText.TabIndex = 2;
 			this.OutputText.WordWrap = false;
 			// 
+			// tabPage4
+			// 
+			this.tabPage4.Controls.Add(this.OutputNodes);
+			this.tabPage4.Location = new System.Drawing.Point(4, 22);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage4.Size = new System.Drawing.Size(736, 287);
+			this.tabPage4.TabIndex = 3;
+			this.tabPage4.Text = "Output Nodes";
+			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// OutputNodes
+			// 
+			this.OutputNodes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.OutputNodes.Location = new System.Drawing.Point(3, 3);
+			this.OutputNodes.Name = "OutputNodes";
+			this.OutputNodes.Size = new System.Drawing.Size(730, 281);
+			this.OutputNodes.TabIndex = 0;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Controls.Add(this.FormattedOutput);
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Size = new System.Drawing.Size(736, 287);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Formatted Output";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// FormattedOutput
+			// 
+			this.FormattedOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.FormattedOutput.Location = new System.Drawing.Point(3, 3);
+			this.FormattedOutput.Multiline = true;
+			this.FormattedOutput.Name = "FormattedOutput";
+			this.FormattedOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.FormattedOutput.Size = new System.Drawing.Size(730, 281);
+			this.FormattedOutput.TabIndex = 1;
+			this.FormattedOutput.WordWrap = false;
+			// 
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.Tables);
@@ -211,46 +254,23 @@
 			this.OutputData.Size = new System.Drawing.Size(737, 272);
 			this.OutputData.TabIndex = 0;
 			// 
-			// tabPage3
+			// tabPage5
 			// 
-			this.tabPage3.Controls.Add(this.FormattedOutput);
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(736, 287);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Formatted Output";
-			this.tabPage3.UseVisualStyleBackColor = true;
+			this.tabPage5.Controls.Add(this.ToXmlTreeView);
+			this.tabPage5.Location = new System.Drawing.Point(4, 22);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Size = new System.Drawing.Size(736, 287);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "ToXml";
+			this.tabPage5.UseVisualStyleBackColor = true;
 			// 
-			// FormattedOutput
+			// ToXmlTreeView
 			// 
-			this.FormattedOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.FormattedOutput.Location = new System.Drawing.Point(3, 3);
-			this.FormattedOutput.Multiline = true;
-			this.FormattedOutput.Name = "FormattedOutput";
-			this.FormattedOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.FormattedOutput.Size = new System.Drawing.Size(730, 281);
-			this.FormattedOutput.TabIndex = 1;
-			this.FormattedOutput.WordWrap = false;
-			// 
-			// tabPage4
-			// 
-			this.tabPage4.Controls.Add(this.OutputNodes);
-			this.tabPage4.Location = new System.Drawing.Point(4, 22);
-			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(736, 287);
-			this.tabPage4.TabIndex = 3;
-			this.tabPage4.Text = "Output Nodes";
-			this.tabPage4.UseVisualStyleBackColor = true;
-			// 
-			// OutputNodes
-			// 
-			this.OutputNodes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.OutputNodes.Location = new System.Drawing.Point(3, 3);
-			this.OutputNodes.Name = "OutputNodes";
-			this.OutputNodes.Size = new System.Drawing.Size(730, 281);
-			this.OutputNodes.TabIndex = 0;
+			this.ToXmlTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ToXmlTreeView.Location = new System.Drawing.Point(0, 0);
+			this.ToXmlTreeView.Name = "ToXmlTreeView";
+			this.ToXmlTreeView.Size = new System.Drawing.Size(736, 287);
+			this.ToXmlTreeView.TabIndex = 1;
 			// 
 			// toolStripContainer1
 			// 
@@ -275,10 +295,11 @@
 			// 
 			this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ParseButton});
+            this.ParseButton,
+            this.resetColoursButton});
 			this.toolStrip1.Location = new System.Drawing.Point(3, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(95, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(218, 25);
 			this.toolStrip1.TabIndex = 0;
 			// 
 			// ParseButton
@@ -321,23 +342,14 @@
 			this.TimeTaken.Name = "TimeTaken";
 			this.TimeTaken.Size = new System.Drawing.Size(100, 17);
 			// 
-			// tabPage5
+			// resetColoursButton
 			// 
-			this.tabPage5.Controls.Add(this.ToXmlTreeView);
-			this.tabPage5.Location = new System.Drawing.Point(4, 22);
-			this.tabPage5.Name = "tabPage5";
-			this.tabPage5.Size = new System.Drawing.Size(736, 287);
-			this.tabPage5.TabIndex = 4;
-			this.tabPage5.Text = "ToXml";
-			this.tabPage5.UseVisualStyleBackColor = true;
-			// 
-			// ToXmlTreeView
-			// 
-			this.ToXmlTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ToXmlTreeView.Location = new System.Drawing.Point(0, 0);
-			this.ToXmlTreeView.Name = "ToXmlTreeView";
-			this.ToXmlTreeView.Size = new System.Drawing.Size(736, 287);
-			this.ToXmlTreeView.TabIndex = 1;
+			this.resetColoursButton.Image = ((System.Drawing.Image)(resources.GetObject("resetColoursButton.Image")));
+			this.resetColoursButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.resetColoursButton.Name = "resetColoursButton";
+			this.resetColoursButton.Size = new System.Drawing.Size(92, 22);
+			this.resetColoursButton.Text = "Reset Colors";
+			this.resetColoursButton.Click += new System.EventHandler(this.resetColoursButton_Click);
 			// 
 			// TestWindow
 			// 
@@ -364,11 +376,12 @@
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.tabPage1.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.OutputData)).EndInit();
+			this.tabPage4.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
-			this.tabPage4.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.OutputData)).EndInit();
+			this.tabPage5.ResumeLayout(false);
 			this.toolStripContainer1.ContentPanel.ResumeLayout(false);
 			this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
 			this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -378,7 +391,6 @@
 			this.toolStrip1.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
 			this.statusStrip.PerformLayout();
-			this.tabPage5.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -408,5 +420,6 @@
 		private System.Windows.Forms.ToolStripStatusLabel TimeTaken;
 		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.TreeView ToXmlTreeView;
+		private System.Windows.Forms.ToolStripButton resetColoursButton;
 	}
 }
