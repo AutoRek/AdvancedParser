@@ -5,7 +5,84 @@ Parses the section 4 of an SWIFT MT535
 -->
 <Rules>
 
-	<Sequence>
+
+	<Sequence Record="Message">
+		<Include>BasicHeader</Include>
+		<Include>ApplicationHeader</Include>
+		<Optional>
+			<Include>UserHeader</Include>
+		</Optional>
+		<Include>TextBlock</Include>
+		<Optional>
+			<Include>TrailerBlock</Include>
+		</Optional>
+	</Sequence>
+
+	<Sequence Name="BasicHeader">
+		<Symbol>\{1:</Symbol>
+		<Symbol Field="AppIdent"    >F|A|L</Symbol>
+		<Symbol Field="ServiceId"   >\d{2}</Symbol>
+		<Symbol Field="LTIdent"     >\w{12}</Symbol>
+		<Symbol Field="SessionNbr"  >\d{4}</Symbol>
+		<Symbol Field="SequenceNbr" >\d{6}</Symbol>
+		<Symbol>\}\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="ApplicationHeader">
+		<Symbol>\{2:</Symbol>
+		<Choice>
+			<Include>InputHeader</Include>
+			<Include>OutputHeader</Include>
+		</Choice>
+		<Symbol>\}\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="UserHeader">
+		<Symbol>\{3:</Symbol>
+		<Include>CustomTags</Include>
+		<Symbol>\}\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="TextBlock">
+		<Symbol>\{4:\s*</Symbol>
+		<Include>MT535</Include>
+		<Symbol>-\}\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="TrailerBlock">
+		<Symbol>\{5:</Symbol>
+		<Include>CustomTags</Include>
+		<Symbol>\}\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name="InputHeader">
+		<Symbol Field="InOut">I</Symbol>
+		<Symbol Field="MessageType">\d{3}</Symbol>
+		<Symbol Field="Receiver">\w{12}</Symbol>
+		<Symbol Field="Priority">(S\d\d\d\d)|(U\d\d\d\d)|N</Symbol>
+	</Sequence>
+
+	<Sequence Name="OutputHeader">
+		<Symbol>O</Symbol>
+		<Symbol>\d{3}</Symbol>
+		<Symbol>\d{4}</Symbol>
+		<Symbol>\w{28}</Symbol>
+		<Symbol>\d{6}</Symbol>
+		<Symbol>\d{4}</Symbol>
+		<Symbol>S|U|N</Symbol>
+	</Sequence>
+
+	<OneOrMore Name="CustomTags">
+		<Sequence>
+			<Symbol>\{</Symbol>
+			<Symbol>\w+</Symbol>
+			<Symbol>:</Symbol>
+			<Symbol>.*?(?=\})</Symbol>
+			<Symbol>\}\s*</Symbol>
+		</Sequence>
+	</OneOrMore>
+
+	<Sequence Name="MT535">
 		<Include>SequenceA</Include>
 		<Include>SequenceB</Include>
 		<Include>SequenceC</Include>
@@ -13,6 +90,7 @@ Parses the section 4 of an SWIFT MT535
 
 	<Sequence Name="SequenceA">
 		<Include>16R-GENL</Include>
+		<Include>28E</Include>
 		<OneOrMore>
 			<Include>MISC</Include>
 		</OneOrMore>
@@ -83,6 +161,14 @@ Parses the section 4 of an SWIFT MT535
 		</If>
 	</Sequence>
 
+	<Sequence Name="28E">
+		<Symbol>:28E:</Symbol>
+		<Symbol Field="PageNumber">\d{1,5}</Symbol>
+		<Symbol>/</Symbol>
+		<Symbol Field="ContinuationIndicator">[a-zA-Z]{4}</Symbol>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
+	
 	<Sequence Name="Breakdown">
 		<If Pattern=":16R:BREAK">
 			<OneOrMore>

@@ -177,5 +177,10 @@ namespace NewParser
 			ResetTextColors();
 		}
 
+		private void clearInput_Click(object sender, EventArgs e)
+		{
+			InputText.Text = String.Empty;
+		}
+
 	}
 }
