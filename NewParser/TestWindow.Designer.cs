@@ -48,10 +48,12 @@
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.ParseButton = new System.Windows.Forms.ToolStripButton();
+			this.resetColoursButton = new System.Windows.Forms.ToolStripButton();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.TimeTaken = new System.Windows.Forms.ToolStripStatusLabel();
-			this.resetColoursButton = new System.Windows.Forms.ToolStripButton();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.clearInput = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -65,6 +67,7 @@
 			this.tabPage4.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabPage2.SuspendLayout();
+			this.Tables.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.OutputData)).BeginInit();
 			this.tabPage5.SuspendLayout();
 			this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -233,12 +236,13 @@
 			// Tables
 			// 
 			this.Tables.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-			this.Tables.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.Tables.Location = new System.Drawing.Point(3, 264);
+			this.Tables.Controls.Add(this.tabPage6);
+			this.Tables.ItemSize = new System.Drawing.Size(0, 18);
+			this.Tables.Location = new System.Drawing.Point(2, 1);
 			this.Tables.Multiline = true;
 			this.Tables.Name = "Tables";
 			this.Tables.SelectedIndex = 0;
-			this.Tables.Size = new System.Drawing.Size(730, 20);
+			this.Tables.Size = new System.Drawing.Size(735, 20);
 			this.Tables.TabIndex = 1;
 			this.Tables.SelectedIndexChanged += new System.EventHandler(this.Tables_SelectedIndexChanged);
 			// 
@@ -249,9 +253,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.OutputData.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.OutputData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.OutputData.Location = new System.Drawing.Point(-1, 0);
+			this.OutputData.Location = new System.Drawing.Point(-1, 21);
 			this.OutputData.Name = "OutputData";
-			this.OutputData.Size = new System.Drawing.Size(737, 272);
+			this.OutputData.Size = new System.Drawing.Size(737, 266);
 			this.OutputData.TabIndex = 0;
 			// 
 			// tabPage5
@@ -296,10 +300,11 @@
 			this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ParseButton,
-            this.resetColoursButton});
+            this.resetColoursButton,
+            this.clearInput});
 			this.toolStrip1.Location = new System.Drawing.Point(3, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(218, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(303, 25);
 			this.toolStrip1.TabIndex = 0;
 			// 
 			// ParseButton
@@ -311,6 +316,15 @@
 			this.ParseButton.Text = "Parse Now";
 			this.ParseButton.ToolTipText = "Parse Now (F5)";
 			this.ParseButton.Click += new System.EventHandler(this.ParseButton_Click);
+			// 
+			// resetColoursButton
+			// 
+			this.resetColoursButton.Image = ((System.Drawing.Image)(resources.GetObject("resetColoursButton.Image")));
+			this.resetColoursButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.resetColoursButton.Name = "resetColoursButton";
+			this.resetColoursButton.Size = new System.Drawing.Size(92, 22);
+			this.resetColoursButton.Text = "Reset Colors";
+			this.resetColoursButton.Click += new System.EventHandler(this.resetColoursButton_Click);
 			// 
 			// statusStrip
 			// 
@@ -342,14 +356,23 @@
 			this.TimeTaken.Name = "TimeTaken";
 			this.TimeTaken.Size = new System.Drawing.Size(100, 17);
 			// 
-			// resetColoursButton
+			// tabPage6
 			// 
-			this.resetColoursButton.Image = ((System.Drawing.Image)(resources.GetObject("resetColoursButton.Image")));
-			this.resetColoursButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.resetColoursButton.Name = "resetColoursButton";
-			this.resetColoursButton.Size = new System.Drawing.Size(92, 22);
-			this.resetColoursButton.Text = "Reset Colors";
-			this.resetColoursButton.Click += new System.EventHandler(this.resetColoursButton_Click);
+			this.tabPage6.Location = new System.Drawing.Point(4, 4);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage6.Size = new System.Drawing.Size(727, 0);
+			this.tabPage6.TabIndex = 0;
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// clearInput
+			// 
+			this.clearInput.Image = ((System.Drawing.Image)(resources.GetObject("clearInput.Image")));
+			this.clearInput.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.clearInput.Name = "clearInput";
+			this.clearInput.Size = new System.Drawing.Size(85, 22);
+			this.clearInput.Text = "Clear Input";
+			this.clearInput.Click += new System.EventHandler(this.clearInput_Click);
 			// 
 			// TestWindow
 			// 
@@ -380,6 +403,7 @@
 			this.tabPage3.ResumeLayout(false);
 			this.tabPage3.PerformLayout();
 			this.tabPage2.ResumeLayout(false);
+			this.Tables.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.OutputData)).EndInit();
 			this.tabPage5.ResumeLayout(false);
 			this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -421,5 +445,7 @@
 		private System.Windows.Forms.TabPage tabPage5;
 		private System.Windows.Forms.TreeView ToXmlTreeView;
 		private System.Windows.Forms.ToolStripButton resetColoursButton;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.ToolStripButton clearInput;
 	}
 }
