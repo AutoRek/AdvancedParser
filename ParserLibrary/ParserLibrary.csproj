@@ -64,6 +64,7 @@
     <Compile Include="Parser\OutputNodes\TextNode.cs" />
     <Compile Include="Parser\ParserUtilities.cs" />
     <Compile Include="Parser\Rules\BackReferenceRule.cs" />
+    <Compile Include="Parser\Rules\UntilRule.cs" />
     <Compile Include="Parser\Rules\DecimalRule.cs" />
     <Compile Include="Parser\Rules\WhitespaceRule.cs" />
     <Compile Include="Parser\Rules\CrlfRule.cs" />
