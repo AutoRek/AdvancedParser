@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Data;
+using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -247,8 +248,8 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			if (writer == null) throw new ArgumentNullException("writer");
 			if (node == null) throw new ArgumentNullException("node");
-			var tableName = node.Rule.Record;
-			var columnName = node.Rule.Field;
+			var tableName = SafeName(node.Rule.Record);
+			var columnName = SafeName(node.Rule.Field);
 			if (!string.IsNullOrEmpty(tableName)) writer.WriteStartElement(tableName);
 			if (!string.IsNullOrEmpty(columnName))
 			{
@@ -267,6 +268,11 @@ namespace ApiSoftware.Library35.Parsing
 				writer.WriteXml(childNode, useAttributes);
 			}
 			if (!string.IsNullOrEmpty(tableName)) writer.WriteEndElement();
+		}
+
+		static private string SafeName(string name)
+		{
+			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(" ", "_");
 		}
 
 	}
