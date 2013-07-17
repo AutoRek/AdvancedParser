@@ -88,9 +88,12 @@ Parses the section 4 of an SWIFT MT535
 		<Include>SequenceC</Include>
 	</Sequence>
 
-	<Sequence Name="SequenceA">
+	<Sequence Name="SequenceA" Record="SequenceA">
 		<Include>16R-GENL</Include>
 		<Include>28E</Include>
+		<Include>13aStatementNumber</Include>
+		<Include>20C</Include>
+		<Include>23G</Include>
 		<OneOrMore>
 			<Include>MISC</Include>
 		</OneOrMore>
@@ -168,7 +171,7 @@ Parses the section 4 of an SWIFT MT535
 		<Symbol Field="ContinuationIndicator">[a-zA-Z]{4}</Symbol>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
-	
+
 	<Sequence Name="Breakdown">
 		<If Pattern=":16R:BREAK">
 			<OneOrMore>
@@ -236,6 +239,115 @@ Parses the section 4 of an SWIFT MT535
 		<Symbol>:16S:FIA\r\n\s*</Symbol>
 	</Sequence>
 
+	<Optional Name='13aStatementNumber'>
+		<Sequence>
+			<Symbol>:13(A|J)::\s*STAT//</Symbol>
+			<Choice>
+				<Sequence>
+					<Symbol Field='Statement Number'>\w{5}</Symbol>
+				</Sequence>
+				<Sequence>
+					<Symbol Field='Statement Number'>\w{3}</Symbol>
+				</Sequence>
+			</Choice>
+			<Symbol>(?ms)\s*</Symbol>
+		</Sequence>
+	</Optional>
+	<Sequence Name='13aLinkedMessage'>
+		<Symbol>:13(A|B)::\s*LINK</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>//</Symbol>
+				<Symbol Field='###'>\w{3}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>/</Symbol>
+				<Symbol Field='###'>\w{1,8}/.{1,30}</Symbol>
+			</Sequence>
+		</Choice>
+	</Sequence>
+	<Sequence Name='13aGeneric'>
+		<Choice>
+			<Sequence>
+				<Symbol>LOTS</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol Field='NumberId/Quantity'>\w{3}/\d{1,15}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field='NumberId'>\w{3}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field='DataSourceScheme/Number'>\w{1,8}/.{1,30}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>POOL|COUP</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field='NumberId'>\w{3}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field='DataSourceScheme/Number'>\w{1,8}/.{1,30}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+		</Choice>
+	</Sequence>
+	<Sequence Name='13aLotNumber'>
+		<Symbol>:13(A|B)::\s*LOTS//</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>//</Symbol>
+				<Symbol Field='Lot Number'>\w{3}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>/</Symbol>
+				<Symbol Field='Lot Number'>\w{1,8}/.{1,30}</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name='20C'>
+		<Symbol>:20C::</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>SEME</Symbol>
+				<Symbol>//</Symbol>
+				<Symbol Field='Senders Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>PREV</Symbol>
+				<Symbol>//</Symbol>
+				<Symbol Field='Previous Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>RELA</Symbol>
+				<Symbol>//</Symbol>
+				<Symbol Field='Related Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
+
+	<Sequence Name='23G'>
+		<Symbol>:23G:</Symbol>
+		<Symbol Field='Message Function'>NEWM|CANC</Symbol>
+		<Optional>
+			<Sequence>
+				<Symbol>/</Symbol>
+				<Symbol Field='Message SubFunction'>CODU|COPY|DUPL</Symbol>
+			</Sequence>
+		</Optional>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
+
 	<!--
 	<Sequence Name='11A'>
 		<Symbol>:11A:</Symbol>
@@ -245,26 +357,6 @@ Parses the section 4 of an SWIFT MT535
 		<Symbol>:12a:</Symbol>
 		<Symbol>A, B, or C\r\n\s*</Symbol>
 	</Sequence>
-	<Sequence Name='13a'>
-		<Symbol>:13a:</Symbol>
-		<Symbol>A or B\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='13a'>
-		<Symbol>:13a:</Symbol>
-		<Symbol>A or B\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='13a'>
-		<Symbol>:13a:</Symbol>
-		<Symbol>A or B\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='13a'>
-		<Symbol>:13a:</Symbol>
-		<Symbol>A or J\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='13a'>
-		<Symbol>:13a:</Symbol>
-		<Symbol>A, B, or K\r\n\s*</Symbol>
-	</Sequence>
 	<Sequence Name='17B'>
 		<Symbol>:17B:</Symbol>
 		<Symbol>:4!c//1!a\r\n\s*</Symbol>
@@ -296,14 +388,6 @@ Parses the section 4 of an SWIFT MT535
 	<Sequence Name='19A'>
 		<Symbol>:19A:</Symbol>
 		<Symbol>:4!c//[N]3!a15d\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='20C'>
-		<Symbol>:20C:</Symbol>
-		<Symbol>:4!c//16x\r\n\s*</Symbol>
-	</Sequence>
-	<Sequence Name='20C'>
-		<Symbol>:20C:</Symbol>
-		<Symbol>:4!c//16x\r\n\s*</Symbol>
 	</Sequence>
 	<Sequence Name='22F'>
 		<Symbol>:22F:</Symbol>
