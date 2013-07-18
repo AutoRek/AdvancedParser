@@ -86,7 +86,9 @@ Parses the section 4 of an SWIFT MT535
 
 	<Sequence Name="MT535">
 		<Include>SequenceA</Include>
-		<Include>SequenceB</Include>
+		<!--<OneOrMore>-->
+			<Include>SequenceB</Include>
+		<!--</OneOrMore>-->
 		<Include>SequenceC</Include>
 	</Sequence>
 
@@ -132,7 +134,7 @@ Parses the section 4 of an SWIFT MT535
 		<Include>16S-LINK</Include>
 	</Sequence>
 
-	<Sequence Name="SequenceB">
+	<Sequence Name="SequenceB" Record="SequenceB">
 		<If Pattern=":16R:SUBSAFE">
 			<OneOrMore>
 				<Sequence>
@@ -184,24 +186,21 @@ Parses the section 4 of an SWIFT MT535
 		</If>
 	</Sequence>
 
-	<Sequence Name="SequenceC">
+	<Sequence Name="SequenceC"  Record="SequenceC">
 		<If Pattern=":16R:ADDINFO">
 			<OneOrMore>
 				<Sequence>
 					<Include>16R-ADDINFO</Include>
-					<Include>MISC</Include>
-					<Include>16R-ADDINFO</Include>
+					<Optional>
+						<Include>95a</Include>
+					</Optional>
+					<Optional>
+						<Include>19A</Include>
+					</Optional>
+					<Include>16S-ADDINFO</Include>
 				</Sequence>
 			</OneOrMore>
 		</If>
-	</Sequence>
-
-	<Sequence Name="28E">
-		<Symbol>:28E:</Symbol>
-		<Symbol Field="PageNumber">\d{1,5}</Symbol>
-		<Symbol>/</Symbol>
-		<Symbol Field="ContinuationIndicator">[a-zA-Z]{4}</Symbol>
-		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
 
 	<Sequence Name="Breakdown">
@@ -363,6 +362,24 @@ Parses the section 4 of an SWIFT MT535
 		</Choice>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
+	<Sequence Name="19A">
+		<Symbol>:19A::\s*</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>HOLP//</Symbol>
+				<Symbol Field="Total Value of Holdings of Page">(\+|-|)?\w{3}\d{1,15}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>HOLS//</Symbol>
+				<Symbol Field="Total Holdings Value of Statement">(\+|-|)?\w{3}\d{1,15}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>TOVA//</Symbol>
+				<Symbol Field="Total Eligible Collateral Value">(\+|-|)?\w{3}\d{1,15}</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
 	<Sequence Name='20C'>
 		<Symbol>:20C::</Symbol>
 		<Choice>
@@ -382,7 +399,7 @@ Parses the section 4 of an SWIFT MT535
 				<Symbol Field='Related Message Reference'>(?ms).{1,16}?(?=\s*^:)</Symbol>
 			</Sequence>
 		</Choice>
-		<Symbol>(?ms)\s*</Symbol>
+		<Symbol>\s*?(?=:)</Symbol>
 	</Sequence>
 	<Sequence Name="22F">
 		<Symbol>:22F::\s*</Symbol>
@@ -461,21 +478,70 @@ Parses the section 4 of an SWIFT MT535
 		</Optional>
 		<Symbol>\s*?(?=:)</Symbol>
 	</Sequence>
+	<Sequence Name="28E">
+		<Symbol>:28E:</Symbol>
+		<Symbol Field="PageNumber">\d{1,5}</Symbol>
+		<Symbol>/</Symbol>
+		<Symbol Field="ContinuationIndicator">[a-zA-Z]{4}</Symbol>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
 	<Sequence Name="95a">
 		<Choice>
 			<Sequence>
-				<Symbol>:95P::</Symbol>
-				<Symbol>ACOW//</Symbol>
-				<Symbol Field="Account Owner Identifier Code">\w{11}|\w{8}</Symbol>
+				<Symbol>:95P::\s*</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>ACOW//</Symbol>
+						<Symbol Field="Account Owner Identifier Code">(?ms)(\w{11}|\w{8})(?=\s*^:)</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>MEOR//</Symbol>
+						<Symbol Field="Originator of Message Identifier Code">(?ms)(\w{11}|\w{8})(?=\s*^:)</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>MERE//</Symbol>
+						<Symbol Field="Recipient of Message Identifier Code">(?ms)(\w{11}|\w{8})(?=\s*^:)</Symbol>
+					</Sequence>
+				</Choice>
 			</Sequence>
 			<Sequence>
 				<Symbol>:95R::</Symbol>
-				<Symbol>ACOW/</Symbol>
-				<Symbol Field="Account Owner Data Source Scheme">\w{1,8}</Symbol>
-				<Symbol>/</Symbol>
-				<Symbol Field="Account Owner Proprietary Code">(?ms).{1,34}?(?=\s*^:)</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>ACOW/</Symbol>
+						<Symbol Field="Account Owner Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Account Owner Proprietary Code">(?ms).{1,34}?(?=\s*^:)</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>MEOR/</Symbol>
+						<Symbol Field="Originator of Message Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Originator of Message Proprietary Code">(?ms).{1,34}?(?=\s*^:)</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>MERE/</Symbol>
+						<Symbol Field="Recipient of Message Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Recipient of Message Proprietary Code">(?ms).{1,34}?(?=\s*^:)</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>:95Q::</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>MEOR//</Symbol>
+						<Symbol Field="Originator of Message Name and Address">(?ms).{1,146}?(?=\s*^:)</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>MERE//</Symbol>
+						<Symbol Field="Recipient of Message Data Source Scheme">(?ms).{1,146}?(?=\s*^:)</Symbol>
+					</Sequence>
+				</Choice>
 			</Sequence>
 		</Choice>
+		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
 	<Sequence Name="97a">
 		<Choice>
@@ -528,6 +594,7 @@ Parses the section 4 of an SWIFT MT535
 		<Symbol>\s*?(?=:)</Symbol>
 	</Sequence>
 	<Sequence Name='98E'>
+		<!--Not Completed-->
 		<Symbol>:98E::\s*</Symbol>
 		<Choice>
 			<Sequence>
@@ -540,7 +607,7 @@ Parses the section 4 of an SWIFT MT535
 					<Sequence>
 						<Symbol>/</Symbol>
 						<Optional>
-							<Symbol>N</Symbol>
+							<Symbol>\+|-</Symbol>
 						</Optional>
 						<Symbol>\d{2}</Symbol>
 						<Optional>
@@ -551,7 +618,7 @@ Parses the section 4 of an SWIFT MT535
 			</Sequence>
 		</Choice>
 		<Symbol>\s*?(?=:)</Symbol>
-	</Sequence> <!--Not Completed-->
+	</Sequence>
 
 
 
