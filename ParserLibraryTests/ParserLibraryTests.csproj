@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -54,6 +55,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="OutputTests\BlockNodeTest.cs" />
     <Compile Include="OutputTests\DecimalNodeTest.cs" />
     <Compile Include="OutputTests\DateTimeNodeTest.cs" />
