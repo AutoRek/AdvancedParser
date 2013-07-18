@@ -4,7 +4,9 @@ MT535 Inner Parser
 Parses the section 4 of an SWIFT MT535
 -->
 <Rules>
-
+	<DateTimeFormat>
+		<ShortDatePattern>yyyyMMdd</ShortDatePattern>
+	</DateTimeFormat>
 
 	<Sequence Record="Message">
 		<Include>BasicHeader</Include>
@@ -91,13 +93,43 @@ Parses the section 4 of an SWIFT MT535
 	<Sequence Name="SequenceA" Record="SequenceA">
 		<Include>16R-GENL</Include>
 		<Include>28E</Include>
-		<Include>13aStatementNumber</Include>
+		<Optional>
+			<Include>13aStatementNumber</Include>
+		</Optional>
 		<Include>20C</Include>
 		<Include>23G</Include>
 		<OneOrMore>
-			<Include>MISC</Include>
+			<Choice>
+				<Include>98A</Include>
+				<Include>98C</Include>
+				<Include>98E</Include>
+			</Choice>
+		</OneOrMore>
+		<OneOrMore>
+			<Include>22F</Include>
+		</OneOrMore>
+		<Optional>
+			<OneOrMore>
+				<Include>SequenceA1</Include>
+			</OneOrMore>
+		</Optional>
+		<Optional>
+			<Include>95a</Include>
+		</Optional>
+		<Include>97a</Include>
+		<OneOrMore>
+			<Include>17B</Include>
 		</OneOrMore>
 		<Include>16S-GENL</Include>
+	</Sequence>
+
+	<Sequence Name="SequenceA1" Record="SequenceA1">
+		<Include>16R-LINK</Include>
+		<Optional>
+			<Include>13aLinkedMessage</Include>
+		</Optional>
+		<Include>20C</Include>
+		<Include>16S-LINK</Include>
 	</Sequence>
 
 	<Sequence Name="SequenceB">
@@ -189,7 +221,78 @@ Parses the section 4 of an SWIFT MT535
 		<Symbol>(?ms).*?\r\n(?=:)</Symbol>
 	</Sequence>
 
-
+	<Sequence Name='13aStatementNumber'>
+		<Symbol>:13(A|J)::\s*STAT//</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol Field='Statement Number'>\w{5}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol Field='Statement Number'>\w{3}</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
+	<Sequence Name='13aLinkedMessage'>
+		<Symbol>:13(A|B)::\s*LINK</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>//</Symbol>
+				<Symbol Field='###'>\w{3}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>/</Symbol>
+				<Symbol Field='###'>(?ms)\w{1,8}/.{1,30}?(?=\s*^:)</Symbol>
+			</Sequence>
+		</Choice>
+	</Sequence>
+	<Sequence Name='13aGeneric'>
+		<Choice>
+			<Sequence>
+				<Symbol>LOTS</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol Field='NumberId/Quantity'>\w{3}/\d{1,15}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field='NumberId'>\w{3}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field='DataSourceScheme/Number'>(?ms)\w{1,8}/.{1,30}?(?=\s*^:)</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>POOL|COUP</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field='NumberId'>\w{3}</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field='DataSourceScheme/Number'>(?ms)\w{1,8}/.{1,30}?(?=\s*^:)</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+		</Choice>
+	</Sequence>
+	<Sequence Name='13aLotNumber'>
+		<Symbol>:13(A|B)::\s*LOTS//</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>//</Symbol>
+				<Symbol Field='Lot Number'>\w{3}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>/</Symbol>
+				<Symbol Field='Lot Number'>(?ms)\w{1,8}/.{1,30}?(?=\s*^:)</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>(?ms)\s*</Symbol>
+	</Sequence>
 	<Sequence Name='16R-ADDINFO'>
 		<Symbol>:16R:ADDINFO\r\n\s*</Symbol>
 	</Sequence>
@@ -238,104 +341,115 @@ Parses the section 4 of an SWIFT MT535
 	<Sequence Name='16S-FIA'>
 		<Symbol>:16S:FIA\r\n\s*</Symbol>
 	</Sequence>
-
-	<Optional Name='13aStatementNumber'>
-		<Sequence>
-			<Symbol>:13(A|J)::\s*STAT//</Symbol>
-			<Choice>
-				<Sequence>
-					<Symbol Field='Statement Number'>\w{5}</Symbol>
-				</Sequence>
-				<Sequence>
-					<Symbol Field='Statement Number'>\w{3}</Symbol>
-				</Sequence>
-			</Choice>
-			<Symbol>(?ms)\s*</Symbol>
-		</Sequence>
-	</Optional>
-	<Sequence Name='13aLinkedMessage'>
-		<Symbol>:13(A|B)::\s*LINK</Symbol>
+	<Sequence Name="17B">
+		<Symbol>:17B::</Symbol>
 		<Choice>
 			<Sequence>
-				<Symbol>//</Symbol>
-				<Symbol Field='###'>\w{3}</Symbol>
+				<Symbol>ACTI//</Symbol>
+				<Symbol Field="Activity Flag">Y|N</Symbol>
 			</Sequence>
 			<Sequence>
-				<Symbol>/</Symbol>
-				<Symbol Field='###'>\w{1,8}/.{1,30}</Symbol>
-			</Sequence>
-		</Choice>
-	</Sequence>
-	<Sequence Name='13aGeneric'>
-		<Choice>
-			<Sequence>
-				<Symbol>LOTS</Symbol>
-				<Choice>
-					<Sequence>
-						<Symbol Field='NumberId/Quantity'>\w{3}/\d{1,15}</Symbol>
-					</Sequence>
-					<Sequence>
-						<Symbol>//</Symbol>
-						<Symbol Field='NumberId'>\w{3}</Symbol>
-					</Sequence>
-					<Sequence>
-						<Symbol>/</Symbol>
-						<Symbol Field='DataSourceScheme/Number'>\w{1,8}/.{1,30}</Symbol>
-					</Sequence>
-				</Choice>
+				<Symbol>AUDT//</Symbol>
+				<Symbol Field="Audited Statement">Y|N</Symbol>
 			</Sequence>
 			<Sequence>
-				<Symbol>POOL|COUP</Symbol>
-				<Choice>
-					<Sequence>
-						<Symbol>//</Symbol>
-						<Symbol Field='NumberId'>\w{3}</Symbol>
-					</Sequence>
-					<Sequence>
-						<Symbol>/</Symbol>
-						<Symbol Field='DataSourceScheme/Number'>\w{1,8}/.{1,30}</Symbol>
-					</Sequence>
-				</Choice>
-			</Sequence>
-		</Choice>
-	</Sequence>
-	<Sequence Name='13aLotNumber'>
-		<Symbol>:13(A|B)::\s*LOTS//</Symbol>
-		<Choice>
-			<Sequence>
-				<Symbol>//</Symbol>
-				<Symbol Field='Lot Number'>\w{3}</Symbol>
+				<Symbol>CONS//</Symbol>
+				<Symbol Field="Sub-safekeeping Statement">Y|N</Symbol>
 			</Sequence>
 			<Sequence>
-				<Symbol>/</Symbol>
-				<Symbol Field='Lot Number'>\w{1,8}/.{1,30}</Symbol>
+				<Symbol>LOTS//</Symbol>
+				<Symbol Field="Tax Lots">Y|N</Symbol>
 			</Sequence>
 		</Choice>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
-
 	<Sequence Name='20C'>
 		<Symbol>:20C::</Symbol>
 		<Choice>
 			<Sequence>
 				<Symbol>SEME</Symbol>
 				<Symbol>//</Symbol>
-				<Symbol Field='Senders Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+				<Symbol Field='Senders Message Reference'>(?ms).{1,16}?(?=\s*^:)</Symbol>
 			</Sequence>
 			<Sequence>
 				<Symbol>PREV</Symbol>
 				<Symbol>//</Symbol>
-				<Symbol Field='Previous Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+				<Symbol Field='Previous Message Reference'>(?ms).{1,16}?(?=\s*^:)</Symbol>
 			</Sequence>
 			<Sequence>
 				<Symbol>RELA</Symbol>
 				<Symbol>//</Symbol>
-				<Symbol Field='Related Message Reference'>.{1,16}?(?=\s*^:)</Symbol>
+				<Symbol Field='Related Message Reference'>(?ms).{1,16}?(?=\s*^:)</Symbol>
 			</Sequence>
 		</Choice>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
-
+	<Sequence Name="22F">
+		<Symbol>:22F::\s*</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>SFRE</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field="Statement Frequency Indicator">ADHO|DAIL|INDA|MNTH|WEEK|YEAR</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Frequency Indicator">\w{4}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>CODE</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field="CompleteOrUpdates Indicator">COMP|DELT</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field="CompleteOrUpdates Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="CompleteOrUpdates Indicator">\w{4}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>STTY</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field="Statement Type">ACCT|CUST</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Type Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Type">\w{4}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+			<Sequence>
+				<Symbol>STBA</Symbol>
+				<Choice>
+					<Sequence>
+						<Symbol>//</Symbol>
+						<Symbol Field="Statement Basis">CONT|SETT|TRAD</Symbol>
+					</Sequence>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Basis Data Source Scheme">\w{1,8}</Symbol>
+						<Symbol>/</Symbol>
+						<Symbol Field="Statement Basis">\w{4}</Symbol>
+					</Sequence>
+				</Choice>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
 	<Sequence Name='23G'>
 		<Symbol>:23G:</Symbol>
 		<Symbol Field='Message Function'>NEWM|CANC</Symbol>
@@ -347,6 +461,99 @@ Parses the section 4 of an SWIFT MT535
 		</Optional>
 		<Symbol>\s*?(?=:)</Symbol>
 	</Sequence>
+	<Sequence Name="95a">
+		<Choice>
+			<Sequence>
+				<Symbol>:95P::</Symbol>
+				<Symbol>ACOW//</Symbol>
+				<Symbol Field="Account Owner Identifier Code">\w{11}|\w{8}</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>:95R::</Symbol>
+				<Symbol>ACOW/</Symbol>
+				<Symbol Field="Account Owner Data Source Scheme">\w{1,8}</Symbol>
+				<Symbol>/</Symbol>
+				<Symbol Field="Account Owner Proprietary Code">(?ms).{1,34}?(?=\s*^:)</Symbol>
+			</Sequence>
+		</Choice>
+	</Sequence>
+	<Sequence Name="97a">
+		<Choice>
+			<Sequence>
+				<Symbol>:97A::</Symbol>
+				<Symbol>SAFE//</Symbol>
+				<Symbol Field="Safekeeping Account Number">\w{11}|\w{8}</Symbol>
+				<Symbol>\s*?(?=:)</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>:97B::</Symbol>
+				<Symbol>SAFE/</Symbol>
+				<Optional>
+					<Symbol Field="Safekeeping Data Source Scheme">\w{1,8}</Symbol>
+				</Optional>
+				<Symbol>/</Symbol>
+				<Symbol Field="Safekeeping Account Type">\w{4}</Symbol>
+				<Symbol>/</Symbol>
+				<Symbol Field="Safekeeping Account Number">(?ms).{1,35}?(?=\s*^:)</Symbol>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
+	<Sequence Name='98A'>
+		<Symbol>:98A::\s*</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>PREP//</Symbol>
+				<DateTime Field='Preperation Date' Format="yyyyMMdd">\d{8}</DateTime>
+			</Sequence>
+			<Sequence>
+				<Symbol>STAT//</Symbol>
+				<DateTime Field='Statement Date' Format="yyyyMMdd">\d{8}</DateTime>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
+	<Sequence Name='98C'>
+		<Symbol>:98C::\s*</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>PREP//</Symbol>
+				<DateTime Field='Preperation Date' Format="yyyyMMddHHmmss">\d{8}\d{6}</DateTime>
+			</Sequence>
+			<Sequence>
+				<Symbol>STAT//</Symbol>
+				<DateTime Field='Statement Date' Format="yyyyMMddHHmmss">\d{8}\d{6}</DateTime>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence>
+	<Sequence Name='98E'>
+		<Symbol>:98E::\s*</Symbol>
+		<Choice>
+			<Sequence>
+				<Symbol>PREP//</Symbol>
+				<DateTime Field='Preperation Date' Format="yyyyMMddHHmmss">\d{8}\d{6}</DateTime>
+				<Optional>
+					<Symbol>,\d{1,3}</Symbol>
+				</Optional>
+				<Optional>
+					<Sequence>
+						<Symbol>/</Symbol>
+						<Optional>
+							<Symbol>N</Symbol>
+						</Optional>
+						<Symbol>\d{2}</Symbol>
+						<Optional>
+							<Symbol>\d{2}</Symbol>
+						</Optional>
+					</Sequence>
+				</Optional>
+			</Sequence>
+		</Choice>
+		<Symbol>\s*?(?=:)</Symbol>
+	</Sequence> <!--Not Completed-->
+
+
 
 	<!--
 	<Sequence Name='11A'>
