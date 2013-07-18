@@ -57,7 +57,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </code>
 		/// </remarks>
 		[XmlElement]
-		public NumberFormatInfo Format { get; set; }
+		public NumberFormatInfo NumberFormat { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -104,7 +104,7 @@ namespace ApiSoftware.Library35.Parsing
 		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
-			if (Format == null) Format = parserRules.NumberFormat;
+			if (NumberFormat == null) NumberFormat = parserRules.NumberFormat;
 		}
 
 		/// <summary>
@@ -115,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			decimal i;
-			if (decimal.TryParse(node.NodeText, NumberStyles.Number, Format, out i)) return i; else return null;
+			if (decimal.TryParse(node.NodeText, NumberStyles.Number, NumberFormat, out i)) return i; else return null;
 		}
 
 		/// <summary>

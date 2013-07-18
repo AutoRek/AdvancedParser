@@ -46,18 +46,13 @@ namespace ApiSoftware.Library35.Parsing
 		/// Gets or sets the format used to parse the value.
 		/// </summary>
 		/// <value>
-		/// The format provider object
+		/// The format string
 		/// </value>
 		/// <remarks>
-		/// The invariant culture is used by default. To fully override the invariant culture
-		/// in a rule, include a Format tag and the required options of the format info object 
-		/// in element form, e.g. 
-		/// <code>
-		/// <![CDATA[ <Decimal><Format><NumberDecimalSeparator>,</NumberDecimalSeparator></Format></Decimal> ]]>
-		/// </code>
+		/// If specified, the pattern is used to parse the value which must match exactly.
 		/// </remarks>
-		[XmlElement]
-		public DateTimeFormatInfo Format { get; set; }
+		[XmlAttribute]
+		public string Format { get; set; }
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -104,7 +99,6 @@ namespace ApiSoftware.Library35.Parsing
 		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
-			if (Format == null) Format = parserRules.DateTimeFormat;
 		}
 
 		/// <summary>
@@ -114,8 +108,15 @@ namespace ApiSoftware.Library35.Parsing
 		/// <returns>Object containing the date time value of the node (or null).</returns>
 		internal override object GetValue(OutputNode node)
 		{
-			DateTime i;
-			if (DateTime.TryParse(node.NodeText, Format, DateTimeStyles.AssumeLocal, out i)) return i; else return null;
+			DateTime value;
+			if (!string.IsNullOrEmpty(Format))
+			{
+				if (DateTime.TryParseExact(node.NodeText, Format, parserRules.DateTimeFormat, DateTimeStyles.AssumeLocal, out value)) return value; else return null;
+			}
+			else
+			{
+				if (DateTime.TryParse(node.NodeText, out value)) return value; else return null;
+			}
 		}
 
 		/// <summary>
@@ -124,7 +125,6 @@ namespace ApiSoftware.Library35.Parsing
 		public DateTimeRule()
 		{
 			ErrorTemplate = "$: expected a date value.";
-
 		}
 	}
 
