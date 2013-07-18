@@ -6,7 +6,6 @@ using ApiSoftware.Library35;
 using ApiSoftware.Library35.Parsing;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Globalization;
 
 namespace NewParser
 {
