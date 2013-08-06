@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserTester", "NewParser\ParserTester.csproj", "{FBB88BBE-B907-4DCA-9BA2-917534029915}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserEditor", "NewParser\ParserEditor.csproj", "{FBB88BBE-B907-4DCA-9BA2-917534029915}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserLibrary", "ParserLibrary\ParserLibrary.csproj", "{190C3F26-6B6C-4DF2-B5D7-C433C66EF387}"
 EndProject
@@ -62,16 +62,6 @@ Global
 		{D08B4911-428A-478B-8706-759AB3B05BCC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D08B4911-428A-478B-8706-759AB3B05BCC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D08B4911-428A-478B-8706-759AB3B05BCC}.Release|x86.ActiveCfg = Release|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{09BD51AE-F8B2-4C83-8ED9-3CC36BE08A3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{88F96BB4-A392-427B-B1B5-9B7C6A0C30CC}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{88F96BB4-A392-427B-B1B5-9B7C6A0C30CC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{88F96BB4-A392-427B-B1B5-9B7C6A0C30CC}.Debug|Mixed Platforms.Build.0 = Debug|x86
