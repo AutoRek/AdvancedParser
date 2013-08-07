@@ -189,63 +189,63 @@ SWIFT Shell
 				<Choice>
 					<Sequence>
 						<Symbol>\?\s*00</Symbol>
-						<Symbol Field="Transaction Description">.*?(?=\?|^:)</Symbol>
+						<Until Field="Transaction Description">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*20</Symbol>
-						<Symbol Field="Details of Payer/Beneficiary">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of Payer/Beneficiary">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*21</Symbol>
-						<Symbol Field="Details of Payer/Beneficiary 2">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of Payer/Beneficiary 2">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*22</Symbol>
-						<Symbol Field="Original Amount / order’s currency">.*?(?=\?|^:)</Symbol>
+						<Until Field="Original Amount / order’s currency">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*23</Symbol>
-						<Symbol Field="Commission (in account` s currency)">.*?(?=\?|^:)</Symbol>
+						<Until Field="Commission (in account` s currency)">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*24</Symbol>
-						<Symbol Field="Details of payment">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*25</Symbol>
-						<Symbol Field="Details of payment 2">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment 2">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*26</Symbol>
-						<Symbol Field="Details of payment 3">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment 3">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*27</Symbol>
-						<Symbol Field="Details of payment 4">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment 4">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*28</Symbol>
-						<Symbol Field="Details of payment 5">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment 5">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*29</Symbol>
-						<Symbol Field="Details of payment 6">.*?(?=\?|^:)</Symbol>
+						<Until Field="Details of payment 6">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*30</Symbol>
-						<Symbol Field="Swift Bank Code Beneficiary">.*?(?=\?|^:)</Symbol>
+						<Until Field="Swift Bank Code Beneficiary">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*31</Symbol>
-						<Symbol Field="Payers/Beneficiary Account">.*?(?=\?|^:)</Symbol>
+						<Until Field="Payers/Beneficiary Account">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*32</Symbol>
-						<Symbol Field="Payers/Beneficiary Account">.*?(?=\?|^:)</Symbol>
+						<Until Field="Payers/Beneficiary Account">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*38</Symbol>
-						<Symbol Field="IBAN">.*?(?=\?|^:)</Symbol>
+						<Until Field="IBAN">\?|^:</Until>
 					</Sequence>
 				</Choice>
 			</OneOrMore>
