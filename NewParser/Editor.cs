@@ -87,7 +87,7 @@ namespace NewParser
 					Tables.TabPages.Clear();
 					foreach (DataTable table in ds.Tables) { Tables.TabPages.Add(table.TableName); }
 					if (ds.Tables.Count > 0) { OutputData.DataMember = ds.Tables[0].TableName; }
-					PopulateXml(ToXmlTreeView, result.ToXml());
+					PopulateXml(ToXmlTreeView, result.ToXml(true));
 					StatusLabel.Text = "Parsed OK";
 					StatusLabel.BackColor = Color.DarkGreen;
 					StatusLabel.ForeColor = Color.White;

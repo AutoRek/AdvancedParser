@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Data;
 using ApiSoftware.Library35;
+using System.Xml.Linq;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -207,25 +208,48 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Gets the node in Xml format, using the Record and Field attributes.
 		/// </summary>
-		/// <param name="node">The node to get Xml from.</param>
-		/// <param name="rootNode">The root node.</param>
-		/// <param name="useAttributes">if set to <c>true</c> field values will be put in attributes.</param>
+		/// <param name="node">The node.</param>
+		/// <param name="useXDocument">if set to <c>true</c> uses xDocument. xDocument has the ability to replace duplicate attributes, but will decrease performance.</param>
 		/// <returns>
 		/// Xml in string format.
 		/// </returns>
-		static public string ToXml(this OutputNode node, string rootNode, bool useAttributes)
+		static public string ToXml(this OutputNode node, bool useXDocument = false)
+		{
+			return ToXml(node, "Xml", true, useXDocument);
+		}
+
+		/// <summary>
+		/// Gets the node in Xml format, using the Record and Field attributes.
+		/// </summary>
+		/// <param name="node">The node to get Xml from.</param>
+		/// <param name="rootNodeName">The root node.</param>
+		/// <param name="useAttributes">if set to <c>true</c> field values will be put in attributes.</param>
+		/// <param name="useXDocument">if set to <c>true</c> uses xDocument.</param>
+		/// <returns>
+		/// Xml in string format.
+		/// </returns>
+		static public string ToXml(this OutputNode node, string rootNodeName, bool useAttributes, bool useXDocument = false)
 		{
 			if (node == null) throw new ArgumentNullException("node");
-			var sb = new StringBuilder();
-			using (var writer = XmlWriter.Create(sb))
+			if (useXDocument)
 			{
-				writer.WriteStartDocument();
-				writer.WriteStartElement(rootNode);
-				writer.WriteXml(node, useAttributes);
-				writer.WriteEndElement();
-				writer.WriteEndDocument();
+				var rootNode = new XElement(rootNodeName);
+				rootNode.WriteXml(node, useAttributes);
+				return new XDocument(rootNode).ToString();
 			}
-			return sb.ToString();
+			else
+			{
+				var sb = new StringBuilder();
+				using (var writer = XmlWriter.Create(sb))
+				{
+					writer.WriteStartDocument();
+					writer.WriteStartElement(rootNodeName);
+					writer.WriteXml(node, useAttributes);
+					writer.WriteEndElement();
+					writer.WriteEndDocument();
+				}
+				return sb.ToString();
+			}
 		}
 
 		/// <summary>
@@ -236,6 +260,16 @@ namespace ApiSoftware.Library35.Parsing
 		static public void WriteXml(this XmlWriter writer, OutputNode node)
 		{
 			WriteXml(writer, node, true);
+		}
+
+		/// <summary>
+		/// Writes the node as Xml to the Document.
+		/// </summary>
+		/// <param name="rootNode">The root xElement.</param>
+		/// <param name="node">The node.</param>
+		static public void WriteXml(this XElement rootNode, OutputNode node)
+		{
+			WriteXml(rootNode, node, true);
 		}
 
 		/// <summary>
@@ -270,9 +304,53 @@ namespace ApiSoftware.Library35.Parsing
 			if (!string.IsNullOrEmpty(tableName)) writer.WriteEndElement();
 		}
 
+		/// <summary>
+		/// Writes the node as Xml to the writer.
+		/// </summary>
+		/// <param name="rootNode">The root xElement.</param>
+		/// <param name="node">The node.</param>
+		/// <param name="useAttributes">if set to <c>true</c> field values will be put in attributes.</param>
+		static public void WriteXml(this XElement rootNode, OutputNode node, bool useAttributes)
+		{
+			if (rootNode == null) throw new ArgumentNullException("root Node");
+			if (node == null) throw new ArgumentNullException("node");
+			var tableName = SafeName(node.Rule.Record);
+			var columnName = SafeName(node.Rule.Field);
+			XElement currentNode = null;
+			if (!string.IsNullOrEmpty(tableName)) currentNode = new XElement(tableName);
+			else currentNode = rootNode;
+			if (!string.IsNullOrEmpty(columnName))
+			{
+				if (useAttributes || columnName.StartsWith("@", StringComparison.Ordinal))
+				{
+					columnName = columnName.TrimStart('@');
+					var duplicateAttributes = currentNode.Attributes(columnName);
+					if (duplicateAttributes.Count() != 0)
+					{
+						duplicateAttributes.First().Value = node.NodeText;
+					}
+					else
+					{
+						currentNode.Add(new XAttribute(columnName, node.NodeText));
+					}
+				}
+				else
+				{
+					currentNode.Add(new XElement(columnName, node.NodeText));
+				}
+			}
+			foreach (var childNode in node.Children)
+			{
+				currentNode.WriteXml(childNode, useAttributes);
+			}
+			if (!string.IsNullOrEmpty(tableName)) rootNode.Add(currentNode);
+		}
+
 		static private string SafeName(string name)
 		{
-			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(" ", "_");
+			var replacements = new Dictionary<string, string>();
+			replacements.AddKeyValues(" ,_|/,_|(,_|),_|',_", ",", "|");
+			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(replacements);
 		}
 
 	}
