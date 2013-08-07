@@ -260,67 +260,67 @@ SWIFT Shell
 				<Choice>
 					<Sequence>
 						<Symbol>\?\s*00</Symbol>
-						<Symbol Field="Transaction Description">.*?(?=\?|^:)</Symbol>
+						<Until Field="Transaction Description">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*20</Symbol>
-						<Symbol Field="Debit / Credit Account/Bank Code with leading zeroes">.*?(?=\?|^:)</Symbol>
+						<Until Field="Debit / Credit Account/Bank Code with leading zeroes">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*21</Symbol>
-						<Symbol Field="Transaction Number">.*?(?=\?|^:)</Symbol>
+						<Until Field="Transaction Number">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*22</Symbol>
-						<Symbol Field="Clients Information">.*?(?=\?|^:)</Symbol>
+						<Until Field="Clients Information">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*23</Symbol>
-						<Symbol Field="Clients Information 2">.*?(?=\?|^:)</Symbol>
+						<Until Field="Clients Information 2">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*24</Symbol>
-						<Symbol Field="Advice for the Beneficiary">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*25</Symbol>
-						<Symbol Field="Advice for the Beneficiary 2">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary 2">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*26</Symbol>
-						<Symbol Field="Advice for the Beneficiary 3">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary 3">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*27</Symbol>
-						<Symbol Field="Advice for the Beneficiary 4">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary 4">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*28</Symbol>
-						<Symbol Field="Advice for the Beneficiary 5">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary 5">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*29</Symbol>
-						<Symbol Field="Advice for the Beneficiary 6">.*?(?=\?|^:)</Symbol>
+						<Until Field="Advice for the Beneficiary 6">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*30</Symbol>
-						<Symbol Field="Debit / Credit Bank Code">.*?(?=\?|^:)</Symbol>
+						<Until Field="Debit / Credit Bank Code">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*31</Symbol>
-						<Symbol Field="Debit / Credit Account of Beneficiary">.*?(?=\?|^:)</Symbol>
+						<Until Field="Debit / Credit Account of Beneficiary">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*32</Symbol>
-						<Symbol Field="Name of Beneficiary">.*?(?=\?|^:)</Symbol>
+						<Until Field="Name of Beneficiary">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*33</Symbol>
-						<Symbol Field="Name of Beneficiary 2">.*?(?=\?|^:)</Symbol>
+						<Until Field="Name of Beneficiary 2">\?|^:</Until>
 					</Sequence>
 					<Sequence>
 						<Symbol>\?\s*38</Symbol>
-						<Symbol Field="IBAN">.*?(?=\?|^:)</Symbol>
+						<Until Field="IBAN">\?|^:</Until>
 					</Sequence>
 				</Choice>
 			</OneOrMore>
