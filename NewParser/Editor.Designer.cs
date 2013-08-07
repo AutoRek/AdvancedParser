@@ -1,6 +1,6 @@
 ﻿namespace NewParser
 {
-	partial class TestWindow
+	partial class Editor
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestWindow));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.GrammarXml = new System.Windows.Forms.RichTextBox();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();

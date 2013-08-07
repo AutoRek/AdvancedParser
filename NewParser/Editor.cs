@@ -16,12 +16,12 @@ namespace NewParser
 	/// <summary>
 	/// 
 	/// </summary>
-	public partial class TestWindow : Form
+	public partial class Editor : Form
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TestWindow"/> class.
+		/// Initializes a new instance of the <see cref="Editor"/> class.
 		/// </summary>
-		public TestWindow()
+		public Editor()
 		{
 			InitializeComponent();
 			GrammarXml.Text = Properties.Settings.Default.RulesXml;
