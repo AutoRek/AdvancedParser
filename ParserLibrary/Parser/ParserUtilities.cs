@@ -130,6 +130,7 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			if (node == null || dataSet == null) return;
 			var value = node.Value;
+			var parentId = string.Empty;
 
 			// If the node specifies a table, create a new row on that table as the
 			// current row. Create the table if necessary.
@@ -138,10 +139,15 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				// create a new row in the named table
 				if (!dataSet.Tables.Contains(tableName)) { CreateTable(dataSet, idMode, tableName); }
+				if (row != null && idMode == IdMode.RowAndParents) parentId = Convert.ToString(row[OutputNode.RecordIdField]);
 				row = dataSet.Tables[tableName].NewRow();
 				if (idStyle == IdStyle.Guid)
 				{
 					row[OutputNode.RecordIdField] = Guid.NewGuid();
+				}
+				if (idMode == IdMode.RowAndParents)
+				{
+					row[OutputNode.ParentIdField] = parentId;
 				}
 				dataSet.Tables[tableName].Rows.Add(row);
 			}
@@ -312,7 +318,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <param name="useAttributes">if set to <c>true</c> field values will be put in attributes.</param>
 		static public void WriteXml(this XElement rootNode, OutputNode node, bool useAttributes)
 		{
-			if (rootNode == null) throw new ArgumentNullException("root Node");
+			if (rootNode == null) throw new ArgumentNullException("rootNode");
 			if (node == null) throw new ArgumentNullException("node");
 			var tableName = SafeName(node.Rule.Record);
 			var columnName = SafeName(node.Rule.Field);
