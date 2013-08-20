@@ -1,0 +1,57 @@
+﻿<!-- MARKDOWN PARSER -->
+
+<Rules>
+
+	<OneOrMore>
+		<Choice>
+			<Symbol Template="[br /]">(?ms)^\s*\r\n</Symbol>
+			<Sequence>
+				<Symbol Template="[h1]{0}[/h1]">.*?\r\n</Symbol>
+				<Symbol>=+\r\n</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol Template="[h2]{0}[/h2]">.*?\r\n</Symbol>
+				<Symbol>-+\r\n</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>###</Symbol>
+				<Symbol Template="[h3]{0}[/h3]">.*?\r\n</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>##</Symbol>
+				<Symbol Template="[h2]{0}[/h2]">.*?\r\n</Symbol>
+			</Sequence>
+			<Sequence>
+				<Symbol>#</Symbol>
+				<Symbol Template="[h1]{0}[/h1]">.*?\r\n</Symbol>
+			</Sequence>
+			<Sequence Template="[ul]{0}[/ul]">
+				<OneOrMore>
+					<Sequence>
+						<Symbol>(\*|\+|\-)\s+</Symbol>
+						<Symbol Template="[li]{0}[/li]">.*?\r\n</Symbol>
+					</Sequence>
+				</OneOrMore>
+			</Sequence>
+			<Sequence Template="[ol]{0}[/ol]">
+				<OneOrMore>
+					<Sequence>
+						<Symbol>[0-9]+\.\s+</Symbol>
+						<Symbol Template="[li]{0}[/li]">.*?\r\n</Symbol>
+					</Sequence>
+				</OneOrMore>
+			</Sequence>
+			<Symbol Template="[hr/]">((\*|\-) *){3}\r\n</Symbol>
+			<Sequence Template="[code]{0}[/code]">
+				<OneOrMore>
+					<Sequence>
+						<Symbol>(\t|    )</Symbol>
+						<Symbol Template="{0}">.*?\r\n</Symbol>
+					</Sequence>
+				</OneOrMore>
+			</Sequence>
+			<Symbol Template="{0}">.*?\r\n</Symbol>
+		</Choice>
+	</OneOrMore>
+
+</Rules>
