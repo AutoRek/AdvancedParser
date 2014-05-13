@@ -11,7 +11,7 @@ namespace NewParser
 {
 	class Program
 	{
-
+		[STAThreadAttribute]
 		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
