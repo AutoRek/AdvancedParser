@@ -121,8 +121,8 @@ namespace NewParser
 		private void DisplayResults()
 		{
 			if (Results.Count == 0) return;
-			var selectedIndex = InputSelection.SelectedIndex;
-			if (selectedIndex < 0) selectedIndex = 0;
+			var selectedIndex = GetSelectedTab();
+			if (selectedIndex < Inputs.Count) InputText.Text = Inputs[selectedIndex]; else InputText.Text = string.Empty;
 			var result = Results[selectedIndex];
 			OutputText.Text = "";
 			PopulateXml(OutputNodes, result.XmlSerialize());
@@ -132,10 +132,13 @@ namespace NewParser
 				FormattedOutput.Text = result.FormattedOutput();
 				var ds = new DataSet();
 				result.Fill(ds, IdMode.RowAndParents, IdStyle.Guid);
-				OutputData.DataSource = ds;
 				Tables.TabPages.Clear();
-				foreach (DataTable table in ds.Tables) { Tables.TabPages.Add(table.TableName); }
-				if (ds.Tables.Count > 0) { OutputData.DataMember = ds.Tables[0].TableName; }
+				if (ds.Tables.Count > 0)
+				{
+					OutputData.DataSource = ds;
+					foreach (DataTable table in ds.Tables) { Tables.TabPages.Add(table.TableName); }
+					OutputData.DataMember = ds.Tables[0].TableName;
+				}
 				PopulateXml(ToXmlTreeView, result.ToXml(true));
 				StatusLabel.Text = "Parsed OK";
 				StatusLabel.BackColor = Color.DarkGreen;
@@ -281,7 +284,15 @@ namespace NewParser
 
 		private void InputText_TextChanged(object sender, EventArgs e)
 		{
-			Inputs[InputSelection.SelectedIndex] = InputText.Text;
+			var selectedIndex = GetSelectedTab();
+			if (selectedIndex < Inputs.Count) Inputs[selectedIndex] = InputText.Text;
+		}
+
+		private int GetSelectedTab()
+		{
+			var selectedIndex = InputSelection.SelectedIndex;
+			if (selectedIndex < 0) selectedIndex = 0;
+			return selectedIndex;
 		}
 
 		private void openToolStripButton_Click(object sender, EventArgs e)
