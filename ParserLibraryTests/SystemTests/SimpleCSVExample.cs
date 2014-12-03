@@ -85,7 +85,9 @@ namespace ParserLibraryTests
 				result.Fill(ds);
 				Assert.IsTrue(ds.Tables.Contains("R"));
 				Assert.AreEqual(15, ds.Tables["R"].Rows.Count);
-				Assert.AreEqual(4, ds.Tables["R"].Columns.Count);
+				// Expect 4 'common' columns created before the 'record' + 4 columns belonging to the record.
+				// This is a change over the functionality before common fields were allowed.
+				Assert.AreEqual(8, ds.Tables["R"].Columns.Count); 
 			}
 		}
 

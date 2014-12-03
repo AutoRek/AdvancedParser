@@ -22,6 +22,10 @@ namespace NewParser
 		private List<string> Inputs = new List<string>();
 		private List<OutputNode> Results = new List<OutputNode>();
 		private string filePath = string.Empty;
+		private int Passed { get; set; }
+		private int Failed { get; set; }
+		private int firstFail;
+		private string error;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Editor"/> class.
@@ -32,6 +36,7 @@ namespace NewParser
 			GrammarXml.Text = Properties.Settings.Default.RulesXml;
 			Inputs.Add(Properties.Settings.Default.InputText);
 			InputText.Text = Inputs[0];
+			VersionNumber.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 			//GrammarXml. = GrammarXml.Rtf.Replace(@"\deflang2057", @"\deflang2057\deftab144");
 		}
 
@@ -68,9 +73,109 @@ namespace NewParser
 			}
 		}
 
+		private void LoadAndParseFiles(string[] paths, bool loadPasses = false)
+		{
+			try
+			{
+				SetStatusText("Parsing", Color.White, Color.DarkBlue);
+				ClearPreviouslyLoaded();
+				var grammar = Parser.LoadXml(GrammarXml.Text);
+				for (int i = 0; i < paths.Length; i++)
+				{
+
+					// in this mode, only failures are added
+					var path = paths[i];
+					if (File.Exists(path))
+					{
+						LoadAndParseFile(grammar, path, loadPasses);
+						OverallResult.Text = "Loaded: {0} of {1}; Passes: {2}  Fails: {3} {4}".Values(i, paths.Length, Passed, Failed, error);
+						statusStrip.Refresh();
+						if (i % 10 == 0) Application.DoEvents();
+					}
+				}
+				SetStatusOverall();
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+		}
+
+		private void LoadAndParseFolder(string path)
+		{
+			try
+			{
+				SetStatusText("Parsing", Color.White, Color.DarkBlue);
+				ClearPreviouslyLoaded();
+				var grammar = Parser.LoadXml(GrammarXml.Text);
+				var count = 0;
+				foreach (var file in Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories))
+				{
+					count += 1;
+					LoadAndParseFile(grammar, file, false);
+					OverallResult.Text = "Loaded: {0}; Passes: {1}  Fails: {2} {3}".Values(count, Passed, Failed, error);
+					statusStrip.Refresh();
+					if (count % 10 == 0) Application.DoEvents();
+				}
+				SetStatusOverall();
+			}
+			catch (Exception ex)
+			{
+				HandleException(ex);
+			}
+		}
+
+		private void LoadAndParseFile(Parser grammar, string path, bool loadPasses)
+		{
+			try
+			{
+				var input = File.ReadAllText(path);
+				var r = grammar.Parse(input);
+				if (r.IsMatch)
+				{
+					if (loadPasses)
+					{
+						var page = new TabPage(Path.GetFileNameWithoutExtension(path));
+						InputSelection.TabPages.Add(page);
+						page.ImageIndex = 0;
+						Inputs.Add(input);
+						Results.Add(r);
+					}
+					Passed += 1;
+				}
+				else
+				{
+					var page = new TabPage(Path.GetFileNameWithoutExtension(path));
+					InputSelection.TabPages.Add(page);
+					page.ImageIndex = 1;
+					Inputs.Add(input);
+					Results.Add(r);
+					if (firstFail == -1) firstFail = InputSelection.TabCount;
+					Failed += 1;
+				}
+			}
+			catch (Exception e)
+			{
+				Failed += 1;
+				error = e.Message;
+			}
+		}
+
+		private void ClearPreviouslyLoaded()
+		{
+			Passed = 0;
+			Failed = 0;
+			Inputs.Clear();
+			Results.Clear();
+			InputSelection.TabPages.Clear();
+			firstFail = -1;
+			error = string.Empty;
+		}
+
 		private void ParseNow()
 		{
-
+			Passed = 0;
+			Failed = 0;
 			try
 			{
 				StatusLabel.Text = "Parsing";
@@ -81,31 +186,39 @@ namespace NewParser
 				Properties.Settings.Default.InputText = InputText.Text;
 				Properties.Settings.Default.Save();
 
-				var timer = Stopwatch.StartNew();
+				var timer = new Stopwatch();
 
 				Results.Clear();
 				var i = 0;
+				firstFail = -1;
 				foreach (var input in Inputs)
 				{
+					timer.Start();
 					var r = grammar.Parse(input);
 					Results.Add(r);
 					if (r.IsMatch)
 					{
 						InputSelection.TabPages[i].ImageIndex = 0;
+						Passed += 1;
 					}
 					else
 					{
 						InputSelection.TabPages[i].ImageIndex = 1;
+						Failed += 1;
+						if (firstFail == -1) firstFail = i;
 					}
 					i += 1;
+					timer.Stop();
+					OverallResult.Text = "Passes: {0}  Fails: {1}".Values(Passed, Failed);
+					Application.DoEvents();
 				}
 				//var result = grammar.Parse(InputText.Text);
-				timer.Stop();
 				StatusLabel.Text = "Preparing results";
 				statusStrip.Refresh();
 
 				TimeTaken.Text = string.Format("{0:n2}ms", timer.Elapsed.TotalMilliseconds);
 				DisplayResults();
+				if (firstFail >= 0) InputSelection.SelectedIndex = firstFail;
 			}
 			catch (Exception ex)
 			{
@@ -140,9 +253,7 @@ namespace NewParser
 					OutputData.DataMember = ds.Tables[0].TableName;
 				}
 				PopulateXml(ToXmlTreeView, result.ToXml(true));
-				StatusLabel.Text = "Parsed OK";
-				StatusLabel.BackColor = Color.DarkGreen;
-				StatusLabel.ForeColor = Color.White;
+				SetStatusText("Parsed OK", Color.White, Color.DarkGreen);
 			}
 			else
 			{
@@ -151,10 +262,35 @@ namespace NewParser
 				OutputText.Text += err.GetErrorText();
 				InputText.SelectionStart = err.Begin;
 				InputText.SelectionLength = err.End - err.Begin + 1;
-				StatusLabel.Text = "Parse Error";
-				StatusLabel.BackColor = Color.Yellow;
-				StatusLabel.ForeColor = Color.Black;
+				SetStatusText("Parse Error", Color.Black, Color.Yellow);
 			}
+		}
+
+		private void SetStatusOverall()
+		{
+			if (Passed == 0)
+				SetStatusText("Failed", Color.White, Color.Red);
+			else if (Failed > 0)
+				SetStatusText("Partial", Color.Black, Color.Yellow);
+			else
+				SetStatusText("Passed", Color.White, Color.DarkGreen);
+		}
+
+		private void SetStatusText(string text, Color foreground, Color background)
+		{
+			StatusLabel.Text = text;
+			StatusLabel.ForeColor = foreground;
+			StatusLabel.BackColor = background;
+			statusStrip.Refresh();
+		}
+
+		private void HandleException(Exception ex)
+		{
+			StatusLabel.Text = "Error";
+			StatusLabel.BackColor = Color.Red;
+			StatusLabel.ForeColor = Color.White;
+			TimeTaken.Text = "";
+			OutputText.Text = ex.FullText();
 		}
 
 		private void PopulateXml(TreeView treeView, string xmlString)
@@ -243,18 +379,44 @@ namespace NewParser
 				var paths = e.Data.GetData(System.Windows.Forms.DataFormats.FileDrop) as string[];
 				if (paths == null || paths.Length == 0)
 				{
-					MessageBox.Show("Please drag one or more files.");
+					MessageBox.Show("Please drag one or more files, or a folder");
 				}
 				else
 				{
-					Inputs.Clear();
-					InputSelection.TabPages.Clear();
-					foreach (var path in paths)
+					if (paths.Length == 1 && Directory.Exists(paths[0]))
 					{
-						InputSelection.TabPages.Add(Path.GetFileNameWithoutExtension(path));
-						Inputs.Add(File.ReadAllText(path));
+						// Parse the folder contents, only record errors
+						LoadAndParseFolder(paths[0]);
 					}
-					ParseNow();
+					else if (paths.Length > 100)
+					{
+						// Long list, parse everything but only record errors
+						LoadAndParseFiles(paths, false);
+					}
+					else
+					{
+						// load and parse everything
+						LoadAndParseFiles(paths, true);
+						//LoadFiles(paths);
+						//ParseNow();
+					}
+				}
+			}
+		}
+
+		private void LoadFiles(string[] paths)
+		{
+			Inputs.Clear();
+			InputSelection.TabPages.Clear();
+			for (int i = 0; i < paths.Length; i++)
+			{
+				var path = paths[i];
+				if (File.Exists(path))
+				{
+					InputSelection.TabPages.Add(Path.GetFileNameWithoutExtension(path));
+					Inputs.Add(File.ReadAllText(path));
+					OverallResult.Text = "Loaded: {0} of {1}".Values(i, paths.Length);
+					Application.DoEvents();
 				}
 			}
 		}
@@ -357,6 +519,19 @@ namespace NewParser
 			}
 		}
 
+		private void testRegexes_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				var tester = new RegexTester();
+				tester.Show();
+			}
+			catch (Exception ex)
+			{
+				OutputText.Text = ex.FullText();
+			}
+		}
+
 		private void OpenGrammarFile(string path)
 		{
 			filePath = path;
@@ -387,5 +562,7 @@ namespace NewParser
 				e.Effect = DragDropEffects.Copy;
 			}
 		}
+
+
 	}
 }

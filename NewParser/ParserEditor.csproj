@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NewParser</RootNamespace>
-    <AssemblyName>NewParser</AssemblyName>
+    <AssemblyName>ParserStudio</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\NewParser.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\ParserStudio.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -39,6 +39,9 @@
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiSoftware.Library35, Version=3.5.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,6 +84,12 @@
     <Compile Include="Editor.Designer.cs">
       <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegexTester.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegexTester.Designer.cs">
+      <DependentUpon>RegexTester.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Editor.resx">
@@ -89,6 +98,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegexTester.resx">
+      <DependentUpon>RegexTester.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +119,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App.ico" />
     <Content Include="ILMergeOrder.txt" />
     <Content Include="OK.ico" />
     <Content Include="Error.ico" />
