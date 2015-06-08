@@ -11,12 +11,18 @@
 
   <!-- decide what goes into output after compile-->
   <Target Name="SaveILMergeData" AfterTargets="CoreCompile">
+    <Message Text="Transitive merge" Importance="high" Condition="$(ILMergeTransitive) == 'true'" />
 
-    <!-- all assemblies that go to the executable except the main one-->
+    <!-- all copy local assemblies referenced from this project that go to the executable except the main one-->
     <CreateItem Include="@(ReferencePath)" Condition=" '%(CopyLocal)' == 'true' ">
       <Output TaskParameter="Include"  ItemName="MergedAssemblies"/>
     </CreateItem>
 
+    <!-- all copy local dependency assemblies-->
+    <CreateItem Include="@(ReferenceDependencyPaths)" Condition=" '%(CopyLocal)' == 'true' ">
+      <Output TaskParameter="Include" ItemName="MergedDependencies"/>
+    </CreateItem>
+    
     <!-- all assemblies that doesn't so we use their directories as library path -->
     <CreateItem Include="@(ReferencePath)" Condition=" '%(CopyLocal)' == 'false' ">
       <Output TaskParameter="Include" ItemName="UnmergedAssemblies"/>
@@ -27,10 +33,15 @@
       <Output TaskParameter="Include"  ItemName="LocalContentFiles"/>
     </CreateItem>
 
-    <PropertyGroup>
+    <PropertyGroup Condition=" $(ILMergeTransitive) == 'true' ">
       <!-- add the main assembly as the first one -->
+      <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)');@(MergedDependencies->'%(FullPath)')</MergedAssemblies>
+    </PropertyGroup>
+    <PropertyGroup Condition=" $(ILMergeTransitive) == 'false' OR $(ILMergeTransitive) == '' ">
       <MergedAssemblies>@(IntermediateAssembly->'%(FullPath)');@(MergedAssemblies->'%(FullPath)')</MergedAssemblies>
-
+    </PropertyGroup>
+    
+    <PropertyGroup>
       <!-- Ideally we should copy all not-copy-local assemblies that are not in the ILMergeLibraryPath to -->
       <!-- a temp directory and add it to the start search path, but we keep it simple here -->
       <UnmergedAssemblies>@(UnmergedAssemblies->'%(FullPath)')</UnmergedAssemblies>
