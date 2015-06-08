@@ -150,7 +150,7 @@ SWIFT Shell
 		<Symbol Field="CreditDebit">C|D</Symbol>
 		<Symbol Field="Date">\d{6}</Symbol>
 		<Symbol Field="Currency">[A-Z]{3}</Symbol>
-		<Symbol Field="Amount">[0-9,]{1,15}</Symbol>
+		<Decimal Field="Amount">[0-9,]{1,15}</Decimal>
 		<Symbol>(?ms)\s*</Symbol>
 	</Sequence>
 
@@ -163,7 +163,7 @@ SWIFT Shell
 			</Sequence>
 		</Optional>
 		<Symbol Field="FundsCode">RC|RD|C|D</Symbol>
-		<Symbol Field="Amount">[0-9,]{1,15}</Symbol>
+		<Decimal Field="Amount">[0-9,]{1,15}</Decimal>
 		<Symbol Field="SwiftCode">\w{4}</Symbol>
 		<Symbol Field="OwnerRef">((?!//)[A-Za-z0-9 /-?().,+ \r\n]){1,24}</Symbol>
 		<!--Standards say maximum 16x, examples have 23x-->
