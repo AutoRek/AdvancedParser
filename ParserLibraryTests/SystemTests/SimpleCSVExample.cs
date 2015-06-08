@@ -70,8 +70,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 1
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
 			var xml = File.ReadAllText("TestFiles\\CSVParser.xml");
@@ -95,8 +95,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 2 - An error in the file
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
 			var xml = File.ReadAllText("TestFiles\\CSVParser.xml");
@@ -112,8 +112,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 3 - Convert to XML
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
 			var xml = File.ReadAllText("TestFiles\\CSVParser.xml");
@@ -141,8 +141,8 @@ namespace ParserLibraryTests
 		/// This is a requirement imposed by the XML writer.
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample3B()
 		{
 			var xml = File.ReadAllText("TestFiles\\CSVParserB.xml");
@@ -168,8 +168,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 4 - Get Formatted output to XML
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
 			var xml = File.ReadAllText("TestFiles\\CSVParser.xml");

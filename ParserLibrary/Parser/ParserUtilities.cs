@@ -103,7 +103,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		static public void Fill(this OutputNode node, DataSet dataSet)
 		{
-			node.Fill(dataSet, null, IdMode.None, IdStyle.None);
+			node.Fill(dataSet, IdMode.None, IdStyle.None, null, new Dictionary<string, object>());
 		}
 
 		/// <summary>
@@ -115,7 +115,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// <param name="idStyle">The style for the generated ids.</param>
 		static public void Fill(this OutputNode node, DataSet dataSet, IdMode idMode, IdStyle idStyle)
 		{
-			node.Fill(dataSet, null, idMode, idStyle);
+			node.Fill(dataSet, idMode, idStyle, null, new Dictionary<string, object>());
 		}
 
 		/// <summary>
@@ -123,10 +123,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <param name="dataSet">The data set to fill.</param>
-		/// <param name="row">The current row being filled.</param>
 		/// <param name="idMode">The mode for handling record Ids.</param>
 		/// <param name="idStyle">The style for the generated ids.</param>
-		static public void Fill(this OutputNode node, DataSet dataSet, DataRow row, IdMode idMode, IdStyle idStyle)
+		/// <param name="row">The current row being filled.</param>
+		/// <param name="commonValues">The current common or shared field values.</param>
+		static private void Fill(this OutputNode node, DataSet dataSet, IdMode idMode, IdStyle idStyle, DataRow row, Dictionary<string, object> commonValues)
 		{
 			if (node == null || dataSet == null) return;
 			var value = node.Value;
@@ -150,34 +151,53 @@ namespace ApiSoftware.Library35.Parsing
 					row[OutputNode.ParentIdField] = parentId;
 				}
 				dataSet.Tables[tableName].Rows.Add(row);
+				// Add the common values, if any
+				foreach (var field in commonValues)
+				{
+					SetColumnValue(row, field.Key, field.Value);
+				}
 			}
 
 			// If the current node specifies a column, populate the column of the
-			// current row with the node's value. (Create the column if necessary)
+			// current row with the node's value. (Create the column if necessary).
+			// If there is no current row, set the common field value.
 			var columnName = node.Rule.Field;
-			if (!string.IsNullOrEmpty(columnName) && row != null)
+			if (!string.IsNullOrEmpty(columnName))
 			{
-				if (!row.Table.Columns.Contains(columnName))
+				if (row != null)
 				{
-					if (value == null)
-					{
-						// add the column without explicit type (will effectively be a string)
-						row.Table.Columns.Add(columnName);
-					}
-					else
-					{
-						// add the column in the correct type
-						row.Table.Columns.Add(columnName, value.GetType());
-					}
+					SetColumnValue(row, columnName, value);
 				}
-				row[columnName] = value;
+				else
+				{
+					commonValues[columnName] = value;
+				}
 			}
 
 			// Process all the child nodes into the current row.
 			foreach (var item in node.Children)
 			{
-				item.Fill(dataSet, row, idMode, idStyle);
+				item.Fill(dataSet, idMode, idStyle, row, commonValues);
 			}
+		}
+
+		// Set the named column of the row to the specified value, adding the column to the table if needed.
+		static private void SetColumnValue(DataRow row, string columnName, object value)
+		{
+			if (!row.Table.Columns.Contains(columnName))
+			{
+				if (value == null)
+				{
+					// add the column without explicit type (will effectively be a string)
+					row.Table.Columns.Add(columnName);
+				}
+				else
+				{
+					// add the column in the correct type
+					row.Table.Columns.Add(columnName, value.GetType());
+				}
+			}
+			row[columnName] = value;
 		}
 
 		// Create the table in the dataset (already assumed not to exist)

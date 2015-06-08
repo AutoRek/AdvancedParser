@@ -68,8 +68,8 @@ namespace ParserLibraryTests
 		/// Parsing Example
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingTest()
 		{
 			var xml = File.ReadAllText("TestFiles\\XmlParser.xml");
@@ -82,8 +82,8 @@ namespace ParserLibraryTests
 		}
 
 		[TestMethod]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void FillTest()
 		{
 			// Xml is not set up with any record/fields so dataset is completely empty
@@ -101,8 +101,8 @@ namespace ParserLibraryTests
 		}
 
 		[TestMethod]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void GetFormattedOutput()
 		{
 			// Just default content, so only the text values get output
@@ -117,8 +117,8 @@ namespace ParserLibraryTests
 		}
 
 		[TestMethod]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void GetErrorOutput()
 		{
 			// Check the error of the error sample

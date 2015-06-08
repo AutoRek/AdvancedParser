@@ -73,8 +73,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 1
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
 			// Simple test that a simple equality gives the expected output
@@ -92,8 +92,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 2
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
 			// Operator precedence automatically handled
@@ -111,8 +111,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 3
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
 			// Complex test involving many operands and brackets and so on
@@ -130,8 +130,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 4
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
 			// Try a failing match

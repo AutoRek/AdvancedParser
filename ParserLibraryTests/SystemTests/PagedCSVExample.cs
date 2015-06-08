@@ -70,8 +70,8 @@ namespace ParserLibraryTests
 		///A test for Fill
 		///</summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void FillTest1()
 		{
 			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
@@ -96,8 +96,8 @@ namespace ParserLibraryTests
 		///A test for Fill
 		///</summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void FillTest2()
 		{
 			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");
@@ -122,8 +122,8 @@ namespace ParserLibraryTests
 		///A test for GetFormattedOutput
 		///</summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void GetFormattedOutputTest_Full()
 		{
 			var xml = File.ReadAllText("TestFiles\\PagedCSVParser.xml");

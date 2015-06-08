@@ -70,8 +70,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 1
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample1()
 		{
 			var xml = File.ReadAllText("TestFiles\\SWIFT-Generic.xml");
@@ -87,8 +87,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 2
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample2()
 		{
 			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
@@ -104,8 +104,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 3
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample3()
 		{
 			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
@@ -121,8 +121,8 @@ namespace ParserLibraryTests
 		/// Parsing Example 4
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
 		public void ParsingExample4()
 		{
 			var xml = File.ReadAllText("TestFiles\\SWIFT-MT535.xml");
@@ -133,5 +133,50 @@ namespace ParserLibraryTests
 
 			Assert.IsTrue(result.IsMatch);
 		}
+
+		/// <summary>
+		/// Parsing Example 5
+		/// </summary>
+		[TestMethod()]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		public void ParsingExample5()
+		{
+			var xml = File.ReadAllText("TestFiles\\SWIFT-MT940.xml");
+			var data = File.ReadAllText("TestFiles\\mt940_example_1.txt");
+
+			var rules = Parser.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			Assert.IsTrue(result.IsMatch);
+		}
+
+		/// <summary>
+		///A test for Fill and decimal values
+		///</summary>
+		[TestMethod()]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		public void FillSwiftTest1()
+		{
+			var xml = File.ReadAllText("TestFiles\\SWIFT-MT940.xml");
+			var data = File.ReadAllText("TestFiles\\mt940_example_2.txt");
+
+			var rules = Parser.LoadXml(xml);
+			var result = rules.Parse(data);
+
+			using (var ds = new DataSet())
+			{
+				result.Fill(ds);
+				Assert.IsTrue(ds.Tables.Contains("Message"));
+				Assert.IsTrue(ds.Tables.Contains("TransactionBlock"));
+				Assert.AreEqual(1, ds.Tables["Message"].Rows.Count);
+				Assert.AreEqual(4, ds.Tables["TransactionBlock"].Rows.Count);
+				Assert.AreEqual(18, ds.Tables["Message"].Columns.Count);
+				Assert.AreEqual(24, ds.Tables["TransactionBlock"].Columns.Count);
+				Assert.AreEqual(typeof(Decimal), ds.Tables["Message"].Rows[0]["Amount"].GetType());
+			}
+		}
+
 	}
 }

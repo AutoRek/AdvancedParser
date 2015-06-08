@@ -70,8 +70,9 @@ namespace ParserLibraryTests
 		/// Parsing Example 1
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		[TestCategory("NOT IMPLEMENTED")]
 		public void ParsingExample1()
 		{
 			Assert.Inconclusive("TODO: Parsing Example 1");
@@ -81,8 +82,9 @@ namespace ParserLibraryTests
 		/// Parsing Example 2
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		[TestCategory("NOT IMPLEMENTED")]
 		public void ParsingExample2()
 		{
 			Assert.Inconclusive("TODO: Parsing Example 2");
@@ -92,8 +94,9 @@ namespace ParserLibraryTests
 		/// Parsing Example 3
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		[TestCategory("NOT IMPLEMENTED")]
 		public void ParsingExample3()
 		{
 			Assert.Inconclusive("TODO: Parsing Example 3");
@@ -103,8 +106,9 @@ namespace ParserLibraryTests
 		/// Parsing Example 4
 		/// </summary>
 		[TestMethod()]
-		[DeploymentItem("TestFiles", "TestFiles")]
-		[DeploymentItem("TestParsers", "TestFiles")]
+		[DeploymentItem("Parser\\TestFiles", "TestFiles")]
+		[DeploymentItem("Parser\\TestParsers", "TestFiles")]
+		[TestCategory("NOT IMPLEMENTED")]
 		public void ParsingExample4()
 		{
 			Assert.Inconclusive("TODO: Parsing Example 4");
