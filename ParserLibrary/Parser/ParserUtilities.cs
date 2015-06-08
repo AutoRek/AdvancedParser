@@ -149,6 +149,23 @@ namespace ApiSoftware.Library35.Parsing
 					row[OutputNode.ParentIdField] = parentId;
 				}
 				dataSet.Tables[tableName].Rows.Add(row);
+				// Clear commonValues if required before the new row is started.
+				if (node.Rule.ClearFields != null)
+				{
+					if (node.Rule.ClearFields == "*")
+					{
+						// Clear all fields
+						commonValues.Clear();
+					}
+					else
+					{
+						// Clear named fields
+						foreach (var name in node.Rule.ClearFields.Split(','))
+						{
+							if (commonValues.ContainsKey(name)) commonValues.Remove(name);
+						}
+					}
+				}
 				// Add the common values, if any
 				foreach (var field in commonValues)
 				{

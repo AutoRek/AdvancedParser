@@ -90,6 +90,22 @@ namespace ApiSoftware.Library35.Parsing
 		public string Field { get; set; }
 
 		/// <summary>
+		/// Gets or sets the fields to clear when using the <c>Node.Fill</c> method.
+		/// </summary>
+		/// <value>
+		/// The fields to clear.
+		/// </value>
+		/// <remarks>
+		/// This attribute is only used when the <see cref="Record"/> attribute is used. 
+		/// If null, no fields will be cleared when the new record is started. This is the default behaviour.
+		/// If *, all fields will be cleared when the new record is started.
+		/// If a comma-separated list of field names is provided, each named value is cleared before the
+		/// new record is started.
+		/// </remarks>
+		[XmlAttribute]
+		public string ClearFields { get; set; }
+
+		/// <summary>
 		/// Gets or sets the Important flag.
 		/// </summary>
 		/// <value>
