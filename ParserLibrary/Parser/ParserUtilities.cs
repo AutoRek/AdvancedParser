@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -9,9 +10,6 @@ using System.Xml.Linq;
 
 namespace ApiSoftware.Library35.Parsing
 {
-	//class ParserException : SyntaxErrorException
-	//{
-	//}
 
 	/// <summary>
 	/// Different record ID generation styles.
@@ -140,7 +138,7 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				// create a new row in the named table
 				if (!dataSet.Tables.Contains(tableName)) { CreateTable(dataSet, idMode, tableName); }
-				if (row != null && idMode == IdMode.RowAndParents) parentId = Convert.ToString(row[OutputNode.RecordIdField]);
+				if (row != null && idMode == IdMode.RowAndParents) parentId = Convert.ToString(row[OutputNode.RecordIdField], CultureInfo.InvariantCulture);
 				row = dataSet.Tables[tableName].NewRow();
 				if (idStyle == IdStyle.Guid)
 				{
@@ -372,11 +370,13 @@ namespace ApiSoftware.Library35.Parsing
 			if (!string.IsNullOrEmpty(tableName)) rootNode.Add(currentNode);
 		}
 
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "ApiSoftware.Library35.Dictionaries.AddKeyValues(System.Collections.IDictionary,System.String,System.String,System.String)",
+			Justification = "String contains no locale-sensitive values")]
 		static private string SafeName(string name)
 		{
 			var replacements = new Dictionary<string, string>();
 			replacements.AddKeyValues(" ,_|/,_|(,_|),_|',_", ",", "|");
-			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(replacements);
+			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(replacements, StringComparison.Ordinal);
 		}
 
 	}
