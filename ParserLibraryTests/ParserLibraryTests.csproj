@@ -58,6 +58,7 @@
     <Compile Include="OutputTests\_NodeBaseTestClass.cs" />
     <Compile Include="ParserUtilitiesTest.cs" />
     <Compile Include="SystemTests\BooleanExpressionExample.cs" />
+    <Compile Include="SystemTests\SpecialCases.cs" />
     <Compile Include="SystemTests\GrammarExample.cs" />
     <Compile Include="SystemTests\PagedCSVExample.cs" />
     <Compile Include="SystemTests\SimpleCSVExample.cs" />
@@ -101,6 +102,9 @@
     <Shadow Include="Test References\ParserLibrary.accessor" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Parser\TestFiles\SimplePagedCSVusingClearFields.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Parser\TestFiles\mt103_example_1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -137,6 +141,9 @@
     <Content Include="Parser\TestFiles\SimplePagedCSV.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Parser\TestParsers\PagedCSVwithClearFields.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Parser\TestParsers\CSVParser.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -169,12 +176,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SystemTests\BooleanExpressionExample.cs.bak" />
-    <None Include="SystemTests\GrammarExample.cs.bak" />
-    <None Include="SystemTests\PagedCSVExample.cs.bak" />
-    <None Include="SystemTests\SimpleCSVExample.cs.bak" />
-    <None Include="SystemTests\SWIFTExample.cs.bak" />
-    <None Include="SystemTests\XmlExample.cs.bak" />
     <None Include="Parser\TestFiles\XmlSample.xml.err">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,61 @@
+﻿<Rules>
+	<!-- Example of a paged CSV directly encoded in the parser -->
+	<!-- In this example, the ClearFields attribute is used to selectively clear values -->
+	<Sequence Name='root'>
+		<OneOrMore>
+			<Include>header</Include>
+		</OneOrMore>
+		<Include>end</Include>
+	</Sequence>
+
+	<Sequence Name='header' ClearFields="*">
+		<Symbol Field="h1" >\w+</Symbol>
+		<Symbol>,</Symbol>
+		<SString Field="h2" />
+		<Symbol>,</Symbol>
+		<String Field="h3"  />
+		<Optional>
+			<Sequence>
+				<Symbol>,</Symbol>
+				<Integer Field="h4" />
+			</Sequence>
+		</Optional>
+		<Symbol>\s+</Symbol>
+		<OneOrMore>
+			<Include>subhead</Include>
+		</OneOrMore>
+	</Sequence>
+
+	<Sequence Name='subhead'  ClearFields="s3">
+		<Integer Field="s1"/>
+		<Symbol>,</Symbol>
+		<Symbol Field="s2">\w+</Symbol>
+		<Optional>
+			<Sequence>
+				<Symbol>,</Symbol>
+				<Integer Field="s3"/>
+			</Sequence>
+		</Optional>
+		<OneOrMore>
+			<Include>row</Include>
+		</OneOrMore>
+	</Sequence>
+
+	<Sequence Name='row' Record='R'>
+		<Integer Field="r1"/>
+		<Symbol>,</Symbol>
+		<Symbol Field="r2">\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Integer Field="r3"/>
+		<Symbol>,</Symbol>
+		<SString Field="r4"/>
+		<Symbol>\s+</Symbol>
+	</Sequence>
+
+	<Sequence Name="end">
+		<Symbol>\w+</Symbol>
+		<Symbol>,</Symbol>
+		<Symbol>\w+</Symbol>
+		<Symbol>\s*</Symbol>
+	</Sequence>
+</Rules>

@@ -133,6 +133,9 @@ namespace ParserLibraryTests
 			xmlText = result.ToXml("test", false);
 			expected = @"<?xml version=""1.0"" encoding=""utf-16""?><test><h1>Header1a</h1><h2>'Header2a'</h2><h3>""Header3a""</h3><h4>0</h4><R><r1>1</r1><r2>Val21</r2><r3>301</r3><r4>'AA'</r4></R><R><r1>2</r1><r2>Val22</r2><r3>302</r3><r4>'BB'</r4></R><R><r1>3</r1><r2>Val23</r2><r3>303</r3><r4>'CC'</r4></R><R><r1>4</r1><r2>Val24</r2><r3>304</r3><r4>'DD'</r4></R><R><r1>5</r1><r2>Val25</r2><r3>305</r3><r4>'EE'</r4></R><R><r1>6</r1><r2>Val26</r2><r3>306</r3><r4>'AAA'</r4></R><R><r1>7</r1><r2>Val27</r2><r3>307</r3><r4>'BBB'</r4></R><R><r1>8</r1><r2>Val28</r2><r3>308</r3><r4>'CCC'</r4></R><R><r1>9</r1><r2>Val29</r2><r3>309</r3><r4>'DDD'</r4></R><R><r1>10</r1><r2>Val30</r2><r3>310</r3><r4>'EEE'</r4></R><R><r1>11</r1><r2>Val31</r2><r3>311</r3><r4>'AAAA'</r4></R><R><r1>12</r1><r2>Val32</r2><r3>312</r3><r4>'BBBB'</r4></R><R><r1>13</r1><r2>Val33</r2><r3>313</r3><r4>'CCCC'</r4></R><R><r1>14</r1><r2>Val34</r2><r3>314</r3><r4>'DDDD'</r4></R><R><r1>15</r1><r2>Val35</r2><r3>315</r3><r4>'EEEE'</r4></R></test>";
 			Assert.AreEqual(expected, xmlText);
+
+			xmlText = result.ToXml("test", false, true);
+			Assert.AreEqual(expected.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", ""), xmlText.Replace(">\r\n", ">").Replace("  <", "<").Replace("  <", "<"));
 		}
 
 		/// <summary>

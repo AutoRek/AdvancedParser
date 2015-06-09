@@ -149,27 +149,28 @@ namespace ApiSoftware.Library35.Parsing
 					row[OutputNode.ParentIdField] = parentId;
 				}
 				dataSet.Tables[tableName].Rows.Add(row);
-				// Clear commonValues if required before the new row is started.
-				if (node.Rule.ClearFields != null)
-				{
-					if (node.Rule.ClearFields == "*")
-					{
-						// Clear all fields
-						commonValues.Clear();
-					}
-					else
-					{
-						// Clear named fields
-						foreach (var name in node.Rule.ClearFields.Split(','))
-						{
-							if (commonValues.ContainsKey(name)) commonValues.Remove(name);
-						}
-					}
-				}
 				// Add the common values, if any
 				foreach (var field in commonValues)
 				{
 					SetColumnValue(row, field.Key, field.Value);
+				}
+			}
+
+			// Clear commonValues if required before the new row is started.
+			if (node.Rule.ClearFields != null)
+			{
+				if (node.Rule.ClearFields == "*")
+				{
+					// Clear all fields
+					commonValues.Clear();
+				}
+				else
+				{
+					// Clear named fields
+					foreach (var name in node.Rule.ClearFields.Split(','))
+					{
+						if (commonValues.ContainsKey(name)) commonValues.Remove(name);
+					}
 				}
 			}
 
@@ -358,21 +359,23 @@ namespace ApiSoftware.Library35.Parsing
 			var tableName = SafeName(node.Rule.Record);
 			var columnName = SafeName(node.Rule.Field);
 			XElement currentNode = null;
-			if (!string.IsNullOrEmpty(tableName)) currentNode = new XElement(tableName);
-			else currentNode = rootNode;
+			if (!string.IsNullOrEmpty(tableName)) currentNode = new XElement(tableName); else currentNode = rootNode;
 			if (!string.IsNullOrEmpty(columnName))
 			{
 				if (useAttributes || columnName.StartsWith("@", StringComparison.Ordinal))
 				{
 					columnName = columnName.TrimStart('@');
-					var duplicateAttributes = currentNode.Attributes(columnName);
-					if (duplicateAttributes.Count() != 0)
+					// XElement is sensitive to duplicate attributes, so take steps to avoid adding them.
+					var attributes = currentNode.Attributes(columnName);
+					if (attributes.Count() == 0)
 					{
-						duplicateAttributes.First().Value = node.NodeText;
+						// Add the attribute if not already present.
+						currentNode.Add(new XAttribute(columnName, node.NodeText));
 					}
 					else
 					{
-						currentNode.Add(new XAttribute(columnName, node.NodeText));
+						// Set the attribute with the value otherwise (avoids duplicate attribute errors).
+						attributes.First().Value = node.NodeText;
 					}
 				}
 				else
