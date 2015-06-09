@@ -65,7 +65,6 @@ namespace ParserLibraryTests
 		//
 		#endregion
 
-
 		/// <summary>
 		/// Parsing Example 1
 		/// </summary>

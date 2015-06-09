@@ -15,7 +15,6 @@ namespace ParserLibraryTests
 	public class IntegerNodeTest : NodeBaseTestClass
 	{
 
-
 		private TestContext testContextInstance;
 
 		/// <summary>
@@ -63,8 +62,6 @@ namespace ParserLibraryTests
 		//}
 		//
 		#endregion
-
-
 
 		/// <summary>
 		/// Each node should initialise correctly with the correct match
@@ -150,7 +147,6 @@ namespace ParserLibraryTests
 			Assert.AreEqual(1, ds.Tables[0].Rows.Count);
 			Assert.AreEqual(1, ds.Tables[0].Rows[0][0]);
 		}
-
 
 		private static IntegerNode CreateTestNode()
 		{

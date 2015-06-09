@@ -15,7 +15,6 @@ namespace ParserLibraryTests
 	public class BlockNodeTest : NodeBaseTestClass
 	{
 
-
 		private TestContext testContextInstance;
 
 		/// <summary>
@@ -63,8 +62,6 @@ namespace ParserLibraryTests
 		//}
 		//
 		#endregion
-
-
 
 		[TestMethod()]
 		public override void ConstructorTest()
@@ -130,7 +127,6 @@ namespace ParserLibraryTests
 			Assert.AreEqual("B", ds.Tables[0].Rows[0][1]);
 		}
 
-
 		private static BlockNode CreateTestNode()
 		{
 			var text = "AB";
@@ -155,5 +151,6 @@ namespace ParserLibraryTests
 			node.Children.Add(new TextNode(rule.Rules[1], text, 1, 1));
 			return node;
 		}
+
 	}
 }
