@@ -9,3 +9,6 @@
 // You do not need to add suppressions to this file manually.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api", Scope = "namespace", Target = "ApiSoftware.Library35.Parsing")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Scope = "member", Target = "ApiSoftware.Library35.Parsing.ParserUtilities.#ToXml(ApiSoftware.Library35.Parsing.OutputNode,System.Boolean)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Scope = "member", Target = "ApiSoftware.Library35.Parsing.ParserUtilities.#ToXml(ApiSoftware.Library35.Parsing.OutputNode,System.String,System.Boolean,System.Boolean)")]

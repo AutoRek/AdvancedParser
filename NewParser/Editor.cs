@@ -37,7 +37,20 @@ namespace NewParser
 			Inputs.Add(Properties.Settings.Default.InputText);
 			InputText.Text = Inputs[0];
 			VersionNumber.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			GrammarXml.KeyDown += ShortCut_KeyDown;
+			InputText.KeyDown += ShortCut_KeyDown;
 			//GrammarXml. = GrammarXml.Rtf.Replace(@"\deflang2057", @"\deflang2057\deftab144");
+		}
+
+		void ShortCut_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control)
+			{
+				if (e.KeyCode == Keys.A)
+				{
+					((TextBox)sender).SelectAll();
+				}
+			}
 		}
 
 		private void ParseButton_Click(object sender, EventArgs e)
