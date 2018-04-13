@@ -11,11 +11,12 @@ using ApiSoftware.Library35.Parsing;
 using System.Diagnostics;
 using System.Xml;
 using System.IO;
+using System.Xml.Linq;
 
 namespace NewParser
 {
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public partial class Editor : Form
 	{
@@ -319,7 +320,6 @@ namespace NewParser
 				root.ExpandAll();
 				treeView.Nodes.Add(root);
 				treeView.ResumeLayout();
-
 			}
 			catch (Exception e)
 			{
@@ -349,7 +349,15 @@ namespace NewParser
 
 		private void GrammarXml_TextChanged(object sender, EventArgs e)
 		{
-
+			try
+			{
+				var formatted = XElement.Parse(GrammarXml.Text).ToString();
+				GrammarXml.Text = formatted;
+			}
+			catch
+			{
+				// If the content is not valid XML, just ignore.
+			}
 		}
 
 		private void ResetTextColors()
