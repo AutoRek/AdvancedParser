@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics;
+using System.Linq;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -38,10 +33,10 @@ namespace ApiSoftware.Library35.Parsing
 		/// rules will back-track up the stack to find the next rule that will parse
 		/// from the current position. If no rule can parse, then the text is
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
+		/// In this case, the longest successful partially parsed node is returned.
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
-			//Trace.WriteLine(Name + ":" + position, "ChoiceRule");
 			OutputNode result = null;
 			OutputNode best = null;
 			foreach (var item in Rules)
@@ -49,11 +44,22 @@ namespace ApiSoftware.Library35.Parsing
 				result = item.Parse(text, position);
 				if (result.IsMatch)
 				{
+					if (CheckPoint) parser.CommitPosition = position;
 					return result;
 				}
 				if (best == null || result.End > best.End) { best = result; }
 			}
-			return best;
+			return best; // could be null - should return an error node then as none of the choices parsed at all?
+		}
+
+		/// <summary>
+		/// Choice rules use the expected values of the contained elements.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			// Generate a comma-separated list of the choices
+			return Expecting.Else("one of {0}".Values(Rules.Select(r => r.GetExpected()).ToString(",")));
 		}
 
 		[ExcludeFromCodeCoverage]
@@ -62,5 +68,4 @@ namespace ApiSoftware.Library35.Parsing
 			throw new NotSupportedException();
 		}
 	}
-
 }

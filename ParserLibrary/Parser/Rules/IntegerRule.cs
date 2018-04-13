@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -82,12 +79,11 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true", "IntegerRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new IntegerNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "IntegerRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -98,13 +94,22 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Return the expected content in words.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			return Expecting ?? "integer value";
+		}
+
+		/// <summary>
 		/// Initialises the rule with the grammar.
 		/// </summary>
 		/// <param name="rules">The grammar to initialise with.</param>
 		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
-			if (Format == null) Format = parserRules.NumberFormat;
+			if (Format == null) Format = parser.NumberFormat;
 		}
 
 		/// <summary>
@@ -118,13 +123,5 @@ namespace ApiSoftware.Library35.Parsing
 			if (int.TryParse(node.NodeText, NumberStyles.Integer, Format, out i)) return i; else return null;
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="IntegerRule"/> class.
-		/// </summary>
-		public IntegerRule()
-		{
-			ErrorTemplate = "$: expected an integer value.";
-		}
 	}
-
 }

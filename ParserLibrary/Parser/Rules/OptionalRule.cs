@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Globalization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -16,7 +12,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class OptionalRule : RuleHolderBase
 	{
-
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
@@ -35,17 +30,51 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
-			OutputNode result = Rule.Parse(text, position);
-			if (result.IsMatch)
+			var childResult = Rule.Parse(text, position);
+			if (childResult.IsMatch)
 			{
+				var result = new BlockNode(this, text, position) { End = childResult.End };
+				result.Children.Add(childResult);
+				return result;
+			}
+			else if (parser != null && parser.CommitPosition > position)
+			{
+				// (Parser may be null for individual rules being used for immediate parsing) 
+				// We have committed to a position further along than this optional element.
+				// This means the rule is no longer optional, so we have to return an
+				// error node. We return the result of the contained rule, since it will have the
+				// the non-matching error node.
+				var result = new ErrorNode(this, text, position) { End = childResult.End };
+				result.Children.Add(childResult);
 				return result;
 			}
 			else
 			{
+				// Our optional rule did not match and there are no committed nodes further
+				// along, so we consider this successful, and return a zero-sized block
+				// node to allow the processing to continue.
 				return new BlockNode(this, text, position) { End = position };
 			}
 		}
 
-	}
+		internal override string FormattedOutput(OutputNode node)
+		{
+			var sb = new StringBuilder();
+			foreach (var item in node.Children)
+			{
+				sb.Append(item.FormattedOutput());
+			}
+			return sb.ToString();
+		}
 
+		/// <summary>
+		/// Optional rules use the expected values of the contained elements.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			// Generate a comma-separated list of the choices
+			return Expecting.Else(Rule.GetExpected());
+		}
+	}
 }

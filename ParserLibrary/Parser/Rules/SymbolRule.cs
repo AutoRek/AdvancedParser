@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -63,12 +60,11 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "SymbolRule");
+					if (CheckPoint) parser.CommitPosition = match.Index + match.Length;
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "SymbolRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -79,23 +75,10 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Gets the error text for the node for this rule.
-		/// </summary>
-		/// <param name="node">The node.</param>
-		/// <returns>The error text.</returns>
-		internal override protected string GetErrorText(OutputNode node)
-		{
-			if (node == null) throw new ArgumentNullException("node");
-			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, pattern, tp.Index);
-		}
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="SymbolRule"/> class.
 		/// </summary>
 		public SymbolRule()
 		{
-			ErrorTemplate = "$: expected symbol matching regex pattern '{3}'.";
 		}
 
 		/// <summary>
@@ -114,6 +97,29 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Symbol rules use the pattern.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			if (!string.IsNullOrEmpty(Expecting))
+			{
+				return Expecting;
+			}
+			else if (Regex.Escape(pattern) == pattern)
+			{
+				// If the pattern escapes back to itself, then it did not contain any
+				// regex content and is a literal match, so can be used as the expected
+				// string 'as is'.
+				return "'" + pattern + "'";
+			}
+			else
+			{
+				return "content matching pattern {0}".Values(pattern);
+			}
+		}
+
+		/// <summary>
 		/// Returns a <see cref="System.String" /> that represents this instance.
 		/// </summary>
 		/// <returns>
@@ -124,5 +130,4 @@ namespace ApiSoftware.Library35.Parsing
 			return base.ToString() + "(" + pattern + ")";
 		}
 	}
-
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace ApiSoftware.Library35.Parsing
@@ -97,7 +95,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0",
 			Justification = "Base class does validation")]
-		protected internal override void ResolveIncludes(Parser rules)
+		protected internal override void ResolveIncludes(RuleListBase rules)
 		{
 			base.ResolveIncludes(rules);
 			for (int i = 0; i < Rules.Count; i++)
@@ -156,7 +154,5 @@ namespace ApiSoftware.Library35.Parsing
 			}
 			return this;
 		}
-
 	}
-
 }

@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -21,7 +18,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class ReferenceRule : RuleBase
 	{
-
 		/// <summary>
 		/// Gets or sets the name of another rule to reference here.
 		/// </summary>
@@ -61,7 +57,6 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public ReferenceRule()
 		{
-
 		}
 
 		/// <summary>
@@ -74,5 +69,4 @@ namespace ApiSoftware.Library35.Parsing
 			Reference = name;
 		}
 	}
-
 }

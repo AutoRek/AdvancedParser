@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -19,7 +14,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class ErrorNode : OutputNode
 	{
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ErrorNode" /> class.
 		/// </summary>
@@ -31,7 +25,7 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			IsMatch = false;
 			End = index;
-			if (rule != null && rule.Important) rule.parserRules.ErrorNode = this;
+			if (rule != null && rule.Important) rule.parser.ErrorNode = this;
 		}
 
 		/// <summary>
@@ -42,7 +36,5 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			// Used by the serializer only
 		}
-
 	}
-
 }

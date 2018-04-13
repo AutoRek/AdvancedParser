@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -59,12 +56,14 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "UntilRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "UntilRule");
+					// The pattern will have been set at run time, and the Expecting text might also have been changed.
+					// So, in the event of error, replace the placeholder just before creating the error node.
+					Expecting = Expecting.Replace("{pattern}", pattern);
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -75,23 +74,11 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Gets the error text for the node for this rule.
-		/// </summary>
-		/// <param name="node">The node.</param>
-		/// <returns>The error text.</returns>
-		internal override protected string GetErrorText(OutputNode node)
-		{
-			if (node == null) throw new ArgumentNullException("node");
-			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, pattern, tp.Index);
-		}
-
-		/// <summary>
 		/// Initializes a new instance of the <see cref="UntilRule"/> class.
 		/// </summary>
 		public UntilRule()
 		{
-			ErrorTemplate = "$: expected until matching regex pattern '{3}'.";
+			Expecting = "content matching pattern '{pattern}'";
 		}
 
 		/// <summary>
@@ -120,5 +107,4 @@ namespace ApiSoftware.Library35.Parsing
 			return base.ToString() + "(" + pattern + ")";
 		}
 	}
-
 }

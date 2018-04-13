@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Xml;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -16,7 +13,6 @@ namespace ApiSoftware.Library35.Parsing
 	[Serializable]
 	public abstract class RuleHolderBase : RuleBase
 	{
-
 		/// <summary>
 		/// Gets or sets the rule to be used as the repeating element.
 		/// </summary>
@@ -80,7 +76,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0",
 			Justification = "Base class does the validation")]
-		protected internal override void ResolveIncludes(Parser rules)
+		protected internal override void ResolveIncludes(RuleListBase rules)
 		{
 			base.ResolveIncludes(rules);
 			if (Rule is ReferenceRule)
@@ -90,5 +86,4 @@ namespace ApiSoftware.Library35.Parsing
 			}
 		}
 	}
-
 }

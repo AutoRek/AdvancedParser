@@ -1,7 +1,6 @@
 ﻿using System;
-using ApiSoftware.Library35.Parsing;
-using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -67,7 +66,7 @@ namespace ApiSoftware.Library35.Parsing
 		string ErrorTemplate { get; set; }
 
 		/// <summary>
-		/// Uses the rule to parse the text from the start.
+		/// Uses the rule to parse the text.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
 		/// <returns>
@@ -82,6 +81,7 @@ namespace ApiSoftware.Library35.Parsing
 		OutputNode Parse(string text);
 
 		/// <summary>
+		/// This method is for internal use only and should not be used by external code.
 		/// Uses the rule to parse the text from the specified position.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
@@ -98,7 +98,6 @@ namespace ApiSoftware.Library35.Parsing
 		/// incorrectly formatted and the overall parse result will be unsuccessful.
 		/// </remarks>
 		OutputNode Parse(string text, int position);
-
 	}
 
 	/// <summary>
@@ -116,5 +115,4 @@ namespace ApiSoftware.Library35.Parsing
 			Justification = "Performance critical - use generic list")]
 		List<RuleBase> Rules { get; }
 	}
-
 }

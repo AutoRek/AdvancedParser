@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -46,6 +42,7 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
+					if (CheckPoint) parser.CommitPosition = position;
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
@@ -71,8 +68,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public StringRule()
 		{
-			ErrorTemplate = "$: expected a string value of the form \"...\".";
+			Expecting = "string of the form \"...\"";
 		}
 	}
-
 }

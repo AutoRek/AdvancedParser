@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -17,7 +12,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// </remarks>
 	public sealed class DateTimeNode : OutputNode
 	{
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DateTimeNode" /> class.
 		/// </summary>
@@ -35,10 +29,9 @@ namespace ApiSoftware.Library35.Parsing
 		/// Initializes a new instance of the <see cref="DateTimeNode"/> class.
 		/// </summary>
 		[ExcludeFromCodeCoverage]
-		private DateTimeNode()
+		private DateTimeNode(): base()
 		{
 			// used by the serializer only
 		}
 	}
-
 }

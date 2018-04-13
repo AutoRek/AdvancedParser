@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -77,12 +74,11 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true", "datetimeRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new DateTimeNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "datetimeRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -90,6 +86,15 @@ namespace ApiSoftware.Library35.Parsing
 			{
 				throw new ArgumentOutOfRangeException("position", position, "parameter 'position' must be between zero and the length of the text being parsed.");
 			}
+		}
+
+		/// <summary>
+		/// Return the expected content in words.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			return Expecting ?? "date/time value";
 		}
 
 		/// <summary>
@@ -111,7 +116,7 @@ namespace ApiSoftware.Library35.Parsing
 			DateTime value;
 			if (!string.IsNullOrEmpty(Format))
 			{
-				if (DateTime.TryParseExact(node.NodeText, Format, parserRules.DateTimeFormat, DateTimeStyles.AssumeLocal, out value)) return value; else return null;
+				if (DateTime.TryParseExact(node.NodeText, Format, parser.DateTimeFormat, DateTimeStyles.AssumeLocal, out value)) return value; else return null;
 			}
 			else
 			{
@@ -119,13 +124,5 @@ namespace ApiSoftware.Library35.Parsing
 			}
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DateTimeRule"/> class.
-		/// </summary>
-		public DateTimeRule()
-		{
-			ErrorTemplate = "$: expected a date value.";
-		}
 	}
-
 }

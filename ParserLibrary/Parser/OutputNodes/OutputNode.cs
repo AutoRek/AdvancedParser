@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -20,7 +18,6 @@ namespace ApiSoftware.Library35.Parsing
 	[Serializable]
 	public abstract class OutputNode
 	{
-
 		/// <summary>
 		/// Name of the field used for the record Id, if used.
 		/// </summary>
@@ -31,7 +28,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public const string ParentIdField = "$ParentId";
 
-		private List<OutputNode> children = new List<OutputNode>();
+		private NodeCollection children;
 
 		/// <summary>
 		/// The text the node refers to.
@@ -58,7 +55,7 @@ namespace ApiSoftware.Library35.Parsing
 		[XmlElement(typeof(DecimalNode))]
 		[XmlElement(typeof(BlockNode))]
 		[XmlElement(typeof(ErrorNode))]
-		public List<OutputNode> Children { get { return children; } }
+		public NodeCollection Children { get { return children; } }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the rule was successful.
@@ -134,12 +131,18 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Gets the parent node of this node, if it is a child node.
+		/// </summary>
+		[XmlIgnore]
+		public OutputNode ParentNode { get; internal set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="OutputNode" /> class.
 		/// </summary>
 		/// <param name="rule">The rule the node corresponds to.</param>
 		/// <param name="text">The text the node refers to.</param>
 		/// <param name="index">The index position in the text.</param>
-		protected OutputNode(RuleBase rule, string text, int index)
+		protected OutputNode(RuleBase rule, string text, int index) : this()
 		{
 			Begin = index;
 			Rule = rule;
@@ -150,11 +153,11 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OutputNode"/> class.
 		/// </summary>
-		[ExcludeFromCodeCoverage]
 		protected OutputNode()
 		{
-			// Serializer use only
+			children = new NodeCollection(this);
 		}
+
 	}
 
 }

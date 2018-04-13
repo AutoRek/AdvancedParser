@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -36,8 +31,7 @@ namespace ApiSoftware.Library35.Parsing
 		public override OutputNode Parse(string text, int position)
 		{
 			int level = 0;
-			if (parserRules != null) level = parserRules.Symbols.Count;
-			//Trace.WriteLine(Name + ":" + position, "SequenceRule");
+			if (parser != null) level = parser.BackReferences.Count;
 			var result = new BlockNode(this, text, position);
 			foreach (var item in Rules)
 			{
@@ -47,13 +41,14 @@ namespace ApiSoftware.Library35.Parsing
 				if (!child.IsMatch)
 				{
 					result.IsMatch = false;
-					if (Important) parserRules.ErrorNode = child;
+					if (Important) parser.ErrorNode = child;
 					break;
 				}
 			}
 			// update result to last position
 			result.End = position;
-			while (parserRules != null && parserRules.Symbols.Count > level) parserRules.Symbols.Pop();
+			if (CheckPoint) parser.CommitPosition = position;
+			while (parser != null && parser.BackReferences.Count > level) parser.BackReferences.Pop();
 			return result;
 		}
 
@@ -68,6 +63,27 @@ namespace ApiSoftware.Library35.Parsing
 				values[i] = child.FormattedOutput();
 			}
 			if (Template == null || node.Children.Count == 0) { return string.Join(string.Empty, values); } else { return Template.Values(values); }
+		}
+
+		/// <summary>
+		/// Sequence rules use the expected values of the contained elements.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			if (!Expecting.IsEmpty()) return Expecting;
+			switch (Rules.Count)
+			{
+				case 0:
+					return "nothing";
+				case 1:
+					return Rules[0].GetExpected();
+				case 2:
+					var text = Rules[0].GetExpected() + " then " + Rules[1].GetExpected();
+					return text.Replace("' then '", "");
+				default:
+					return Rules[0].GetExpected() + "..." + Rules[Rules.Count - 1].GetExpected();
+			}
 		}
 
 		/// <summary>
@@ -89,7 +105,5 @@ namespace ApiSoftware.Library35.Parsing
 			}
 			return this;
 		}
-
 	}
-
 }

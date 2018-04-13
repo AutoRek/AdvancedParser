@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using ApiSoftware.Library35;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
+using System.Xml.Serialization;
+using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -44,12 +42,12 @@ namespace ApiSoftware.Library35.Parsing
 		public DateTimeFormatInfo DateTimeFormat { get; set; }
 
 		/// <summary>
-		/// The symbol stack used during parsing
+		/// The symbol stack used during parsing back references.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields",
 			Justification = "For performance reasons, this public member is a field.")]
 		[XmlIgnore]
-		public Stack<string> Symbols = new Stack<string>();
+		internal Stack<string> BackReferences = new Stack<string>();
 
 		/// <summary>
 		/// Parses the specified text using the grammar.
@@ -93,6 +91,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
+			CommitPosition = 0;
 			return Rules[0].Parse(text, position);
 		}
 
@@ -137,7 +136,14 @@ namespace ApiSoftware.Library35.Parsing
 		/// <value>
 		/// The error node.
 		/// </value>
+		[XmlIgnore]
 		public OutputNode ErrorNode { get; set; }
+
+		/// <summary>
+		/// Gets or sets the furthest committed position reached as defined by the <see cref="RuleBase.CheckPoint"/> property.
+		/// </summary>
+		[XmlIgnore]
+		public int CommitPosition { get; internal set; } = 0;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Parser"/> class.
@@ -149,6 +155,4 @@ namespace ApiSoftware.Library35.Parsing
 			DateTimeFormat = (DateTimeFormatInfo)DateTimeFormatInfo.InvariantInfo.Clone();
 		}
 	}
-
-
 }

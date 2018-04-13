@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Diagnostics;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -82,12 +79,11 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true", "DecimalRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new DecimalNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "DecimalRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -98,13 +94,22 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// Return the expected content in words.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			return Expecting ?? "decimal value";
+		}
+
+		/// <summary>
 		/// Initialises the rule with the grammar.
 		/// </summary>
 		/// <param name="rules">The grammar to initialise with.</param>
 		protected internal override void Initialize(Parser rules)
 		{
 			base.Initialize(rules);
-			if (NumberFormat == null) NumberFormat = parserRules.NumberFormat;
+			if (NumberFormat == null) NumberFormat = parser.NumberFormat;
 		}
 
 		/// <summary>
@@ -117,14 +122,6 @@ namespace ApiSoftware.Library35.Parsing
 			decimal i;
 			if (decimal.TryParse(node.NodeText, NumberStyles.Number, NumberFormat, out i)) return i; else return null;
 		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DecimalRule"/> class.
-		/// </summary>
-		public DecimalRule()
-		{
-			ErrorTemplate = "$: expected a decimal value.";
-		}
+		
 	}
-
 }

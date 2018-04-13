@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using ApiSoftware.Library35;
 using System.Globalization;
-using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
+using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -46,12 +42,11 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "WhitespaceRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "WhitespaceRule");
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -62,23 +57,12 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Gets the error text for the node for this rule.
+		/// Return the expected content in words.
 		/// </summary>
-		/// <param name="node">The node.</param>
-		/// <returns>The error text.</returns>
-		internal override protected string GetErrorText(OutputNode node)
+		/// <returns></returns>
+		protected internal override string GetExpected()
 		{
-			if (node == null) throw new ArgumentNullException("node");
-			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, null, tp.Index);
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="WhitespaceRule"/> class.
-		/// </summary>
-		public WhitespaceRule()
-		{
-			ErrorTemplate = "$: expected whitespace";
+			return Expecting ?? "whitespace";
 		}
 
 		internal override string FormattedOutput(OutputNode node)
@@ -97,5 +81,4 @@ namespace ApiSoftware.Library35.Parsing
 			return base.ToString();
 		}
 	}
-
 }

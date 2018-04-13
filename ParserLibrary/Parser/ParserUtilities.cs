@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Data;
-using ApiSoftware.Library35;
 using System.Xml.Linq;
+using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
 {
-
 	/// <summary>
 	/// Different record ID generation styles.
 	/// </summary>
@@ -41,10 +40,12 @@ namespace ApiSoftware.Library35.Parsing
 		/// No Ids will be created.
 		/// </summary>
 		None,
+
 		/// <summary>
 		/// Row Ids only are created.
 		/// </summary>
 		Rows,
+
 		/// <summary>
 		/// Row and parent Ids are created.
 		/// </summary>
@@ -56,7 +57,6 @@ namespace ApiSoftware.Library35.Parsing
 	/// </summary>
 	static public class ParserUtilities
 	{
-
 		/// <summary>
 		/// Gets the error text.
 		/// </summary>
@@ -84,20 +84,37 @@ namespace ApiSoftware.Library35.Parsing
 			if (child == null) return node; else return child.GetErrorNode();
 		}
 
-
 		/// <summary>
 		/// Fills the specified data set with data from this node and its children.
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <param name="dataSet">The data set to fill.</param>
 		/// <remarks>
-		/// Each node that the rule creates will create a new row for the named
-		/// table. The values of the row will be set using any symbols containing
-		/// a Column attribute, where columns will be added automatically.
-		/// Node.Fill()
-		/// This method collects node values into data sets. The record name is used as the
-		/// table name of the new record and the field name is used to determine the column
-		/// that the node will populate. Tables are added automatically
+		/// This method collects node values into data sets. Nodes that begin new records
+		/// must have the Record attribute set. Each time a node is parsed with a record
+		/// attribute set, a new record for that table is created and becomes the current
+		/// record. The record name is used as the table name  of the new record. 
+		/// 
+		/// As column attributes are parsed, they are used to indicate the column values
+		/// for the current record, where the columns are added automatically to the table
+		/// hosting the record. 
+		/// 
+		/// The current record context is retained until a new record is specified or if 
+		/// a child rule creates a new record context, when that context ends, the previous
+		/// context is returned.
+		/// 
+		/// If the same column appears in more than one attribute on the same record, 
+		/// the subsequence occurences will overwrite the previous ones.
+		/// 
+		/// <para>
+		/// Columns that are set before the record attribute is specified are deemed to be
+		/// 'common' and are automatically added to all tables. The current values of the
+		/// common columns are used for all the records added. This feature is particularly
+		/// useful to denormalise hierarchical data that might be parsed out of a data file;
+		/// the common fields are set by parent levels in the grammar while the lowest child
+		/// level sets up the denormalised record that will include all the common fields of
+		/// the parent.
+		/// </para>
 		/// </remarks>
 		static public void Fill(this OutputNode node, DataSet dataSet)
 		{
@@ -213,11 +230,11 @@ namespace ApiSoftware.Library35.Parsing
 					row.Table.Columns.Add(columnName, value.GetType());
 				}
 			}
-			row[columnName] = value;
+			row[columnName] = value ?? DBNull.Value;
 		}
 
 		// Create the table in the dataset (already assumed not to exist)
-		private static void CreateTable(DataSet dataSet, IdMode idMode, string tableName)
+		static private void CreateTable(DataSet dataSet, IdMode idMode, string tableName)
 		{
 			var t = dataSet.Tables.Add(tableName);
 			switch (idMode)
@@ -225,15 +242,16 @@ namespace ApiSoftware.Library35.Parsing
 				case IdMode.Rows:
 					t.Columns.Add(OutputNode.RecordIdField);
 					break;
+
 				case IdMode.RowAndParents:
 					t.Columns.Add(OutputNode.RecordIdField);
 					t.Columns.Add(OutputNode.ParentIdField);
 					break;
+
 				default:
 					break;
 			}
 		}
-
 
 		/// <summary>
 		/// Gets the node in Xml format, using the Record and Field attributes.
@@ -398,6 +416,5 @@ namespace ApiSoftware.Library35.Parsing
 			replacements.AddKeyValues(" ,_|/,_|(,_|),_|',_", ",", "|");
 			if (string.IsNullOrEmpty(name)) return name; else return name.Replace(replacements, StringComparison.Ordinal);
 		}
-
 	}
 }

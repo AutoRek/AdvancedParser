@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
-using System.Globalization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -70,6 +67,16 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
+		/// If rules use the expected values of the contained elements.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			// Generate a comma-separated list of the choices
+			return Expecting.Else(Rule.GetExpected());
+		}
+
+		/// <summary>
 		/// Initialises the rule with the grammar.
 		/// </summary>
 		/// <param name="rules">The grammar to initialise with.</param>
@@ -83,8 +90,5 @@ namespace ApiSoftware.Library35.Parsing
 			if (string.IsNullOrEmpty(pattern)) { throw new ArgumentException("'If' rule requires the 'Pattern' property to be provided"); }
 			base.Initialize(rules);
 		}
-
-
 	}
-
 }

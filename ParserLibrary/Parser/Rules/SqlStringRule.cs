@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -46,13 +42,13 @@ namespace ApiSoftware.Library35.Parsing
 				var match = expression.Match(text ?? string.Empty, position);
 				if (match.Success)
 				{
+					if (CheckPoint) parser.CommitPosition = position;
 					return new TextNode(this, text, position, match.Length);
 				}
 				else
 				{
 					return new ErrorNode(this, text, position);
 				}
-
 			}
 			catch (ArgumentOutOfRangeException)
 			{
@@ -63,7 +59,7 @@ namespace ApiSoftware.Library35.Parsing
 		internal override object GetValue(OutputNode node)
 		{
 			var value = node.NodeText.Trim().Replace("''", "'");
-			if (value.Length < 2) return string.Empty; 
+			if (value.Length < 2) return string.Empty;
 			return value.Substring(1, value.Length - 2);
 		}
 
@@ -72,8 +68,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		public SqlStringRule()
 		{
-			ErrorTemplate = "$: expected a string value of the form '...'.";
+			Expecting = "string of the form '...'";
 		}
 	}
-
 }

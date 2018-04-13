@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
+
 using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
@@ -80,5 +78,4 @@ namespace ApiSoftware.Library35.Parsing
 			Character = i - position;
 		}
 	}
-
 }

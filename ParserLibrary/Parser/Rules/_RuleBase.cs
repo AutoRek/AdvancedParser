@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Serialization;
 using ApiSoftware.Library35;
-using System.Globalization;
-using System.Xml;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -19,12 +17,12 @@ namespace ApiSoftware.Library35.Parsing
 	public abstract class RuleBase : IRule
 	{
 		/// <summary>
-		/// The rules hosting the parsing
+		/// The parser hosting the rules that are being used in this parse.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields",
 			Justification = "For performance reasons, this protected member is a field.")]
 		[XmlIgnore]
-		public Parser parserRules;
+		public Parser parser;
 
 		/// <summary>
 		/// Gets or sets the name of the Rule
@@ -36,19 +34,20 @@ namespace ApiSoftware.Library35.Parsing
 		public string Name { get; set; }
 
 		/// <summary>
-		/// Gets or sets custom error text for the node.
+		/// Gets or sets the template used to format the error text if the rule cannot successfully parse.
 		/// </summary>
 		/// <remarks>
-		/// If the template text includes '$', the '$' is replaced by the standard error text. 
-		/// The returned string is used to format the error message. The string format
-		/// value holders {0} to {3} are accepted where:
-		/// {0} is the line number
-		/// {1} is the character in the line
-		/// {2} is the token at the position.
-		/// {3} is the position in the text file.
+		/// The string is used to format the error message. The following place-holder values
+		/// can be used in the template string:
+		/// {0} {line}		= the line number from the start of the content.
+		/// {1} {character}	= the character position within the line.
+		/// {2} {content}	= actual content read at the current position.
+		/// {3} {expected}	= the expected description value from the rule.
+		/// {4} {index}		= index position from the start of the file.
+		/// {5} {rule}		= the rule name or rule type if no name specified.
 		/// </remarks>
 		[XmlAttribute]
-		public string ErrorTemplate { get; set; }
+		public string ErrorTemplate { get; set; } = "{rule}: Expected {expected} but found '{content}' at line {line}, position {character}";
 
 		/// <summary>
 		/// Gets or sets the optional template used to format the output.
@@ -119,6 +118,18 @@ namespace ApiSoftware.Library35.Parsing
 		public bool Important { get; set; }
 
 		/// <summary>
+		/// Gets or sets whether the rule will act as a check point.
+		/// </summary>
+		/// <remarks>
+		/// If the <see cref="CheckPoint"/> flag is set, the back-tracking on any error
+		/// further along in the content will not be allowed to back-track past this
+		/// point. This can be used to improve the error reporting by essentially
+		/// commiting to the content parsed so far.
+		/// </remarks>
+		[XmlAttribute]
+		public bool CheckPoint { get; set; }
+
+		/// <summary>
 		/// Gets or sets the other elements.
 		/// </summary>
 		/// <value>
@@ -130,7 +141,15 @@ namespace ApiSoftware.Library35.Parsing
 		public XmlElement[] OtherElements { get; set; }
 
 		/// <summary>
-		/// Uses the rule to parse the text from the start.
+		/// Gets or set a short text description of the content expected by this rule.
+		/// This value can be included in the error template with the {expected} placeholder.
+		/// If not specified, each rule type will use a default behaviour.
+		/// </summary>
+		[XmlAttribute]
+		public string Expecting { get; set; }
+
+		/// <summary>
+		/// Uses the rule to parse the text.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
 		/// <returns>
@@ -148,7 +167,8 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Uses the rule to parse the text from the specified position.
+		/// This method is for internal use only and should not be used by external code.
+		/// Parse the text from the given position.
 		/// </summary>
 		/// <param name="text">The text being parsed.</param>
 		/// <param name="position">The position to parse from.</param>
@@ -168,15 +188,15 @@ namespace ApiSoftware.Library35.Parsing
 		/// <summary>
 		/// Initialises the rule with the grammar.
 		/// </summary>
-		/// <param name="rules">The grammar to initialise with.</param>
+		/// <param name="parser">The grammar to initialise with.</param>
 		/// <remarks>
 		/// All rules are initialised with the root-level node that represents
 		/// the grammar to give each rule access to the other named rules and
 		/// to the text being parsed.
 		/// </remarks>
-		virtual internal protected void Initialize(Parser rules)
+		protected internal virtual void Initialize(Parser parser)
 		{
-			this.parserRules = rules;
+			this.parser = parser;
 		}
 
 		/// <summary>
@@ -184,16 +204,15 @@ namespace ApiSoftware.Library35.Parsing
 		/// rules which will require to be resolved.
 		/// </summary>
 		/// <param name="rules">The rules containing named rule references.</param>
-		virtual internal protected void GetRulesContainingIncludes(ICollection<RuleBase> rules)
+		protected internal virtual void GetRulesContainingIncludes(ICollection<RuleBase> rules)
 		{
-
 		}
 
 		/// <summary>
 		/// Resolves the include rules.
 		/// </summary>
 		/// <param name="rules">Base rules to lookup against.</param>
-		virtual internal protected void ResolveIncludes(Parser rules)
+		protected internal virtual void ResolveIncludes(RuleListBase rules)
 		{
 			if (rules == null) throw new ArgumentNullException("rules");
 		}
@@ -236,22 +255,56 @@ namespace ApiSoftware.Library35.Parsing
 		/// </summary>
 		/// <param name="node">The node.</param>
 		/// <returns>The error text.</returns>
-		internal virtual protected string GetErrorText(OutputNode node)
+		protected internal string GetErrorText(OutputNode node)
 		{
 			if (node == null) throw new ArgumentNullException("node");
+			var templateText = GetErrorTextTemplate(node);
+
 			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, string.Empty, tp.Index);
+			var rule = Name ?? GetType().Name;
+			return templateText.Values(tp.Line, tp.Character, tp.Symbol, GetExpected(), tp.Index, rule);
 		}
 
 		/// <summary>
-		/// Gets the actual error format string based on the error template property.
+		/// Gets the word or phrase describing the content expected by the rule.
 		/// </summary>
-		/// <returns>The string template to use for the error text.</returns>
-		protected string CreateErrorFormatString()
+		/// <returns></returns>
+		/// <remarks>
+		/// Some rule types will dynamically create this value based on the content.
+		/// </remarks>
+		protected virtual internal string GetExpected()
 		{
-			var errText = "Error at '{2}' (line {0}, position {1})";
-			if (!string.IsNullOrEmpty(ErrorTemplate)) errText = ErrorTemplate.Replace("$", errText);
-			return errText;
+			// The rule can specify an expected value text, or use the default.
+			return Expecting.Else("Valid {0} value".Values(Name ?? GetType().Name)); 
+		}
+
+		// Returns the unformatted error text for the node.
+		private string GetErrorTextTemplate(OutputNode node)
+		{
+			// Start with the error template.
+			var errorText = ErrorTemplate;
+
+			// If there is a parent node, and it contains enough detail to be of interest,
+			// we initialise the error result since the parent node is what we were doing 
+			// when we errored.
+			// Note We can go up the parent chain to find the most interesting parent node.
+			// TODO: consider if this is something to parameterise?
+			var parentNode = node.ParentNode;
+			while (parentNode != null)
+			{
+				var rule = parentNode.Rule.Name ?? parentNode.Rule.Expecting ?? parentNode.Rule.GetType().Name;
+				var tp = new TextPoint(parentNode.Text, parentNode.Begin);
+				errorText += ", while reading {0} (line {1}, character {2})".Values(rule, tp.Line, tp.Character);
+				parentNode = parentNode.ParentNode;
+			}
+
+			return errorText
+				.Replace("{line}", "{0}")
+				.Replace("{character}", "{1}")
+				.Replace("{content}", "{2}")
+				.Replace("{expected}", "{3}")
+				.Replace("{index}", "{4}")
+				.Replace("{rule}", "{5}");
 		}
 
 		/// <summary>
@@ -271,7 +324,5 @@ namespace ApiSoftware.Library35.Parsing
 				return Name + ":" + this.GetType().FullName;
 			}
 		}
-
 	}
-
 }

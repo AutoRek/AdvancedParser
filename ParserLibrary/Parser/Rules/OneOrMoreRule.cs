@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -43,6 +40,7 @@ namespace ApiSoftware.Library35.Parsing
 		/// </remarks>
 		public override OutputNode Parse(string text, int position)
 		{
+			if (Rule == null) throw new ArgumentException($"OneOrMore rule requires a {nameof(Rule)} to be set.");
 			var result = new BlockNode(this, text, position);
 			var child = Rule.Parse(text, position);
 			result.Children.Add(child);
@@ -73,12 +71,13 @@ namespace ApiSoftware.Library35.Parsing
 						// If the separator is the next character, keep looping
 						sep = Separator.Parse(text, position);
 					}
+
 				}
 				else
 				{
 					// There was no separator, and since we already found our first item,
 					// we cannot fail on this rule. So while we keep finding our rule, keep 
-					// moving on then return success.
+					// moving on then return success.					
 					while (child.IsMatch)
 					{
 						child = Rule.Parse(text, position);
@@ -89,12 +88,15 @@ namespace ApiSoftware.Library35.Parsing
 							result.End = child.End;
 						}
 					}
+
 				}
+				if (CheckPoint) parser.CommitPosition = position;
 				return result;
 			}
 			else
 			{
 				// failed to find a single match - return failed.
+				result.Rule = Rule;
 				result.IsMatch = false;
 				result.End = position;
 				return result;
@@ -129,6 +131,15 @@ namespace ApiSoftware.Library35.Parsing
 			}
 		}
 
+		/// <summary>
+		/// One or more rules use the expected values of the contained rule.
+		/// </summary>
+		/// <returns></returns>
+		protected internal override string GetExpected()
+		{
+			return Expecting.Else("one or more {0}".Values(Rule.GetExpected()));
+		}
+
 		internal override string FormattedOutput(OutputNode node)
 		{
 			// use the template to build the string
@@ -141,7 +152,5 @@ namespace ApiSoftware.Library35.Parsing
 			}
 			if (Template == null) { return string.Join(string.Empty, values); } else { return Template.Values(values); }
 		}
-
 	}
-
 }

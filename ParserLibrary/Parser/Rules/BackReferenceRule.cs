@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using ApiSoftware.Library35;
 using System.Globalization;
-using System.Diagnostics;
+using System.Linq;
+using ApiSoftware.Library35;
 
 namespace ApiSoftware.Library35.Parsing
 {
@@ -19,7 +14,6 @@ namespace ApiSoftware.Library35.Parsing
 	public sealed class BackReferenceRule : RuleBase
 	{
 		private string symbol;
-
 
 		/// <summary>
 		/// Uses the rule to parse the text from the specified position.
@@ -41,15 +35,16 @@ namespace ApiSoftware.Library35.Parsing
 		{
 			try
 			{
-				symbol = parserRules.Symbols.Peek();
+				symbol = parser.BackReferences.Peek();
 				if (!string.IsNullOrEmpty(text) && string.Compare(text, position, symbol, 0, symbol.Length, StringComparison.Ordinal) == 0)
 				{
-					//Trace.WriteLine(Name + ":" + position + ":true:" + match.Value, "SymbolRule");
+					if (CheckPoint) parser.CommitPosition = position;
 					return new TextNode(this, text, position, symbol.Length);
 				}
 				else
 				{
-					//Trace.WriteLine(Name + ":" + position + ":false", "SymbolRule");
+					// For the back reference rule, the expected value depends on the back reference,
+					// so to allow this to appear in the error text, we overwrite the Expecting value with the symbol.
 					return new ErrorNode(this, text, position);
 				}
 			}
@@ -60,30 +55,17 @@ namespace ApiSoftware.Library35.Parsing
 		}
 
 		/// <summary>
-		/// Gets the error text for the node for this rule.
+		/// One or more rules use the expected values of the contained rule.
 		/// </summary>
-		/// <param name="node">The node.</param>
-		/// <returns>The error text.</returns>
-		internal override protected string GetErrorText(OutputNode node)
+		/// <returns></returns>
+		protected internal override string GetExpected()
 		{
-			if (node == null) throw new ArgumentNullException("node");
-			var tp = new TextPoint(node.Text, node.Begin);
-			return string.Format(CultureInfo.InvariantCulture, CreateErrorFormatString(), tp.Line, tp.Character, tp.Symbol, symbol, tp.Index);
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SymbolRule"/> class.
-		/// </summary>
-		public BackReferenceRule()
-		{
-			ErrorTemplate = "$: expected '{3}'.";
+			return Expecting.Else("'" + symbol + "'");
 		}
 
 		internal override string FormattedOutput(OutputNode node)
 		{
 			if (string.IsNullOrEmpty(Template)) return string.Empty; else return string.Format(CultureInfo.CurrentCulture, Template, node.NodeText);
 		}
-
 	}
-
 }
