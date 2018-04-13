@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new UntilRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
@@ -85,7 +85,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new UntilRule("TEST");
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 			Assert.AreEqual("TEST", rule.Pattern);
@@ -209,10 +209,10 @@ namespace ParserLibraryTests
 			OutputNode result;
 
 			result = rule.Parse("CBA");
-			Assert.AreEqual("CB", rule.GetValue(result));
+			Assert.AreEqual("CB", result.Value);
 
 			result = rule.Parse("1");
-			Assert.AreEqual("", rule.GetValue(result));
+			Assert.AreEqual("", result.Value);
 		}
 
 		/// <summary>
@@ -227,7 +227,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("B");
-			var error = rule.GetErrorText(result);
+			var error = result.GetErrorText();
 			Assert.AreEqual("Error at 'B' (line 0, position 0): expected until matching regex pattern 'A'.", error);
 		}
 

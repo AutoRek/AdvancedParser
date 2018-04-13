@@ -152,7 +152,7 @@ namespace ParserLibraryTests
 		}
 
 
-		private static DateTimeNode CreateTestNode()
+		private static ApiSoftware.Library35.Parsing.DateTimeNode CreateTestNode()
 		{
 			var text = "20/10/2010";
 

@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new DateTimeRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 			Assert.IsNotNull(rule.Pattern);
@@ -209,10 +209,10 @@ namespace ParserLibraryTests
 			OutputNode result;
 
 			result = rule.Parse("20/10/1999");
-			Assert.AreEqual(new DateTime(1999, 10, 20), rule.GetValue(result));
+			Assert.AreEqual(new DateTime(1999, 10, 20), result.Value);
 
 			result = rule.Parse("A");
-			Assert.AreEqual(null, rule.GetValue(result));
+			Assert.AreEqual(null, result.Value);
 		}
 
 		/// <summary>
@@ -227,7 +227,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("A");
-			var error = rule.GetErrorText(result);
+			var error = result.GetErrorText();
 			Assert.AreEqual("Error at 'A' (line 0, position 0): expected a date value.", error);
 		}
 

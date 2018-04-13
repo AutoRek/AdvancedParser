@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new SequenceRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 
 			Assert.IsNotNull(rule.Rules);
 			Assert.IsNull(rule.ErrorTemplate);
@@ -201,10 +201,10 @@ namespace ParserLibraryTests
 			OutputNode result;
 
 			result = rule.Parse("A");
-			Assert.AreEqual("A", rule.GetValue(result));
+			Assert.AreEqual("A", result.Value);
 
 			result = rule.Parse("B");
-			Assert.AreEqual("", rule.GetValue(result));
+			Assert.AreEqual("", result.Value);
 		}
 
 		/// <summary>
@@ -219,7 +219,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("AC");
-			var error = rule.GetErrorText(result);
+			var error = result.GetErrorText();
 			Assert.AreEqual("Error at 'AC' (line 0, position 0)", error);
 		}
 

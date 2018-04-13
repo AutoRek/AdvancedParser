@@ -34,7 +34,7 @@ namespace ParserLibraryTests
 		}
 
 		#region Additional test attributes
-		// 
+		//
 		//You can use the following additional attributes as you write your tests:
 		//
 		//Use ClassInitialize to run code before running the first test in the class
@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new WhitespaceRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNotNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
@@ -173,7 +173,7 @@ namespace ParserLibraryTests
 			// Create an if rule with its Rule as a reference to itself
 			var rule = CreateTestRule();
 
-			// Create the rule list and add the rule 
+			// Create the rule list and add the rule
 			var rules = new Parser();
 			rules.Add(rule);
 
@@ -195,10 +195,10 @@ namespace ParserLibraryTests
 			OutputNode result;
 
 			result = rule.Parse("\t\r\n ");
-			Assert.AreEqual("\t\r\n ", rule.GetValue(result));
+			Assert.AreEqual("\t\r\n ", result.Value);
 
 			result = rule.Parse("1");
-			Assert.AreEqual("", rule.GetValue(result));
+			Assert.AreEqual("", result.Value);
 		}
 
 		/// <summary>
@@ -213,7 +213,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("B");
-			var error = rule.GetErrorText(result);
+			var error = result.GetErrorText();
 			Assert.AreEqual("Error at 'B' (line 0, position 0): expected whitespace", error);
 		}
 

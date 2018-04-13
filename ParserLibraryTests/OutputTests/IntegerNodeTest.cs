@@ -148,7 +148,7 @@ namespace ParserLibraryTests
 			Assert.AreEqual(1, ds.Tables[0].Rows[0][0]);
 		}
 
-		private static IntegerNode CreateTestNode()
+		private static ApiSoftware.Library35.Parsing.IntegerNode CreateTestNode()
 		{
 			var text = "1";
 

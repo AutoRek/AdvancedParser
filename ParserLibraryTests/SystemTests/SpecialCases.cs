@@ -107,7 +107,7 @@ Header1c	Header2c	Header3c		30	Val30		32	Val32	302	BBBB
 			var rules = new Parser();
 			var rule = new OneOrMoreRule() { Record = "R" };
 			rule.Rule = new SymbolRule("A") { Field = "F" };
-			rule.Initialize(rules);
+			rules.Add(rule);
 			var output = rule.Parse("AA");
 			Assert.AreEqual(true, output.IsMatch);
 			// Using XElement, formatted output with no duplicate attribute.

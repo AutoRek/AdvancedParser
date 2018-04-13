@@ -73,7 +73,7 @@ namespace ParserLibraryTests
 			var rules = new Parser();
 			var rule = new OneOrMoreRule();
 			rule.Rule = new SymbolRule("A");
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
@@ -296,10 +296,10 @@ namespace ParserLibraryTests
 			OutputNode result;
 
 			result = rule.Parse("A");
-			Assert.AreEqual("A", rule.GetValue(result));
+			Assert.AreEqual("A", result.Value);
 
 			result = rule.Parse("B");
-			Assert.AreEqual("", rule.GetValue(result));
+			Assert.AreEqual("", result.Value);
 		}
 
 		/// <summary>
@@ -314,7 +314,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("B");
-			var error = rule.GetErrorText(result);
+			var error = result.GetErrorText();
 			Assert.AreEqual("Error at 'B' (line 0, position 0)", error);
 		}
 

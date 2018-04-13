@@ -34,7 +34,7 @@ namespace ParserLibraryTests
 		}
 
 		#region Additional test attributes
-		// 
+		//
 		//You can use the following additional attributes as you write your tests:
 		//
 		//Use ClassInitialize to run code before running the first test in the class
@@ -92,7 +92,7 @@ namespace ParserLibraryTests
 		/// <summary>
 		/// Each node should return the node text as a string based on the
 		/// begin and end position if appropriate for the type of node.
-		/// 
+		///
 		/// Because the error node did not parse the content, the node
 		/// text is empty.
 		/// </summary>
@@ -148,7 +148,7 @@ namespace ParserLibraryTests
 		}
 
 
-		private static ErrorNode CreateTestNode()
+		private static ApiSoftware.Library35.Parsing.ErrorNode CreateTestNode()
 		{
 			var text = "A";								// Deliberately wrong data for integer rule.
 

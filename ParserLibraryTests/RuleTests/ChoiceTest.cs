@@ -70,7 +70,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new ChoiceRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
@@ -237,7 +237,7 @@ namespace ParserLibraryTests
 		{
 			var rule = CreateTestRule();
 			var result = rule.Parse("A");
-			var value = rule.GetValue(result);
+			var value = result.Value;
 			Assert.AreEqual("A", value);
 		}
 
@@ -247,7 +247,7 @@ namespace ParserLibraryTests
 			// for a simple 'not found' return the standard error.
 			var rule = CreateTestRule();
 			var result = rule.Parse("C");
-			var text = rule.GetErrorText(result);
+			var text = result.GetErrorText();
 			Assert.AreEqual("Error at 'C' (line 0, position 0)", text);
 
 		}

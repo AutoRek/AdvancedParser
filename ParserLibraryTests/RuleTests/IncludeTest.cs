@@ -72,7 +72,7 @@ namespace ParserLibraryTests
 		{
 			var rules = new Parser();
 			var rule = new ReferenceRule();
-			rule.Initialize(rules);
+			rules.Add(rule);
 			Assert.IsNull(rule.ErrorTemplate);
 			Assert.IsNull(rule.Template);
 		}
