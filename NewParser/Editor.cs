@@ -56,6 +56,7 @@ namespace NewParser
 
 		private void ParseButton_Click(object sender, EventArgs e)
 		{
+			BeautifyGrammar();
 			ParseNow();
 		}
 
@@ -349,14 +350,48 @@ namespace NewParser
 
 		private void GrammarXml_TextChanged(object sender, EventArgs e)
 		{
+			var issues = ValidateXml(GrammarXml.Text);
+			if (string.IsNullOrEmpty(issues))
+			{
+				GrammarXml.ForeColor = Color.Black;
+				Feedback.Text = "";
+			}
+			else
+			{
+				GrammarXml.ForeColor = Color.DarkRed;
+				Feedback.Text = issues;
+			}
+		}
+
+		private string ValidateXml(string xml)
+		{
 			try
 			{
+				XElement.Parse(xml);
+				return string.Empty;
+			}
+			catch (Exception ex)
+			{
+				return ex.Message;
+			}
+		}
+
+		private void BeautifyGrammar()
+		{
+			try
+			{
+				var pos = GrammarXml.SelectionStart;
 				var formatted = XElement.Parse(GrammarXml.Text).ToString();
 				GrammarXml.Text = formatted;
+				GrammarXml.ForeColor = Color.Black;
+				GrammarXml.SelectionStart = pos;
+				Feedback.Text = "";
 			}
-			catch
+			catch (Exception ex)
 			{
 				// If the content is not valid XML, just ignore.
+				GrammarXml.ForeColor = Color.DarkRed;
+				Feedback.Text = ex.Message;
 			}
 		}
 

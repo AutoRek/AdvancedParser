@@ -30,7 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.GrammarXml = new System.Windows.Forms.TextBox();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -72,6 +72,7 @@
 			this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.TimeTaken = new System.Windows.Forms.ToolStripStatusLabel();
 			this.OverallResult = new System.Windows.Forms.ToolStripStatusLabel();
+			this.Feedback = new System.Windows.Forms.ToolStripStatusLabel();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -338,14 +339,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.OutputData.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.OutputData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.OutputData.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.OutputData.DefaultCellStyle = dataGridViewCellStyle2;
 			this.OutputData.Location = new System.Drawing.Point(-1, 21);
 			this.OutputData.Name = "OutputData";
 			this.OutputData.Size = new System.Drawing.Size(738, 265);
@@ -529,7 +530,8 @@
             this.VersionNumber,
             this.StatusLabel,
             this.TimeTaken,
-            this.OverallResult});
+            this.OverallResult,
+            this.Feedback});
 			this.statusStrip.Location = new System.Drawing.Point(0, 688);
 			this.statusStrip.Name = "statusStrip";
 			this.statusStrip.Size = new System.Drawing.Size(1122, 25);
@@ -558,15 +560,25 @@
 			this.TimeTaken.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-			this.TimeTaken.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
 			this.TimeTaken.Name = "TimeTaken";
 			this.TimeTaken.Size = new System.Drawing.Size(100, 20);
 			// 
 			// OverallResult
 			// 
+			this.OverallResult.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.OverallResult.Name = "OverallResult";
 			this.OverallResult.Size = new System.Drawing.Size(44, 20);
 			this.OverallResult.Text = "Overall";
+			// 
+			// Feedback
+			// 
+			this.Feedback.AutoSize = false;
+			this.Feedback.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+			this.Feedback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.Feedback.Name = "Feedback";
+			this.Feedback.Size = new System.Drawing.Size(800, 20);
+			this.Feedback.Text = "(?)";
+			this.Feedback.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// Editor
 			// 
@@ -662,5 +674,6 @@
 		private System.Windows.Forms.ToolStripStatusLabel VersionNumber;
 		private System.Windows.Forms.ToolStripButton testRegexes;
 		private System.Windows.Forms.ToolStripStatusLabel OverallResult;
+		private System.Windows.Forms.ToolStripStatusLabel Feedback;
 	}
 }
