@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using ApiSoftware.Library35;
+﻿using ApiSoftware.Library35;
 using ApiSoftware.Library35.Parsing;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
-using System.Xml;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace NewParser
@@ -193,6 +190,11 @@ namespace NewParser
 			Failed = 0;
 			try
 			{
+				if (GrammarXml.Text.Trim().Length == 0)
+				{
+					MessageBox.Show("Please enter a grammar to parse");
+					return;
+				}
 				StatusLabel.Text = "Parsing";
 				statusStrip.Refresh();
 				var grammar = Parser.LoadXml(GrammarXml.Text);
@@ -562,12 +564,21 @@ namespace NewParser
 	<OneOrMore Name='root'>
 		<Include>statement</Include>
 	</OneOrMore>
-	<Sequence Name='statement'>
+	<Sequence Name='statement' Record='TABLE1'>
 		<Symbol>\s*BEGIN</Symbol>
-		<Symbol>\s*\d+</Symbol>
+		<Symbol Field='FIELD1'>\s*\d+</Symbol>
 		<Symbol>\s*END</Symbol>
 	</Sequence>
 </Rules>";
+				if (Inputs.Count == 1 && string.IsNullOrEmpty(Inputs[0]))
+				{
+					Inputs[0] = "BEGIN 123 END\r\nBEGIN 456 END";
+				}
+				else if (Inputs.Count == 0)
+				{
+					Inputs.Add("BEGIN 123 END\r\nBEGIN 456 END");
+				}
+				InputText.Text = Inputs[0];
 			}
 			catch (Exception ex)
 			{
