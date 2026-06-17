@@ -99,12 +99,6 @@
     <Compile Include="Utilties.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ParserLibrary\ParserLibrary.csproj">
-      <Project>{190C3F26-6B6C-4DF2-B5D7-C433C66EF387}</Project>
-      <Name>ParserLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Shadow Include="Test References\ParserLibrary.accessor" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +179,12 @@
     <None Include="Parser\TestFiles\XmlSample.xml.err">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ParserLibrary\ParserLibrary.csproj">
+      <Project>{190c3f26-6b6c-4df2-b5d7-c433c66ef387}</Project>
+      <Name>ParserLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
