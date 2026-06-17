@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11819.183 stable
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserEditor", "NewParser\ParserEditor.csproj", "{FBB88BBE-B907-4DCA-9BA2-917534029915}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserLibrary", "ParserLibrary\ParserLibrary.csproj", "{190C3F26-6B6C-4DF2-B5D7-C433C66EF387}"
@@ -19,10 +21,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Message.PreParser", "PreParser\Message.PreParser.csproj", "{2C33CA7B-35BB-445E-B30D-049332774A77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBNFtranslator", "EBNFtranslator\EBNFtranslator.csproj", "{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = NewParser.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -84,8 +85,26 @@ Global
 		{2C33CA7B-35BB-445E-B30D-049332774A77}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2C33CA7B-35BB-445E-B30D-049332774A77}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2C33CA7B-35BB-445E-B30D-049332774A77}.Release|x86.ActiveCfg = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{03DBDEF5-3AAC-4D86-918D-4FE0EEF490C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02EF910A-8945-41B4-BBAF-120516F80418}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = NewParser.vsmdi
 	EndGlobalSection
 EndGlobal
